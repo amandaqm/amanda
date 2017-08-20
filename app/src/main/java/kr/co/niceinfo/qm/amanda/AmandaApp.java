@@ -32,7 +32,7 @@ import uk.co.chrisjenx.calligraphy.CalligraphyConfig;
  * Created by janisharali on 27/01/17.
  */
 
-// wychoi11111111
+// wychoi1111111111111
 public class AmandaApp extends Application {
 
     @Inject
