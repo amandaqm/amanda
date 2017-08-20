@@ -1,4 +1,5 @@
-package kr.co.niceinfo.qm.amanda;
+package kr.co.niceinfo.qm.amanda.ui.main;
+
 
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -8,6 +9,8 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
+
+import kr.co.niceinfo.qm.amanda.R;
 
 public class MainActivity extends AppCompatActivity {
 
