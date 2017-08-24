@@ -8,6 +8,13 @@ import dagger.Module;
 import dagger.Provides;
 import io.reactivex.disposables.CompositeDisposable;
 import kr.co.niceinfo.qm.amanda.di.ActivityContext;
+import kr.co.niceinfo.qm.amanda.di.PerActivity;
+import kr.co.niceinfo.qm.amanda.ui.login.LoginMvpPresenter;
+import kr.co.niceinfo.qm.amanda.ui.login.LoginMvpView;
+import kr.co.niceinfo.qm.amanda.ui.login.LoginPresenter;
+import kr.co.niceinfo.qm.amanda.ui.splash.SplashMvpPresenter;
+import kr.co.niceinfo.qm.amanda.ui.splash.SplashMvpView;
+import kr.co.niceinfo.qm.amanda.ui.splash.SplashPresenter;
 
 /**
  * Created by janisharali on 27/01/17.
@@ -36,6 +43,20 @@ public class ActivityModule {
     @Provides
     CompositeDisposable provideCompositeDisposable() {
         return new CompositeDisposable();
+    }
+
+    @Provides
+    @PerActivity
+    SplashMvpPresenter<SplashMvpView> provideSplashPresenter(
+            SplashPresenter<SplashMvpView> presenter) {
+        return presenter;
+    }
+
+    @Provides
+    @PerActivity
+    LoginMvpPresenter<LoginMvpView> provideLoginPresenter(
+            LoginPresenter<LoginMvpView> presenter) {
+        return presenter;
     }
 
 
