@@ -2,10 +2,11 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.main.MainMenuFragment">
+    tools:context=".ui.main.btnmenu.MainMenuFragment">
 
     <!-- TODO: Update blank fragment layout -->
     <LinearLayout
+        android:id="@+id/layout_mainmanu_main"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="horizontal">

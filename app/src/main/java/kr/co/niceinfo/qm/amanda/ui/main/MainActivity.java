@@ -3,43 +3,35 @@ package kr.co.niceinfo.qm.amanda.ui.main;
 
 import android.content.Context;
 import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
 
 import kr.co.niceinfo.qm.amanda.R;
 import kr.co.niceinfo.qm.amanda.ui.base.AmandaView;
 import kr.co.niceinfo.qm.amanda.ui.base.BaseActivity;
-import kr.co.niceinfo.qm.amanda.ui.login.LoginActivity;
+import kr.co.niceinfo.qm.amanda.ui.main.btnmenu.MainMenuFragment;
 
-public class MainActivity extends BaseActivity implements AmandaView, MainMenuFragment.OnFragmentInteractionListener{
+public class MainActivity extends BaseActivity implements AmandaView {
 
     private static final String TAG = "MainActivity";
-
-
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
+        getSupportFragmentManager()
+                .beginTransaction()
+                .disallowAddToBackStack()
+                .add(R.id.layout_mainmenu, MainMenuFragment.newInstance(), MainActivity.TAG)
+                .commit();
+
     }
 
     @Override
@@ -64,12 +56,6 @@ public class MainActivity extends BaseActivity implements AmandaView, MainMenuFr
         return super.onOptionsItemSelected(item);
     }
 
-
-    public void openLoginActivity() {
-        startActivity(LoginActivity.getStartIntent(this));
-        finish();
-    }
-
     public static Intent getStartIntent(Context context) {
         Intent intent = new Intent(context, MainActivity.class);
         return intent;
@@ -81,9 +67,4 @@ public class MainActivity extends BaseActivity implements AmandaView, MainMenuFr
 
     }
 
-    //MainMenuFragment.OnFragmentInteractionListener
-    @Override
-    public void onFragmentInteraction(Uri uri) {
-        Log.i(TAG, "onFragmentInteraction Uri:" + uri.toString());
-    }
 }

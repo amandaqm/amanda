@@ -3,6 +3,7 @@ package kr.co.niceinfo.qm.amanda.di.module;
 
 import android.content.Context;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.LinearLayoutManager;
 
 import dagger.Module;
 import dagger.Provides;
@@ -12,6 +13,9 @@ import kr.co.niceinfo.qm.amanda.di.PerActivity;
 import kr.co.niceinfo.qm.amanda.ui.login.LoginMvpPresenter;
 import kr.co.niceinfo.qm.amanda.ui.login.LoginMvpView;
 import kr.co.niceinfo.qm.amanda.ui.login.LoginPresenter;
+import kr.co.niceinfo.qm.amanda.ui.main.btnmenu.MainMenuMvpPresenter;
+import kr.co.niceinfo.qm.amanda.ui.main.btnmenu.MainMenuMvpView;
+import kr.co.niceinfo.qm.amanda.ui.main.btnmenu.MainMenuPresenter;
 import kr.co.niceinfo.qm.amanda.ui.splash.SplashMvpPresenter;
 import kr.co.niceinfo.qm.amanda.ui.splash.SplashMvpView;
 import kr.co.niceinfo.qm.amanda.ui.splash.SplashPresenter;
@@ -57,6 +61,19 @@ public class ActivityModule {
     LoginMvpPresenter<LoginMvpView> provideLoginPresenter(
             LoginPresenter<LoginMvpView> presenter) {
         return presenter;
+    }
+
+    @Provides
+    @PerActivity
+    MainMenuMvpPresenter<MainMenuMvpView> provideMainMenuPresenter(
+            MainMenuPresenter<MainMenuMvpView> presenter) {
+        return presenter;
+    }
+
+
+    @Provides
+    LinearLayoutManager provideLinearLayoutManager(AppCompatActivity activity) {
+        return new LinearLayoutManager(activity);
     }
 
 
