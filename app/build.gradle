@@ -38,6 +38,14 @@ dependencies {
     compile "com.android.support:support-vector-drawable:$rootProject.supportLibraryVersion"
     compile "com.android.support:animated-vector-drawable:$rootProject.supportLibraryVersion"
 
+    // firebase
+    compile "com.google.firebase.firebase-core:$rootProject.firebaseVersion"
+    compile "com.google.firebase.firebase-database:$rootProject.firebaseVersion"
+    compile "com.google.firebase.firebase-auth:$rootProject.firebaseVersion"
+    compile "com.google.firebase.firebase-messaging:$rootProject.firebaseVersion"
+    compile "com.google.firebase.firebase-crash:$rootProject.firebaseVersion"
+    compile "com.google.firebase.firebase-storage:$rootProject.firebaseVersion"
+
     // font
     compile "uk.co.chrisjenx:calligraphy:$rootProject.calligraphyVersion"
 
