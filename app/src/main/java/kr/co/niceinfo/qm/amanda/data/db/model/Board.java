@@ -6,60 +6,60 @@ package kr.co.niceinfo.qm.amanda.data.db.model;
 
 public class Board extends BaseModel {
 
-    private String board_id;            // 게시판 코드 (공지사항: B0001)
-    private Long posting_id;            // 게시글 번호
-    private String posting_title;       // 게시글 제목
-    private String posting_content;     // 게시글 내용
-    private String alarm_yn;            // 알림 여부
+    private String boardId;            // 게시판 코드 (공지사항: B0001)
+    private Long postingId;            // 게시글 번호
+    private String postingTitle;       // 게시글 제목
+    private String postingContent;     // 게시글 내용
+    private String alarmYn;            // 알림 여부
 
-    public String getBoard_id() {
-        return board_id;
+    public String getBoardId() {
+        return boardId;
     }
 
-    public void setBoard_id(String board_id) {
-        this.board_id = board_id;
+    public void setBoardId(String boardId) {
+        this.boardId = boardId;
     }
 
-    public Long getPosting_id() {
-        return posting_id;
+    public Long getPostingId() {
+        return postingId;
     }
 
-    public void setPosting_id(Long posting_id) {
-        this.posting_id = posting_id;
+    public void setPostingId(Long postingId) {
+        this.postingId = postingId;
     }
 
-    public String getPosting_title() {
-        return posting_title;
+    public String getPostingTitle() {
+        return postingTitle;
     }
 
-    public void setPosting_title(String posting_title) {
-        this.posting_title = posting_title;
+    public void setPostingTitle(String postingTitle) {
+        this.postingTitle = postingTitle;
     }
 
-    public String getPosting_content() {
-        return posting_content;
+    public String getPostingContent() {
+        return postingContent;
     }
 
-    public void setPosting_content(String posting_content) {
-        this.posting_content = posting_content;
+    public void setPostingContent(String postingContent) {
+        this.postingContent = postingContent;
     }
 
-    public String getAlarm_yn() {
-        return alarm_yn;
+    public String getAlarmYn() {
+        return alarmYn;
     }
 
-    public void setAlarm_yn(String alarm_yn) {
-        this.alarm_yn = alarm_yn;
+    public void setAlarmYn(String alarmYn) {
+        this.alarmYn = alarmYn;
     }
 
     @Override
     public String toString() {
         return "Board{" +
-                "board_id='" + board_id + '\'' +
-                ", posting_id=" + posting_id +
-                ", posting_title='" + posting_title + '\'' +
-                ", posting_content='" + posting_content + '\'' +
-                ", alarm_yn='" + alarm_yn + '\'' +
+                "boardId='" + boardId + '\'' +
+                ", postingId=" + postingId +
+                ", postingTitle='" + postingTitle + '\'' +
+                ", postingContent='" + postingContent + '\'' +
+                ", alarmYn='" + alarmYn + '\'' +
                 "} " + super.toString();
     }
 }

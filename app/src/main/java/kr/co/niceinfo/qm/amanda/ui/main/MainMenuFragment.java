@@ -22,15 +22,17 @@ import kr.co.niceinfo.qm.amanda.R;
  */
 public class MainMenuFragment extends Fragment {
 
+/*
 
     @BindView(R.id.btn_rule)
-    private Button btn_rule;
+    private Button btnRule;
 
     @BindView(R.id.btn_chat)
-    private Button btn_chat;
+    private Button btnChat;
 
     @BindView(R.id.btn_contact)
-    private Button btn_contact;
+    private Button btnContact;
+*/
 
     //MainActivity와 communication 위한 interface
     private OnFragmentInteractionListener mListener;
