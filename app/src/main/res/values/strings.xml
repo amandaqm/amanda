@@ -2,6 +2,11 @@
     <string name="app_name">amanda</string>
     <string name="action_settings">Settings</string>
 
+    <string name="rule">수칙</string>
+    <string name="chat">채팅</string>
+    <string name="emgt_contact">비상연락망</string>
+
+
 
 
 
@@ -75,4 +80,7 @@
     <string name="empty_screen">We do not have anything\nhere right now.</string>
     <string name="please_retry">Please Retry</string>
     <string name="retry">Retry</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>
