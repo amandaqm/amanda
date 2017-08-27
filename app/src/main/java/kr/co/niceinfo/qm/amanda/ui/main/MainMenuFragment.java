@@ -11,6 +11,8 @@ import android.widget.Button;
 
 import butterknife.BindView;
 import kr.co.niceinfo.qm.amanda.R;
+import kr.co.niceinfo.qm.amanda.ui.base.AmandaView;
+import kr.co.niceinfo.qm.amanda.ui.base.BaseFragment;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -20,8 +22,9 @@ import kr.co.niceinfo.qm.amanda.R;
  * Use the {@link MainMenuFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class MainMenuFragment extends Fragment {
+public class MainMenuFragment extends BaseFragment implements AmandaView {
 
+    private static final String TAG = "MainMenuFragment";
 /*
 
     @BindView(R.id.btn_rule)
@@ -42,14 +45,10 @@ public class MainMenuFragment extends Fragment {
         // Required empty public constructor
     }
 
-   /* *//**
+   /**
      * Use this factory method to create a new instance of
      * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment MainMenuFragment.
-     *//*
+   /*
     // TODO: Rename and change types and number of parameters
     public static MainMenuFragment newInstance(String param1, String param2) {
         MainMenuFragment fragment = new MainMenuFragment();
@@ -102,6 +101,11 @@ public class MainMenuFragment extends Fragment {
     public void onDetach() {
         super.onDetach();
         mListener = null;
+    }
+
+    @Override
+    protected void setUp(View view) {
+
     }
 
     /**
