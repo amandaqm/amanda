@@ -4,6 +4,7 @@ package kr.co.niceinfo.qm.amanda.data.db.model;
  * Created by Woo-Young on 2017-08-27.
  */
 
+//게시판(공지사항)
 public class Board extends BaseModel {
 
     private String boardId;            // 게시판 코드 (공지사항: B0001)
