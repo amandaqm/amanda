@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "127749475057",
+    "firebase_url": "https://amanda-3c619.firebaseio.com",
+    "project_id": "amanda-3c619",
+    "storage_bucket": "amanda-3c619.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:127749475057:android:7c92aeb695c3dace",
+        "android_client_info": {
+          "package_name": "kr.co.niceinfo.qm.amanda"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "127749475057-v1q10omc00n2kd3u2mjkjqphhd398i96.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAioVNUHdSK87alop1MFuFg3eTxBPju5xU"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
