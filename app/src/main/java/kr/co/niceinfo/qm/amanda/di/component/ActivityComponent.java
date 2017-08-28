@@ -20,4 +20,5 @@ public interface ActivityComponent {
     void inject(SplashActivity activity);
 
     void inject(MainMenuFragment fragment);
+
 }

@@ -13,6 +13,9 @@ import kr.co.niceinfo.qm.amanda.di.PerActivity;
 import kr.co.niceinfo.qm.amanda.ui.login.LoginMvpPresenter;
 import kr.co.niceinfo.qm.amanda.ui.login.LoginMvpView;
 import kr.co.niceinfo.qm.amanda.ui.login.LoginPresenter;
+import kr.co.niceinfo.qm.amanda.ui.main.MainMvpPresenter;
+import kr.co.niceinfo.qm.amanda.ui.main.MainMvpView;
+import kr.co.niceinfo.qm.amanda.ui.main.MainPresenter;
 import kr.co.niceinfo.qm.amanda.ui.main.btnmenu.MainMenuMvpPresenter;
 import kr.co.niceinfo.qm.amanda.ui.main.btnmenu.MainMenuMvpView;
 import kr.co.niceinfo.qm.amanda.ui.main.btnmenu.MainMenuPresenter;
@@ -67,6 +70,13 @@ public class ActivityModule {
     @PerActivity
     MainMenuMvpPresenter<MainMenuMvpView> provideMainMenuPresenter(
             MainMenuPresenter<MainMenuMvpView> presenter) {
+        return presenter;
+    }
+
+    @Provides
+    @PerActivity
+    MainMvpPresenter<MainMvpView> provideMainPresenter(
+            MainPresenter<MainMvpView> presenter) {
         return presenter;
     }
 
