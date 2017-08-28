@@ -2,16 +2,14 @@
     <string name="app_name">amanda</string>
     <string name="action_settings">Settings</string>
 
+    <!--메인화면의 버튼 이름-->
     <string name="rule">수칙</string>
     <string name="chat">채팅</string>
     <string name="emgt_contact">비상연락망</string>
 
 
-
-
-
+    
     <!--For Test-->
-
     <!--Toolbar menus-->
     <string name="clear">Clear</string>
     <string name="cut">Cut</string>
