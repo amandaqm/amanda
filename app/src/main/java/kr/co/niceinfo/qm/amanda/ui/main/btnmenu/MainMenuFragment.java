@@ -1,5 +1,6 @@
 package kr.co.niceinfo.qm.amanda.ui.main.btnmenu;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
@@ -17,6 +18,7 @@ import butterknife.OnClick;
 import kr.co.niceinfo.qm.amanda.R;
 import kr.co.niceinfo.qm.amanda.di.component.ActivityComponent;
 import kr.co.niceinfo.qm.amanda.ui.base.BaseFragment;
+import kr.co.niceinfo.qm.amanda.ui.login.LoginActivity;
 
 
 public class MainMenuFragment extends BaseFragment implements MainMenuMvpView {
@@ -95,4 +97,11 @@ public class MainMenuFragment extends BaseFragment implements MainMenuMvpView {
         super.onDestroyView();
     }
 
+    @Override
+    public void openLoginActivity() {
+        //테스트. 버튼 클릭 시 로그인 화면으로 이동
+        Intent intent = new Intent(getActivity(), LoginActivity.class);
+        startActivity(intent);
+        getActivity().finish();
+    }
 }
