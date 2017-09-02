@@ -18,10 +18,15 @@ package kr.co.niceinfo.qm.amanda.data;
 
 import android.content.Context;
 
+import com.google.firebase.auth.AuthResult;
+
 import javax.inject.Inject;
 import javax.inject.Singleton;
 
+import io.reactivex.Observable;
 import kr.co.niceinfo.qm.amanda.data.db.DbHelper;
+import kr.co.niceinfo.qm.amanda.data.db.model.User;
+import kr.co.niceinfo.qm.amanda.data.firebase.FirebaseHelper;
 import kr.co.niceinfo.qm.amanda.data.network.ApiHelper;
 import kr.co.niceinfo.qm.amanda.data.prefs.PreferencesHelper;
 import kr.co.niceinfo.qm.amanda.di.ApplicationContext;
@@ -39,17 +44,24 @@ public class AppDataManager implements DataManager {
     private final DbHelper mDbHelper;
     private final PreferencesHelper mPreferencesHelper;
     private final ApiHelper mApiHelper;
+    private final FirebaseHelper mFirebaseHelper;
 
     @Inject
     public AppDataManager(@ApplicationContext Context context,
                           DbHelper dbHelper,
                           PreferencesHelper preferencesHelper,
-                          ApiHelper apiHelper) {
+                          ApiHelper apiHelper,
+                          FirebaseHelper firebaseHelper) {
         mContext = context;
         mDbHelper = dbHelper;
         mPreferencesHelper = preferencesHelper;
         mApiHelper = apiHelper;
+        mFirebaseHelper =  firebaseHelper;
     }
 
-
+    //회원가입
+    @Override
+    public Observable<AuthResult> registerUser(User user) {
+        return mFirebaseHelper.registerUser(user);
+    }
 }

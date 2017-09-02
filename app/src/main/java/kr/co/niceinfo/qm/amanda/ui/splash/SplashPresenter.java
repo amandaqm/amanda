@@ -19,7 +19,9 @@ package kr.co.niceinfo.qm.amanda.ui.splash;
 import javax.inject.Inject;
 
 import io.reactivex.disposables.CompositeDisposable;
+import kr.co.niceinfo.qm.amanda.data.DataManager;
 import kr.co.niceinfo.qm.amanda.ui.base.BasePresenter;
+import kr.co.niceinfo.qm.amanda.utils.rx.SchedulerProvider;
 
 
 /**
@@ -30,11 +32,11 @@ public class SplashPresenter<V extends SplashMvpView> extends BasePresenter<V>
         implements SplashMvpPresenter<V> {
 
     @Inject
-    public SplashPresenter(//DataManager dataManager,
-                           //SchedulerProvider schedulerProvider,
+    public SplashPresenter(DataManager dataManager,
+                           SchedulerProvider schedulerProvider,
                            CompositeDisposable compositeDisposable) {
-        //super(dataManager, schedulerProvider, compositeDisposable);
-        super(compositeDisposable);
+        super(dataManager, schedulerProvider, compositeDisposable);
+
     }
 
 

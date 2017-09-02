@@ -13,8 +13,10 @@ import javax.net.ssl.HttpsURLConnection;
 
 import io.reactivex.disposables.CompositeDisposable;
 import kr.co.niceinfo.qm.amanda.R;
+import kr.co.niceinfo.qm.amanda.data.DataManager;
 import kr.co.niceinfo.qm.amanda.data.network.model.ApiError;
 import kr.co.niceinfo.qm.amanda.utils.AppConstants;
+import kr.co.niceinfo.qm.amanda.utils.rx.SchedulerProvider;
 
 /**
  * Base class that implements the Presenter interface and provides a base implementation for
@@ -25,18 +27,18 @@ public class BasePresenter<V extends AmandaView> implements AmandaPresenter<V> {
 
     private static final String TAG = "BasePresenter";
 
-    //private final DataManager mDataManager;
-    //private final SchedulerProvider mSchedulerProvider;
+    private final DataManager mDataManager;
+    private final SchedulerProvider mSchedulerProvider;
     private final CompositeDisposable mCompositeDisposable;
 
     private V mAmandaView;
 
     @Inject
-    public BasePresenter(//DataManager dataManager,
-                         //SchedulerProvider schedulerProvider,
+    public BasePresenter(DataManager dataManager,
+                         SchedulerProvider schedulerProvider,
                          CompositeDisposable compositeDisposable) {
-        //this.mDataManager = dataManager;
-        //this.mSchedulerProvider = schedulerProvider;
+        this.mDataManager = dataManager;
+        this.mSchedulerProvider = schedulerProvider;
         this.mCompositeDisposable = compositeDisposable;
     }
 
@@ -63,9 +65,9 @@ public class BasePresenter<V extends AmandaView> implements AmandaPresenter<V> {
         if (!isViewAttached()) throw new MvpViewNotAttachedException();
     }
 
-    //public DataManager getDataManager() {        return mDataManager;    }
+    public DataManager getDataManager() {        return mDataManager;    }
 
-    //public SchedulerProvider getSchedulerProvider() {        return mSchedulerProvider;    }
+    public SchedulerProvider getSchedulerProvider() {        return mSchedulerProvider;    }
 
     public CompositeDisposable getCompositeDisposable() {
         return mCompositeDisposable;

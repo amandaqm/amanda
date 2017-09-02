@@ -18,6 +18,9 @@ package kr.co.niceinfo.qm.amanda.di.module;
 import android.app.Application;
 import android.content.Context;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.FirebaseDatabase;
+
 import javax.inject.Singleton;
 
 import dagger.Module;
@@ -27,6 +30,8 @@ import kr.co.niceinfo.qm.amanda.data.AppDataManager;
 import kr.co.niceinfo.qm.amanda.data.DataManager;
 import kr.co.niceinfo.qm.amanda.data.db.AppDbHelper;
 import kr.co.niceinfo.qm.amanda.data.db.DbHelper;
+import kr.co.niceinfo.qm.amanda.data.firebase.AppFirebaseHelper;
+import kr.co.niceinfo.qm.amanda.data.firebase.FirebaseHelper;
 import kr.co.niceinfo.qm.amanda.data.network.ApiHelper;
 import kr.co.niceinfo.qm.amanda.data.network.AppApiHelper;
 import kr.co.niceinfo.qm.amanda.data.prefs.AppPreferencesHelper;
@@ -95,6 +100,25 @@ public class ApplicationModule {
     @Singleton
     ApiHelper provideApiHelper(AppApiHelper appApiHelper) {
         return appApiHelper;
+    }
+
+    @Provides
+    @Singleton
+    FirebaseHelper provideFirebaseHelper(FirebaseAuth firebaseAuth, FirebaseDatabase firebaseDatabase) {
+        return new AppFirebaseHelper(firebaseAuth, firebaseDatabase);
+    }
+
+    @Provides
+    public FirebaseDatabase provideFirebaseDatabase() {
+        FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
+        firebaseDatabase.setPersistenceEnabled(true);
+        return firebaseDatabase;
+    }
+
+    @Provides
+    public FirebaseAuth provideFirebaseAuth() {
+        FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
+        return firebaseAuth;
     }
 
     @Provides

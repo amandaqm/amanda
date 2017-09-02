@@ -5,7 +5,9 @@ import android.util.Log;
 import javax.inject.Inject;
 
 import io.reactivex.disposables.CompositeDisposable;
+import kr.co.niceinfo.qm.amanda.data.DataManager;
 import kr.co.niceinfo.qm.amanda.ui.base.BasePresenter;
+import kr.co.niceinfo.qm.amanda.utils.rx.SchedulerProvider;
 
 
 public class MainMenuPresenter<V extends MainMenuMvpView> extends BasePresenter<V>
@@ -15,11 +17,11 @@ public class MainMenuPresenter<V extends MainMenuMvpView> extends BasePresenter<
 
     @Inject
     public MainMenuPresenter(
-                          //DataManager dataManager,
-                          //SchedulerProvider schedulerProvider,
+                          DataManager dataManager,
+                          SchedulerProvider schedulerProvider,
                           CompositeDisposable compositeDisposable) {
-        //super(dataManager, schedulerProvider, compositeDisposable);
-        super(compositeDisposable);
+        super(dataManager, schedulerProvider, compositeDisposable);
+
     }
     //수칙 버튼 클릭
     @Override

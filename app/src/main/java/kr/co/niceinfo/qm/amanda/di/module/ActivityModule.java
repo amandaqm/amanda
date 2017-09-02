@@ -22,6 +22,8 @@ import kr.co.niceinfo.qm.amanda.ui.main.btnmenu.MainMenuPresenter;
 import kr.co.niceinfo.qm.amanda.ui.splash.SplashMvpPresenter;
 import kr.co.niceinfo.qm.amanda.ui.splash.SplashMvpView;
 import kr.co.niceinfo.qm.amanda.ui.splash.SplashPresenter;
+import kr.co.niceinfo.qm.amanda.utils.rx.AppSchedulerProvider;
+import kr.co.niceinfo.qm.amanda.utils.rx.SchedulerProvider;
 
 /**
  * Created by janisharali on 27/01/17.
@@ -50,6 +52,11 @@ public class ActivityModule {
     @Provides
     CompositeDisposable provideCompositeDisposable() {
         return new CompositeDisposable();
+    }
+
+    @Provides
+    SchedulerProvider provideSchedulerProvider() {
+        return new AppSchedulerProvider();
     }
 
     @Provides
@@ -85,6 +92,7 @@ public class ActivityModule {
     LinearLayoutManager provideLinearLayoutManager(AppCompatActivity activity) {
         return new LinearLayoutManager(activity);
     }
+
 
 
 }

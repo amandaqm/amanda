@@ -3,6 +3,7 @@ package kr.co.niceinfo.qm.amanda.ui.login;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import javax.inject.Inject;
@@ -10,11 +11,15 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import kr.co.niceinfo.qm.amanda.R;
+import kr.co.niceinfo.qm.amanda.data.db.model.User;
 import kr.co.niceinfo.qm.amanda.ui.base.BaseActivity;
 import kr.co.niceinfo.qm.amanda.ui.main.MainActivity;
 
 
 public class LoginActivity extends BaseActivity implements LoginMvpView {
+
+
+    private static final String TAG = "LoginActivity";
 
     @Inject
     LoginMvpPresenter<LoginMvpView> mPresenter;
@@ -49,8 +54,13 @@ public class LoginActivity extends BaseActivity implements LoginMvpView {
     @OnClick(R.id.btn_server_login)
     void onServerLoginClick(View v) {
         //로그인 체크
-        mPresenter.onServerLoginClick(mEmailEditText.getText().toString(),
+/*        mPresenter.onServerLoginClick(mEmailEditText.getText().toString(),
+                mPasswordEditText.getText().toString());*/
+
+        User user = new User(mEmailEditText.getText().toString(),
                 mPasswordEditText.getText().toString());
+        Log.i(TAG,""+user.toString());
+        mPresenter.onRegisterUser(user);
     }
 
     //메인화면으로 이동

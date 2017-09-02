@@ -1,10 +1,19 @@
 package kr.co.niceinfo.qm.amanda.ui.login;
 
+import android.util.Log;
+
+import com.google.firebase.auth.AuthResult;
+
 import javax.inject.Inject;
 
+import io.reactivex.annotations.NonNull;
 import io.reactivex.disposables.CompositeDisposable;
+import io.reactivex.functions.Consumer;
+import kr.co.niceinfo.qm.amanda.data.DataManager;
+import kr.co.niceinfo.qm.amanda.data.db.model.User;
 import kr.co.niceinfo.qm.amanda.ui.base.BasePresenter;
 import kr.co.niceinfo.qm.amanda.utils.CommonUtils;
+import kr.co.niceinfo.qm.amanda.utils.rx.SchedulerProvider;
 
 
 public class LoginPresenter<V extends LoginMvpView> extends BasePresenter<V>
@@ -14,11 +23,33 @@ public class LoginPresenter<V extends LoginMvpView> extends BasePresenter<V>
 
     @Inject
     public LoginPresenter(
-                          //DataManager dataManager,
-                          //SchedulerProvider schedulerProvider,
+                          DataManager dataManager,
+                          SchedulerProvider schedulerProvider,
                           CompositeDisposable compositeDisposable) {
-        //super(dataManager, schedulerProvider, compositeDisposable);
-        super(compositeDisposable);
+        super(dataManager, schedulerProvider, compositeDisposable);
+
+    }
+
+
+
+    @Override
+    public void onRegisterUser(User user) {
+
+        Log.i(TAG,""+user.toString());
+
+        getCompositeDisposable().add(getDataManager().registerUser(user)
+                .subscribeOn(getSchedulerProvider().io())
+                .observeOn(getSchedulerProvider().ui())
+                .subscribe(new Consumer<AuthResult>() {
+                               @Override
+                               public void accept(@NonNull AuthResult authResult) throws Exception {
+                                   Log.i(TAG,authResult.toString());
+
+                               }
+                           }
+
+
+                ));
     }
 
     @Override
