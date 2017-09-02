@@ -18,10 +18,6 @@ package kr.co.niceinfo.qm.amanda.data.network;
 import javax.inject.Inject;
 import javax.inject.Singleton;
 
-/**
- * Created by janisharali on 28/01/17.
- */
-
 @Singleton
 public class AppApiHelper implements ApiHelper {
 

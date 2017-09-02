@@ -31,9 +31,6 @@ import kr.co.niceinfo.qm.amanda.data.network.ApiHelper;
 import kr.co.niceinfo.qm.amanda.data.prefs.PreferencesHelper;
 import kr.co.niceinfo.qm.amanda.di.ApplicationContext;
 
-/**
- * Created by janisharali on 27/01/17.
- */
 
 @Singleton
 public class AppDataManager implements DataManager {
@@ -56,12 +53,72 @@ public class AppDataManager implements DataManager {
         mDbHelper = dbHelper;
         mPreferencesHelper = preferencesHelper;
         mApiHelper = apiHelper;
-        mFirebaseHelper =  firebaseHelper;
+        mFirebaseHelper = firebaseHelper;
     }
 
+    //AppFirebaseHelper
     //회원가입
     @Override
     public Observable<AuthResult> registerUser(User user) {
         return mFirebaseHelper.registerUser(user);
+    }
+
+    //로그인
+    @Override
+    public Observable<AuthResult> login(User user) {
+        return mFirebaseHelper.login(user);
+    }
+
+    //AppPreferencesHelper
+
+    @Override
+    public Long getCurrentUserId() {
+        return mPreferencesHelper.getCurrentUserId();
+    }
+
+    @Override
+    public void setCurrentUserId(Long userId) {
+        mPreferencesHelper.setCurrentUserId(userId);
+    }
+
+    @Override
+    public String getCurrentUserName() {
+        return mPreferencesHelper.getCurrentUserName();
+    }
+
+    @Override
+    public void setCurrentUserName(String userName) {
+        mPreferencesHelper.setCurrentUserName(userName);
+    }
+
+    @Override
+    public String getCurrentUserEmail() {
+        return mPreferencesHelper.getCurrentUserEmail();
+    }
+
+    @Override
+    public void setCurrentUserEmail(String email) {
+        mPreferencesHelper.setCurrentUserEmail(email);
+    }
+
+    @Override
+    public String getCurrentUserProfilePicUrl() {
+        return mPreferencesHelper.getCurrentUserProfilePicUrl();
+    }
+
+    @Override
+    public void setCurrentUserProfilePicUrl(String profilePicUrl) {
+        mPreferencesHelper.setCurrentUserProfilePicUrl(profilePicUrl);
+    }
+
+
+    @Override
+    public String getAccessToken() {
+        return mPreferencesHelper.getAccessToken();
+    }
+
+    @Override
+    public void setAccessToken(String accessToken) {
+        mPreferencesHelper.setAccessToken(accessToken);
     }
 }

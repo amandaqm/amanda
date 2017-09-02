@@ -62,7 +62,7 @@ public class MainActivity extends BaseActivity implements MainMvpView {
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
-        Log.i(TAG, "onOptionsItemSelected"+id+"" );
+        Log.i(TAG, "onOptionsItemSelected" + id + "");
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
             mPresenter.onMenuItemSettingClick();

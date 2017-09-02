@@ -9,6 +9,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.TextView;
 
 import javax.inject.Inject;
 
@@ -30,6 +31,10 @@ public class MainMenuFragment extends BaseFragment implements MainMenuMvpView {
 
     @Inject
     LinearLayoutManager mLayoutManager;
+
+
+    @BindView(R.id.tv_InteralMail)
+    TextView mInteralMail;
 
     @BindView(R.id.btn_rule)
     Button mBtnRule;
@@ -61,27 +66,29 @@ public class MainMenuFragment extends BaseFragment implements MainMenuMvpView {
             mPresenter.onAttach(this);
             //mBlogAdapter.setCallback(this);
         }
+
+        mInteralMail.setText("로그인 계정(이메일): " + mPresenter.getInteralMail());
         return view;
     }
 
 
     @OnClick(R.id.btn_rule)
     public void onRuleBtnClick(View v) {
-        Log.i(TAG, "onRuleBtnClick" );
+        Log.i(TAG, "onRuleBtnClick");
         mPresenter.onRuleBtnClick();
     }
 
 
     @OnClick(R.id.btn_chat)
     public void onChatBtnClick(View v) {
-        Log.i(TAG, "onChatBtnClick" );
+        Log.i(TAG, "onChatBtnClick");
         mPresenter.onChatBtnClick();
     }
 
 
     @OnClick(R.id.btn_contact)
     public void onContactBtnClick(View v) {
-        Log.i(TAG, "onContactBtnClick" );
+        Log.i(TAG, "onContactBtnClick");
         mPresenter.onContactBtnClick();
     }
 

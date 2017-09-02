@@ -21,9 +21,6 @@ import kr.co.niceinfo.qm.amanda.data.firebase.FirebaseHelper;
 import kr.co.niceinfo.qm.amanda.data.network.ApiHelper;
 import kr.co.niceinfo.qm.amanda.data.prefs.PreferencesHelper;
 
-/**
- * Created by janisharali on 27/01/17.
- */
 
 public interface DataManager extends DbHelper, PreferencesHelper, ApiHelper, FirebaseHelper {
 

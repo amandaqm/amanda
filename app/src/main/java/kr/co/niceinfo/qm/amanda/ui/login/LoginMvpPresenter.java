@@ -12,7 +12,7 @@ public interface LoginMvpPresenter<V extends LoginMvpView> extends AmandaPresent
 
     void onRegisterUser(User user);
 
-    void onServerLoginClick(String email, String password);
+    void onServerLoginClick(User user);
 
     void onGoogleLoginClick();
 

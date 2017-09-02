@@ -80,6 +80,16 @@
             android:padding="10dp"
             android:text="@string/login"
             android:textSize="18dp" />
+
+        <Button
+            android:id="@+id/btn_sign_in"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_margin="15dp"
+            android:padding="10dp"
+            android:text="SIGN-IN"
+            android:textSize="18dp"/>
     </LinearLayout>
 
 

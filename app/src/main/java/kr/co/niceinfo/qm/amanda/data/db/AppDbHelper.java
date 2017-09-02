@@ -19,13 +19,8 @@ import javax.inject.Inject;
 import javax.inject.Singleton;
 
 
-/**
- * Created by janisharali on 08/12/16.
- */
-
 @Singleton
 public class AppDbHelper implements DbHelper {
-
 
 
     @Inject

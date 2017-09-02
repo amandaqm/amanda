@@ -6,7 +6,9 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
+
 import javax.inject.Inject;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -50,16 +52,23 @@ public class LoginActivity extends BaseActivity implements LoginMvpView {
         mPresenter.onAttach(LoginActivity.this);
     }
 
-    // 로그인 화면의 로그인 버튼 클릭 시
+    //로그인 버튼 클릭 시
     @OnClick(R.id.btn_server_login)
     void onServerLoginClick(View v) {
-        //로그인 체크
-/*        mPresenter.onServerLoginClick(mEmailEditText.getText().toString(),
-                mPasswordEditText.getText().toString());*/
-
         User user = new User(mEmailEditText.getText().toString(),
                 mPasswordEditText.getText().toString());
-        Log.i(TAG,""+user.toString());
+        Log.i(TAG, "" + user.toString());
+        mPresenter.onServerLoginClick(user);
+    }
+
+
+    // 로그인 화면의 회원가입 버튼 클릭 시
+    @OnClick(R.id.btn_sign_in)
+    void onRegisterUser(View v) {
+        //회원가입
+        User user = new User(mEmailEditText.getText().toString(),
+                mPasswordEditText.getText().toString());
+        Log.i(TAG, "" + user.toString());
         mPresenter.onRegisterUser(user);
     }
 

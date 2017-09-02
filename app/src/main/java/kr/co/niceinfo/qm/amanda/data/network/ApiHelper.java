@@ -15,9 +15,6 @@
 
 package kr.co.niceinfo.qm.amanda.data.network;
 
-/**
- * Created by janisharali on 27/01/17.
- */
 
 public interface ApiHelper {
 

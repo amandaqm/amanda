@@ -19,8 +19,8 @@ public class MainPresenter<V extends MainMvpView> extends BasePresenter<V>
 
     @Inject
     public MainPresenter(
-             DataManager dataManager,
-             SchedulerProvider schedulerProvider,
+            DataManager dataManager,
+            SchedulerProvider schedulerProvider,
             CompositeDisposable compositeDisposable) {
         super(dataManager, schedulerProvider, compositeDisposable);
 
@@ -48,7 +48,7 @@ public class MainPresenter<V extends MainMvpView> extends BasePresenter<V>
 
     @Override
     public void onMenuItemSettingClick() {
-        Log.i(TAG, "onMenuItemSettingClick" );
+        Log.i(TAG, "onMenuItemSettingClick");
 
     }
 }
