@@ -43,6 +43,7 @@ dependencies {
     compile "com.google.firebase:firebase-database:$rootProject.firebaseVersion"
     compile "com.google.firebase:firebase-auth:$rootProject.firebaseVersion"
     compile "com.google.firebase:firebase-messaging:$rootProject.firebaseVersion"
+    compile "com.firebase:firebase-jobdispatcher:$rootProject.firebaseJobdispatcherVersion"
     compile "com.google.firebase:firebase-crash:$rootProject.firebaseVersion"
     compile "com.google.firebase:firebase-storage:$rootProject.firebaseVersion"
 

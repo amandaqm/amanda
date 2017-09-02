@@ -34,7 +34,7 @@ public class MainMenuPresenter<V extends MainMenuMvpView> extends BasePresenter<
     public void onRuleBtnClick() {
         Log.i(TAG, "onRuleBtnClick");
         //getAmandaView() 를 이용해서 View에게 값을 넘겨줌.
-        getAmandaView().openLoginActivity();
+        //getAmandaView().openLoginActivity();
     }
 
     //채팅버튼
@@ -51,4 +51,9 @@ public class MainMenuPresenter<V extends MainMenuMvpView> extends BasePresenter<
 
     }
 
+    @Override
+    public void onNoticeBtnClick() {
+        Log.i(TAG, "onNoticeBtnClick");
+        //getAmandaView()
+    }
 }

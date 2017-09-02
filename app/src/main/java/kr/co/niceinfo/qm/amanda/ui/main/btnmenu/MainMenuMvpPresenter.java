@@ -19,5 +19,6 @@ public interface MainMenuMvpPresenter<V extends MainMenuMvpView> extends AmandaP
 
     void onContactBtnClick();
 
+    void onNoticeBtnClick();
 
 }

@@ -46,6 +46,10 @@ public class MainMenuFragment extends BaseFragment implements MainMenuMvpView {
     Button mBtnContact;
 
 
+    @BindView(R.id.btn_notice)
+    Button mBtnNotice;
+
+
     public static MainMenuFragment newInstance() {
         Bundle args = new Bundle();
         MainMenuFragment fragment = new MainMenuFragment();
@@ -85,13 +89,17 @@ public class MainMenuFragment extends BaseFragment implements MainMenuMvpView {
         mPresenter.onChatBtnClick();
     }
 
-
     @OnClick(R.id.btn_contact)
     public void onContactBtnClick(View v) {
         Log.i(TAG, "onContactBtnClick");
         mPresenter.onContactBtnClick();
     }
 
+    @OnClick(R.id.btn_notice)
+    public void onNoticeBtnClick(View v) {
+        Log.i(TAG, "onNoticeBtnClick");
+        mPresenter.onNoticeBtnClick();
+    }
 
     @Override
     protected void setUp(View view) {
@@ -111,4 +119,6 @@ public class MainMenuFragment extends BaseFragment implements MainMenuMvpView {
         startActivity(intent);
         getActivity().finish();
     }
+
+
 }

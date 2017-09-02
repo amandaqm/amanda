@@ -37,6 +37,7 @@ ext {
     supportLibraryVersion = '26.0.0'
 
     firebaseVersion = '11.0.4'
+    firebaseJobdispatcherVersion = '0.6.0'
     firebaseUIVersion = '2.3.0'
     gsonVersion = '2.8.0'
     calligraphyVersion = '2.2.0'
