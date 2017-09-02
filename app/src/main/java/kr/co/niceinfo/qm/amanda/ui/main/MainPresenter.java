@@ -28,7 +28,8 @@ public class MainPresenter<V extends MainMvpView> extends BasePresenter<V>
 
     @Override
     public void setUserAsLoggedOut() {
-
+        // 로그아웃 시 사용할 참고 정보
+        // FirebaseAuth.getInstance().signOut();
     }
 
     @Override
