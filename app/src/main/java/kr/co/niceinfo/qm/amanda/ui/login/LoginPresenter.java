@@ -58,8 +58,6 @@ public class LoginPresenter<V extends LoginMvpView> extends BasePresenter<V>
         //로딩화면 show
         getAmandaView().showLoading();
 
-        //로딩화면 hide
-        getAmandaView().hideLoading();
 
         getCompositeDisposable().add(getDataManager().registerUser(user)
                 .subscribeOn(getSchedulerProvider().io())
@@ -71,12 +69,14 @@ public class LoginPresenter<V extends LoginMvpView> extends BasePresenter<V>
 
                                    getDataManager().setCurrentUserEmail(authResult.getUser().getEmail());
                                    getAmandaView().openMainActivity();
+                                   //로딩화면 hide
                                    getAmandaView().hideLoading();
 
                                }
                            }, new Consumer<Throwable>() {
                                @Override
                                public void accept(Throwable throwable) throws Exception {
+                                   //로딩화면 hide
                                    getAmandaView().hideLoading();
                                    getAmandaView().onError("가입 불가");
                                }

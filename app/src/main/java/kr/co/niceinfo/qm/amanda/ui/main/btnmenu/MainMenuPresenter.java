@@ -54,6 +54,6 @@ public class MainMenuPresenter<V extends MainMenuMvpView> extends BasePresenter<
     @Override
     public void onNoticeBtnClick() {
         Log.i(TAG, "onNoticeBtnClick");
-        //getAmandaView()
+        getAmandaView().openBoardListActivity();
     }
 }

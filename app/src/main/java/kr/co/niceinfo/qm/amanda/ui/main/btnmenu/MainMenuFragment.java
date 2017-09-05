@@ -20,6 +20,7 @@ import kr.co.niceinfo.qm.amanda.R;
 import kr.co.niceinfo.qm.amanda.di.component.ActivityComponent;
 import kr.co.niceinfo.qm.amanda.ui.base.BaseFragment;
 import kr.co.niceinfo.qm.amanda.ui.login.LoginActivity;
+import kr.co.niceinfo.qm.amanda.ui.notice.list.NoticeListActivity;
 
 
 public class MainMenuFragment extends BaseFragment implements MainMenuMvpView {
@@ -44,7 +45,6 @@ public class MainMenuFragment extends BaseFragment implements MainMenuMvpView {
 
     @BindView(R.id.btn_contact)
     Button mBtnContact;
-
 
     @BindView(R.id.btn_notice)
     Button mBtnNotice;
@@ -120,5 +120,12 @@ public class MainMenuFragment extends BaseFragment implements MainMenuMvpView {
         getActivity().finish();
     }
 
+    @Override
+    public void openBoardListActivity() {
+        //테스트. 버튼 클릭 시 로그인 화면으로 이동
+        Intent intent = new Intent(getActivity(), NoticeListActivity.class);
+        startActivity(intent);
+        //getActivity().finish();
+    }
 
 }

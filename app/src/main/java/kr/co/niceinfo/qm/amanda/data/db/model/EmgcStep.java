@@ -17,6 +17,9 @@ public class EmgcStep extends BaseModel{
 
     private String userId;          // 사용자 정보(수신자)
 
+    public EmgcStep() {
+    }
+
     public String getEmgcStepCo() {
         return emgcStepCo;
     }
@@ -84,5 +87,40 @@ public class EmgcStep extends BaseModel{
                 ", emgcStepIssueDt='" + emgcStepIssueDt + '\'' +
                 ", userId='" + userId + '\'' +
                 "} " + super.toString();
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        EmgcStep emgcStep = (EmgcStep) o;
+
+        if (emgcStepCo != null ? !emgcStepCo.equals(emgcStep.emgcStepCo) : emgcStep.emgcStepCo != null)
+            return false;
+        if (emgcType != null ? !emgcType.equals(emgcStep.emgcType) : emgcStep.emgcType != null)
+            return false;
+        if (emgcStepType != null ? !emgcStepType.equals(emgcStep.emgcStepType) : emgcStep.emgcStepType != null)
+            return false;
+        if (emgcStepCriteria != null ? !emgcStepCriteria.equals(emgcStep.emgcStepCriteria) : emgcStep.emgcStepCriteria != null)
+            return false;
+        if (emgcStepIssueNo != null ? !emgcStepIssueNo.equals(emgcStep.emgcStepIssueNo) : emgcStep.emgcStepIssueNo != null)
+            return false;
+        if (emgcStepIssueDt != null ? !emgcStepIssueDt.equals(emgcStep.emgcStepIssueDt) : emgcStep.emgcStepIssueDt != null)
+            return false;
+        return userId != null ? userId.equals(emgcStep.userId) : emgcStep.userId == null;
+
+    }
+
+    @Override
+    public int hashCode() {
+        int result = emgcStepCo != null ? emgcStepCo.hashCode() : 0;
+        result = 31 * result + (emgcType != null ? emgcType.hashCode() : 0);
+        result = 31 * result + (emgcStepType != null ? emgcStepType.hashCode() : 0);
+        result = 31 * result + (emgcStepCriteria != null ? emgcStepCriteria.hashCode() : 0);
+        result = 31 * result + (emgcStepIssueNo != null ? emgcStepIssueNo.hashCode() : 0);
+        result = 31 * result + (emgcStepIssueDt != null ? emgcStepIssueDt.hashCode() : 0);
+        result = 31 * result + (userId != null ? userId.hashCode() : 0);
+        return result;
     }
 }

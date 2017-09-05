@@ -26,11 +26,33 @@ public class Role extends BaseModel{
         this.roleNm = roleNm;
     }
 
+    public Role() {
+    }
+
     @Override
     public String toString() {
         return "Role{" +
                 "roleCd='" + roleCd + '\'' +
                 ", roleNm='" + roleNm + '\'' +
                 "} " + super.toString();
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Role role = (Role) o;
+
+        if (roleCd != null ? !roleCd.equals(role.roleCd) : role.roleCd != null) return false;
+        return roleNm != null ? roleNm.equals(role.roleNm) : role.roleNm == null;
+
+    }
+
+    @Override
+    public int hashCode() {
+        int result = roleCd != null ? roleCd.hashCode() : 0;
+        result = 31 * result + (roleNm != null ? roleNm.hashCode() : 0);
+        return result;
     }
 }

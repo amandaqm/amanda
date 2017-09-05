@@ -13,6 +13,9 @@ public class Board extends BaseModel {
     private String postingContent;     // 게시글 내용
     private String alarmYn;            // 알림 여부
 
+    public Board() {
+    }
+
     public String getBoardId() {
         return boardId;
     }
@@ -62,5 +65,33 @@ public class Board extends BaseModel {
                 ", postingContent='" + postingContent + '\'' +
                 ", alarmYn='" + alarmYn + '\'' +
                 "} " + super.toString();
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Board board = (Board) o;
+
+        if (boardId != null ? !boardId.equals(board.boardId) : board.boardId != null) return false;
+        if (postingId != null ? !postingId.equals(board.postingId) : board.postingId != null)
+            return false;
+        if (postingTitle != null ? !postingTitle.equals(board.postingTitle) : board.postingTitle != null)
+            return false;
+        if (postingContent != null ? !postingContent.equals(board.postingContent) : board.postingContent != null)
+            return false;
+        return alarmYn != null ? alarmYn.equals(board.alarmYn) : board.alarmYn == null;
+
+    }
+
+    @Override
+    public int hashCode() {
+        int result = boardId != null ? boardId.hashCode() : 0;
+        result = 31 * result + (postingId != null ? postingId.hashCode() : 0);
+        result = 31 * result + (postingTitle != null ? postingTitle.hashCode() : 0);
+        result = 31 * result + (postingContent != null ? postingContent.hashCode() : 0);
+        result = 31 * result + (alarmYn != null ? alarmYn.hashCode() : 0);
+        return result;
     }
 }

@@ -12,7 +12,6 @@ public interface MainMenuMvpPresenter<V extends MainMenuMvpView> extends AmandaP
     //로그인 사용자 이메일주소 반환
     String getInteralMail();
 
-
     void onRuleBtnClick();
 
     void onChatBtnClick();
