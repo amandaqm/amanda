@@ -58,7 +58,6 @@ public class LoginPresenter<V extends LoginMvpView> extends BasePresenter<V>
         //로딩화면 show
         getAmandaView().showLoading();
 
-
         getCompositeDisposable().add(getDataManager().registerUser(user)
                 .subscribeOn(getSchedulerProvider().io())
                 .observeOn(getSchedulerProvider().ui())
