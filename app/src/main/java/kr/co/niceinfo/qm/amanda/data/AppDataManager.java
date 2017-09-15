@@ -69,6 +69,11 @@ public class AppDataManager implements DataManager {
         return mFirebaseHelper.login(user);
     }
 
+    @Override
+    public Observable<Void> sendEmailVerification() {
+        return mFirebaseHelper.sendEmailVerification();
+    }
+
     //AppPreferencesHelper
 
     @Override

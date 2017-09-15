@@ -1,5 +1,6 @@
 package kr.co.niceinfo.qm.amanda.data.firebase;
 
+import android.support.annotation.NonNull;
 import android.util.Log;
 
 import com.google.firebase.auth.AuthResult;
@@ -46,7 +47,18 @@ public class AppFirebaseHelper implements FirebaseHelper {
     public Observable<AuthResult> login(User user) {
         Log.i(TAG, "AppFirebaseHelper : " + user.toString());
 
+
         return RxFirebase.getObservable(firebaseAuth.signInWithEmailAndPassword(user.getInteralMail(),
                 user.getUserPw()));
     }
+
+
+    @Override
+    @NonNull
+    public Observable<Void> sendEmailVerification() {
+        Log.i(TAG, "AppFirebaseHelper : " + "sendEmailVerification");
+       return RxFirebase.getObservable(firebaseAuth.getCurrentUser().sendEmailVerification());
+    }
+
+
 }

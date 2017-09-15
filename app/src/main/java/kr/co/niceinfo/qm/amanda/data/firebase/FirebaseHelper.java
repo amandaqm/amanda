@@ -15,5 +15,7 @@ public interface FirebaseHelper {
 
     Observable<AuthResult> login(final User user);
 
+    Observable<Void> sendEmailVerification();
+
 
 }

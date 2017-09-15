@@ -9,6 +9,7 @@ import javax.inject.Inject;
 import io.reactivex.annotations.NonNull;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.functions.Consumer;
+import kr.co.niceinfo.qm.amanda.R;
 import kr.co.niceinfo.qm.amanda.data.DataManager;
 import kr.co.niceinfo.qm.amanda.data.db.model.User;
 import kr.co.niceinfo.qm.amanda.ui.base.BasePresenter;
@@ -40,18 +41,15 @@ public class LoginPresenter<V extends LoginMvpView> extends BasePresenter<V>
 
         //validate email and password
         if (email == null || email.isEmpty()) {
-            //getAmandaView().onError(R.string.empty_email);
-            getAmandaView().onError("R.string.empty_email");
+            getAmandaView().onError(R.string.empty_email);
             return;
         }
         if (!CommonUtils.isEmailValid(email)) {
-            //getAmandaView().onError(R.string.invalid_email);
-            getAmandaView().onError("R.string.invalid_email");
+            getAmandaView().onError(R.string.invalid_email);
             return;
         }
         if (password == null || password.isEmpty()) {
-            //getAmandaView().onError(R.string.empty_password);
-            getAmandaView().onError("R.string.empty_password");
+            getAmandaView().onError(R.string.empty_password);
             return;
         }
 
@@ -65,9 +63,12 @@ public class LoginPresenter<V extends LoginMvpView> extends BasePresenter<V>
                                @Override
                                public void accept(@NonNull AuthResult authResult) throws Exception {
                                    Log.i(TAG, authResult.getUser().getEmail());
-
                                    getDataManager().setCurrentUserEmail(authResult.getUser().getEmail());
-                                   getAmandaView().openMainActivity();
+                                   //메일 전송 성공하는 경우와 실패하는 경우 잡아서 적절한 toast띄우기
+                                   getDataManager().sendEmailVerification();
+
+                                   getAmandaView().onError("Verification email sent to " + authResult.getUser().getEmail());
+
                                    //로딩화면 hide
                                    getAmandaView().hideLoading();
 
@@ -77,7 +78,8 @@ public class LoginPresenter<V extends LoginMvpView> extends BasePresenter<V>
                                public void accept(Throwable throwable) throws Exception {
                                    //로딩화면 hide
                                    getAmandaView().hideLoading();
-                                   getAmandaView().onError("가입 불가");
+                                   //이미 가입이 되어있는 건지 flag찾아서 경우에 따른 멘트 분기 필요
+                                   getAmandaView().onError("이미 가입이 되어 있습니다.");
                                }
                            }
                 ));
@@ -119,7 +121,14 @@ public class LoginPresenter<V extends LoginMvpView> extends BasePresenter<V>
                                public void accept(@NonNull AuthResult authResult) throws Exception {
                                    Log.i(TAG, authResult.getUser().getEmail());
                                    getDataManager().setCurrentUserEmail(authResult.getUser().getEmail());
-                                   getAmandaView().openMainActivity();
+
+                                   if(authResult.getUser().isEmailVerified()){
+                                       getAmandaView().openMainActivity();
+                                   }else{
+                                       //메일 전송 성공하는 경우와 실패하는 경우 잡아서 적절한 toast띄우기
+                                       getDataManager().sendEmailVerification();
+                                       getAmandaView().onError("이메일 재인증을 해주세요.");
+                                   }
                                    //로딩화면 hide
                                    getAmandaView().hideLoading();
                                }
@@ -127,8 +136,8 @@ public class LoginPresenter<V extends LoginMvpView> extends BasePresenter<V>
                                @Override
                                public void accept(Throwable throwable) throws Exception {
                                    //로딩화면 hide
-                                   getAmandaView().hideLoading();
                                    getAmandaView().onError("로그인을 다시 시도해주세요.");
+                                   getAmandaView().hideLoading();
                                }
                            }
                 ));
