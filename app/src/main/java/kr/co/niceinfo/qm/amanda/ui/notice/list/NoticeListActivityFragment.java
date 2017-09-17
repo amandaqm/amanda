@@ -5,11 +5,15 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.annotation.StringRes;
 import android.support.constraint.ConstraintLayout;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.inject.Inject;
 
@@ -17,6 +21,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
 import kr.co.niceinfo.qm.amanda.R;
+import kr.co.niceinfo.qm.amanda.data.db.model.Board;
 import kr.co.niceinfo.qm.amanda.di.component.ActivityComponent;
 import kr.co.niceinfo.qm.amanda.ui.base.BaseActivity;
 import kr.co.niceinfo.qm.amanda.ui.base.BaseFragment;
@@ -32,11 +37,17 @@ public class NoticeListActivityFragment extends BaseFragment implements NoticeLi
     @Inject
     NoticeListMvpPresenter<NoticeListMvpView> mPresenter;
 
+    @Inject
+    LinearLayoutManager mLayoutManager;
+
     @BindView(R.id.notice_List_root_view)
     ConstraintLayout noticeListRootView;
 
-    @BindView(R.id.recycler_view)
-    RecyclerView recyclerView;
+    @BindView(R.id.notice_recycler_view)
+    RecyclerView noticeRecyclerView;
+
+    public NoticeListActivityFragment() {
+    }
 
     public static NoticeListActivityFragment newInstance() {
         Bundle args = new Bundle();
@@ -55,13 +66,23 @@ public class NoticeListActivityFragment extends BaseFragment implements NoticeLi
             component.inject(this);
             setUnBinder(ButterKnife.bind(this, view));
             mPresenter.onAttach(this);
-
         }
+
+        //sample data
+        // have to make List from firebseDB after testing
+        List<Board> boardList = new ArrayList<>();
+        for(int i=0; i < 10; i++){
+            Board board =  new Board();
+            board.setPostingId(Long.parseLong(""+i));
+            board.setPostingTitle(i + "wychoi TEST");
+            boardList.add(board);
+        }
+
+        NoticeAdapter noticeAdapter =  new NoticeAdapter(boardList, getActivity());
+        noticeRecyclerView.setAdapter(noticeAdapter);
+        noticeRecyclerView.setLayoutManager(mLayoutManager);
+
         return view;
-
-    }
-
-    public NoticeListActivityFragment() {
     }
 
     @Override
