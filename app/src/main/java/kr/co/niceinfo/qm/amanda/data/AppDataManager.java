@@ -25,6 +25,7 @@ import javax.inject.Singleton;
 
 import io.reactivex.Observable;
 import kr.co.niceinfo.qm.amanda.data.db.DbHelper;
+import kr.co.niceinfo.qm.amanda.data.db.model.Board;
 import kr.co.niceinfo.qm.amanda.data.db.model.User;
 import kr.co.niceinfo.qm.amanda.data.firebase.FirebaseHelper;
 import kr.co.niceinfo.qm.amanda.data.network.ApiHelper;
@@ -73,6 +74,14 @@ public class AppDataManager implements DataManager {
     public Observable<Void> sendEmailVerification() {
         return mFirebaseHelper.sendEmailVerification();
     }
+
+    //boards 조회
+    @Override
+    public Observable<Board> getBoards() {
+        return mFirebaseHelper.getBoards();
+    }
+
+
 
     //AppPreferencesHelper
 

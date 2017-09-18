@@ -54,7 +54,7 @@ public class NoticeAdapter extends  RecyclerView.Adapter<NoticeAdapter.ViewHolde
         Board board = mBoardList.get(position);
 
         TextView tvPostingId = viewHolder.tvPostingId;
-        tvPostingId.setText(board.getPostingId().toString());
+        tvPostingId.setText(board.getKey());
 
         TextView tvPostingTitle = viewHolder.tvPostingTitle;
         tvPostingTitle.setText(board.getPostingTitle());

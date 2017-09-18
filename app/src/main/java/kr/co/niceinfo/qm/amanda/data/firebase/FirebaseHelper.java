@@ -3,6 +3,7 @@ package kr.co.niceinfo.qm.amanda.data.firebase;
 import com.google.firebase.auth.AuthResult;
 
 import io.reactivex.Observable;
+import kr.co.niceinfo.qm.amanda.data.db.model.Board;
 import kr.co.niceinfo.qm.amanda.data.db.model.User;
 
 /**
@@ -16,6 +17,8 @@ public interface FirebaseHelper {
     Observable<AuthResult> login(final User user);
 
     Observable<Void> sendEmailVerification();
+
+    Observable<Board> getBoards();
 
 
 }

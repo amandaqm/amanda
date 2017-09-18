@@ -5,13 +5,17 @@ import android.util.Log;
 
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 import javax.inject.Inject;
 import javax.inject.Singleton;
 
 import io.reactivex.Observable;
+import kr.co.niceinfo.qm.amanda.data.db.model.Board;
 import kr.co.niceinfo.qm.amanda.data.db.model.User;
+
+import static kr.co.niceinfo.qm.amanda.data.firebase.BaseFirebaseDataSource.FIREBASE_CHILD_KEY_BOARDS;
 
 /**
  * Created by Woo-Young on 2017-09-02.
@@ -21,6 +25,7 @@ public class AppFirebaseHelper implements FirebaseHelper {
 
     private static final String TAG = "AppFirebaseHelper";
 
+    private DatabaseReference childReference = null;
     private FirebaseDatabase firebaseDatabase;
     private FirebaseAuth firebaseAuth;
 
@@ -61,4 +66,21 @@ public class AppFirebaseHelper implements FirebaseHelper {
     }
 
 
+    @Override
+    public Observable<Board> getBoards() {
+        Log.i(TAG, "AppFirebaseHelper : " + "getBoards");
+
+        return RxFirebase.getObservable(getChildReference(), Board.class);
+    }
+
+    public DatabaseReference getChildReference() {
+        if (childReference == null) {
+            this.childReference = this.firebaseDatabase
+                    .getReference()
+                    .child(FIREBASE_CHILD_KEY_BOARDS)
+                    .child("board");
+        }
+
+        return childReference;
+    }
 }

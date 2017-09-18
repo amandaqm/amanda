@@ -71,13 +71,18 @@ public class NoticeListActivityFragment extends BaseFragment implements NoticeLi
         //sample data
         // have to make List from firebseDB after testing
         List<Board> boardList = new ArrayList<>();
-        for(int i=0; i < 10; i++){
+        for(int i=0; i < 100; i++){
             Board board =  new Board();
-            board.setPostingId(Long.parseLong(""+i));
+            board.setKey(""+i);
             board.setPostingTitle(i + "wychoi TEST");
             boardList.add(board);
         }
-
+        mPresenter.getBoards();
+        /*
+        for(Board board : mPresenter.getBoards()){
+            Log.i("BOARD ITEM" , board.toString());
+        }
+*/
         NoticeAdapter noticeAdapter =  new NoticeAdapter(boardList, getActivity());
         noticeRecyclerView.setAdapter(noticeAdapter);
         noticeRecyclerView.setLayoutManager(mLayoutManager);

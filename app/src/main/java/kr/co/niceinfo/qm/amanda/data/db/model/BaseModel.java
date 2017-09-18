@@ -1,5 +1,9 @@
 package kr.co.niceinfo.qm.amanda.data.db.model;
 
+import android.support.annotation.Keep;
+
+import com.google.gson.annotations.SerializedName;
+
 /**
  * Created by Woo-Young on 2017-08-27.
  */
@@ -36,15 +40,16 @@ package kr.co.niceinfo.qm.amanda.data.db.model;
 
 
 
+@Keep
 public class BaseModel {
 
     /*공통 속성*/
     private String status;              //상태
-    private String regDt;              //등록일시
+    @SerializedName("regDt") private String regDt;              //등록일시
     private String regId;              //등록자
     private String modDt;              //수정일시
     private String modId;              //수정자
-    private int ver;                    //버전
+    @SerializedName("regDt") private int ver;                    //버전
 
     public BaseModel() {
     }
