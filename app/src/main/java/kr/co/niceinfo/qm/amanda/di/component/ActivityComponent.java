@@ -7,6 +7,7 @@ import kr.co.niceinfo.qm.amanda.ui.login.LoginActivity;
 import kr.co.niceinfo.qm.amanda.ui.main.MainActivity;
 import kr.co.niceinfo.qm.amanda.ui.main.btnmenu.MainMenuFragment;
 import kr.co.niceinfo.qm.amanda.ui.notice.list.NoticeListActivityFragment;
+import kr.co.niceinfo.qm.amanda.ui.notice.reg.NoticeRegActivityFragment;
 import kr.co.niceinfo.qm.amanda.ui.splash.SplashActivity;
 
 
@@ -23,5 +24,7 @@ public interface ActivityComponent {
     void inject(MainMenuFragment fragment);
 
     void inject(NoticeListActivityFragment fragment);
+
+    void inject(NoticeRegActivityFragment fragment);
 
 }

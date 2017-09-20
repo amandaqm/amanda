@@ -22,6 +22,9 @@ import kr.co.niceinfo.qm.amanda.ui.main.btnmenu.MainMenuPresenter;
 import kr.co.niceinfo.qm.amanda.ui.notice.list.NoticeListMvpPresenter;
 import kr.co.niceinfo.qm.amanda.ui.notice.list.NoticeListMvpView;
 import kr.co.niceinfo.qm.amanda.ui.notice.list.NoticeListPresenter;
+import kr.co.niceinfo.qm.amanda.ui.notice.reg.NoticeRegMvpPresenter;
+import kr.co.niceinfo.qm.amanda.ui.notice.reg.NoticeRegMvpView;
+import kr.co.niceinfo.qm.amanda.ui.notice.reg.NoticeRegPresenter;
 import kr.co.niceinfo.qm.amanda.ui.splash.SplashMvpPresenter;
 import kr.co.niceinfo.qm.amanda.ui.splash.SplashMvpView;
 import kr.co.niceinfo.qm.amanda.ui.splash.SplashPresenter;
@@ -94,6 +97,13 @@ public class ActivityModule {
     @PerActivity
     NoticeListMvpPresenter<NoticeListMvpView> provideNoticeListPresenter(
             NoticeListPresenter<NoticeListMvpView> presenter) {
+        return presenter;
+    }
+
+    @Provides
+    @PerActivity
+    NoticeRegMvpPresenter<NoticeRegMvpView> provideNoticeRegPresenter(
+            NoticeRegPresenter<NoticeRegMvpView> presenter) {
         return presenter;
     }
 

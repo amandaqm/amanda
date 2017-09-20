@@ -4,7 +4,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.StringRes;
-import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 
 import butterknife.BindView;
@@ -19,8 +18,6 @@ public class NoticeListActivity extends BaseActivity {
     @BindView(R.id.toolbar)
     Toolbar toolbar;
 
-    @BindView(R.id.notice_recycler_view)
-    RecyclerView noticeRecyclerView;
 
 
     // activity 이동을 위한 intent 반환
@@ -42,7 +39,6 @@ public class NoticeListActivity extends BaseActivity {
                 .disallowAddToBackStack()
                 .add(NoticeListActivityFragment.newInstance(), NoticeListActivity.TAG)
                 .commit();
-
     }
 
     @Override
