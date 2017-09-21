@@ -30,7 +30,7 @@ public class NoticeRegPresenter<V extends NoticeRegMvpView> extends BasePresente
     public Board regNotice(Board notice)
     {
         Log.i(TAG, "regNotice: " + notice.toString());
-        //getDataManager()
+        getDataManager().insertBoard(notice);
 
         return notice;
     }

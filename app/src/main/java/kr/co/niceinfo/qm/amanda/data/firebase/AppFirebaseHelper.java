@@ -80,7 +80,20 @@ public class AppFirebaseHelper implements FirebaseHelper {
                     .child(FIREBASE_CHILD_KEY_BOARDS)
                     .child("board");
         }
-
         return childReference;
     }
+
+    @Override
+    public Observable<Void> insertBoard(Board board) {
+        Log.i(TAG, "AppFirebaseHelper : " + "insertBoard");
+        this.childReference = this.firebaseDatabase
+                .getReference()
+                .child(FIREBASE_CHILD_KEY_BOARDS)
+                .child("board");
+
+        String key = this.childReference.push().getKey();
+        board.setKey(key);
+        return RxFirebase.getObservable(this.childReference.child(key).setValue(board));
+    }
+
 }

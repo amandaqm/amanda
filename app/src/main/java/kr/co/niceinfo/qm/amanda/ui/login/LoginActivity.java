@@ -75,7 +75,7 @@ public class LoginActivity extends BaseActivity implements LoginMvpView {
     //메인화면으로 이동
     @Override
     public void openMainActivity() {
-        // 자신의 activity로 이동시키 위해 static으로 선언
+        // 자신의 activity로 이동
 
         Intent intent = MainActivity.getStartIntent(LoginActivity.this);
         startActivity(intent);

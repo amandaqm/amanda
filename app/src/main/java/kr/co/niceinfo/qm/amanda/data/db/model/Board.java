@@ -6,15 +6,11 @@ package kr.co.niceinfo.qm.amanda.data.db.model;
 
 //게시판(공지사항)
 
-public class Board {
-    //public class Board extends BaseModel {
+public class Board extends BaseModel {
 
-
-    private String key;            // 게시글 번호
+    private String key;                 // 게시글 번호
     private String postingTitle;       // 게시글 제목
     private String postingContent;     // 게시글 내용
-    private String regDt;
-    private String ver;
 
 
     public Board() {
@@ -44,30 +40,12 @@ public class Board {
         this.postingContent = postingContent;
     }
 
-    public String getRegDt() {
-        return regDt;
-    }
-
-    public void setRegDt(String regDt) {
-        this.regDt = regDt;
-    }
-
-    public String getVer() {
-        return ver;
-    }
-
-    public void setVer(String ver) {
-        this.ver = ver;
-    }
-
     @Override
     public String toString() {
         return "Board{" +
                 "key='" + key + '\'' +
                 ", postingTitle='" + postingTitle + '\'' +
                 ", postingContent='" + postingContent + '\'' +
-                ", regDt='" + regDt + '\'' +
-                ", ver='" + ver + '\'' +
                 '}';
     }
 }

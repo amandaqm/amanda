@@ -45,13 +45,23 @@ public class BaseModel {
 
     /*공통 속성*/
     private String status;              //상태
-    @SerializedName("regDt") private String regDt;              //등록일시
+    private String regDt;              //등록일시
     private String regId;              //등록자
     private String modDt;              //수정일시
     private String modId;              //수정자
-    @SerializedName("regDt") private int ver;                    //버전
+    private int ver;                    //버전
 
     public BaseModel() {
+        this("","","","","",0);
+    }
+
+    public BaseModel(String status, String regDt, String regId, String modDt, String modId, int ver) {
+        this.status = status;
+        this.regDt = regDt;
+        this.regId = regId;
+        this.modDt = modDt;
+        this.modId = modId;
+        this.ver = ver;
     }
 
     public String getStatus() {

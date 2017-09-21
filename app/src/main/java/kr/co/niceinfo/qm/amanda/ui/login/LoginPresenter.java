@@ -114,21 +114,21 @@ public class LoginPresenter<V extends LoginMvpView> extends BasePresenter<V>
         getAmandaView().showLoading();
 
         getCompositeDisposable().add(getDataManager().login(user)
-                .subscribeOn(getSchedulerProvider().io())
-                .observeOn(getSchedulerProvider().ui())
-                .subscribe(new Consumer<AuthResult>() {
-                               @Override
-                               public void accept(@NonNull AuthResult authResult) throws Exception {
-                                   Log.i(TAG, authResult.getUser().getEmail());
-                                   getDataManager().setCurrentUserEmail(authResult.getUser().getEmail());
+                                           .subscribeOn(getSchedulerProvider().io())
+                                           .observeOn(getSchedulerProvider().ui())
+                                           .subscribe(new Consumer<AuthResult>() {
+                                               @Override
+                                               public void accept(@NonNull AuthResult authResult) throws Exception {
+                                                   Log.i(TAG, authResult.getUser().getEmail());
+                                                   getDataManager().setCurrentUserEmail(authResult.getUser().getEmail());
 
-                                   if(authResult.getUser().isEmailVerified()){
-                                       getAmandaView().openMainActivity();
-                                   }else{
-                                       //메일 전송 성공하는 경우와 실패하는 경우 잡아서 적절한 toast띄우기
-                                       getDataManager().sendEmailVerification();
-                                       getAmandaView().onError("이메일 재인증을 해주세요.");
-                                   }
+                                                   if(authResult.getUser().isEmailVerified()){
+                                                       getAmandaView().openMainActivity();
+                                                   }else{
+                                                       //메일 전송 성공하는 경우와 실패하는 경우 잡아서 적절한 toast띄우기
+                                                       getDataManager().sendEmailVerification();
+                                                       getAmandaView().onError("이메일 재인증을 해주세요.");
+                                                   }
                                    //로딩화면 hide
                                    getAmandaView().hideLoading();
                                }

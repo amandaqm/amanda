@@ -63,7 +63,7 @@ public class NoticeRegActivityFragment extends BaseFragment implements NoticeReg
         Board notice = new Board();
         notice.setPostingTitle("title");
         notice.setPostingContent("content");
-        notice.setVer("1");
+        notice.setVer(1);
 
         mPresenter.regNotice(notice);
 
