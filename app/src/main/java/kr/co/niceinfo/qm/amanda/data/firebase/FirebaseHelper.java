@@ -20,7 +20,7 @@ public interface FirebaseHelper {
 
     Observable<Board> getBoards();
 
-    Observable<Void> insertBoard(Board board);
+    Observable<Object> insertBoard(Board board);
 
 
 }

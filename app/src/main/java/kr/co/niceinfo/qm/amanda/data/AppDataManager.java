@@ -83,7 +83,7 @@ public class AppDataManager implements DataManager {
 
     //boards 조회
     @Override
-    public Observable<Void> insertBoard(Board board) {
+    public Observable<Object> insertBoard(Board board) {
         return mFirebaseHelper.insertBoard(board);
     }
 

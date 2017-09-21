@@ -61,8 +61,8 @@ public class NoticeRegActivityFragment extends BaseFragment implements NoticeReg
     void onNoticeRegClick(View v) {
 
         Board notice = new Board();
-        notice.setPostingTitle("title");
-        notice.setPostingContent("content");
+        notice.setPostingTitle(etNoticeTitle.getText().toString());
+        notice.setPostingContent(etNoticeContent.getText().toString());
         notice.setVer(1);
 
         mPresenter.regNotice(notice);

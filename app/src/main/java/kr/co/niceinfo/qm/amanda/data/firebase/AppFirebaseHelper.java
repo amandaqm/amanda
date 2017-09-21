@@ -15,8 +15,6 @@ import io.reactivex.Observable;
 import kr.co.niceinfo.qm.amanda.data.db.model.Board;
 import kr.co.niceinfo.qm.amanda.data.db.model.User;
 
-import static kr.co.niceinfo.qm.amanda.data.firebase.BaseFirebaseDataSource.FIREBASE_CHILD_KEY_BOARDS;
-
 /**
  * Created by Woo-Young on 2017-09-02.
  */
@@ -28,6 +26,8 @@ public class AppFirebaseHelper implements FirebaseHelper {
     private DatabaseReference childReference = null;
     private FirebaseDatabase firebaseDatabase;
     private FirebaseAuth firebaseAuth;
+
+
 
 
     @Inject
@@ -65,35 +65,37 @@ public class AppFirebaseHelper implements FirebaseHelper {
        return RxFirebase.getObservable(firebaseAuth.getCurrentUser().sendEmailVerification());
     }
 
+/*
+    public DatabaseReference getChildReference() {
+        if (childReference == null) {
+            this.childReference = this.firebaseDatabase
+                    .getReference()
+                    .child("board");
+        }
+        return childReference;
+    }*/
 
     @Override
     public Observable<Board> getBoards() {
         Log.i(TAG, "AppFirebaseHelper : " + "getBoards");
 
-        return RxFirebase.getObservable(getChildReference(), Board.class);
+        this.childReference = this.firebaseDatabase
+                .getReference().child("board");
+
+        return RxFirebase.getObservable(this.childReference, Board.class);
     }
 
-    public DatabaseReference getChildReference() {
-        if (childReference == null) {
-            this.childReference = this.firebaseDatabase
-                    .getReference()
-                    .child(FIREBASE_CHILD_KEY_BOARDS)
-                    .child("board");
-        }
-        return childReference;
-    }
+
 
     @Override
-    public Observable<Void> insertBoard(Board board) {
+    public Observable<Object> insertBoard(Board board) {
         Log.i(TAG, "AppFirebaseHelper : " + "insertBoard");
         this.childReference = this.firebaseDatabase
-                .getReference()
-                .child(FIREBASE_CHILD_KEY_BOARDS)
-                .child("board");
+                .getReference().child("board");
 
         String key = this.childReference.push().getKey();
         board.setKey(key);
-        return RxFirebase.getObservable(this.childReference.child(key).setValue(board));
+        return RxFirebase.getObservable(this.childReference.child(key).setValue(board),board);
     }
 
 }

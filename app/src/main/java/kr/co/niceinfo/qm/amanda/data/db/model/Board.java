@@ -40,6 +40,7 @@ public class Board extends BaseModel {
         this.postingContent = postingContent;
     }
 
+
     @Override
     public String toString() {
         return "Board{" +
