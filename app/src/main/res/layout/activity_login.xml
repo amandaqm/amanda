@@ -44,7 +44,8 @@
                 android:inputType="textEmailAddress"
                 android:maxLength="50"
                 android:paddingBottom="10dp"
-                android:textSize="18sp" />
+                android:textSize="18sp"
+                android:text="success7895@gmail.com"/>
 
         </android.support.design.widget.TextInputLayout>
 
@@ -67,7 +68,8 @@
                 android:inputType="textPassword"
                 android:maxLength="50"
                 android:paddingBottom="10dp"
-                android:textSize="18sp" />
+                android:textSize="18sp"
+                android:text="1234567890"/>
 
         </android.support.design.widget.TextInputLayout>
 

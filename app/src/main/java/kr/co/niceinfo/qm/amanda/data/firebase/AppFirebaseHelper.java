@@ -65,24 +65,12 @@ public class AppFirebaseHelper implements FirebaseHelper {
        return RxFirebase.getObservable(firebaseAuth.getCurrentUser().sendEmailVerification());
     }
 
-/*
-    public DatabaseReference getChildReference() {
-        if (childReference == null) {
-            this.childReference = this.firebaseDatabase
-                    .getReference()
-                    .child("board");
-        }
-        return childReference;
-    }*/
 
     @Override
     public Observable<Board> getBoards() {
         Log.i(TAG, "AppFirebaseHelper : " + "getBoards");
 
-        this.childReference = this.firebaseDatabase
-                .getReference().child("board");
-
-        return RxFirebase.getObservable(this.childReference, Board.class);
+        return RxFirebase.getObservable(getChildReference(), Board.class);
     }
 
 
@@ -90,12 +78,25 @@ public class AppFirebaseHelper implements FirebaseHelper {
     @Override
     public Observable<Object> insertBoard(Board board) {
         Log.i(TAG, "AppFirebaseHelper : " + "insertBoard");
-        this.childReference = this.firebaseDatabase
-                .getReference().child("board");
 
-        String key = this.childReference.push().getKey();
+        String key= getChildReference().push().getKey();
         board.setKey(key);
-        return RxFirebase.getObservable(this.childReference.child(key).setValue(board),board);
+        return RxFirebase.getObservable(getChildReference().child(key).setValue(board),board);
     }
+
+
+    public DatabaseReference getChildReference() {
+        //if (this.childReference==null) {
+            this.childReference = this.firebaseDatabase.
+                    getReference("amanda/boards/notice");
+                   // .child("amanda")
+                   // .child("boards")
+                   // .child("notice");
+        //}
+
+        return childReference;
+    }
+
+
 
 }

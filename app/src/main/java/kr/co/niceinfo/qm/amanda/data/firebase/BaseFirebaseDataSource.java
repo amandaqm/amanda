@@ -6,5 +6,7 @@ package kr.co.niceinfo.qm.amanda.data.firebase;
 
 public class BaseFirebaseDataSource {
 
+    protected final static String FIREBASE_CHILD_KEY_USERS = "users";
     protected final static String FIREBASE_CHILD_KEY_BOARDS = "boards";
+
 }

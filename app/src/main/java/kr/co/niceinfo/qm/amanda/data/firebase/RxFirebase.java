@@ -3,7 +3,6 @@ package kr.co.niceinfo.qm.amanda.data.firebase;
 import android.support.annotation.NonNull;
 import android.util.Log;
 
-
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
@@ -68,17 +67,18 @@ public class RxFirebase {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
                         Log.d(TAG, dataSnapshot.toString());
+
                         T value = dataSnapshot.getValue(clazz);
-                        if (value != null){
-                            if (!emitter.isDisposed()) {
-                                emitter.onNext(value);
+                            if (value != null) {
+                                if (!emitter.isDisposed()) {
+                                    emitter.onNext(value);
+                                }
+                            } else {
+                                query.removeEventListener(this);
+                                if (!emitter.isDisposed()) {
+                                    emitter.onError(new FirebaseRxDataCastException("Unable to cast Firebase data response to " + clazz.getSimpleName()));
+                                }
                             }
-                        } else {
-                            query.removeEventListener(this);
-                            if (!emitter.isDisposed()) {
-                                emitter.onError(new FirebaseRxDataCastException("Unable to cast Firebase data response to " + clazz.getSimpleName()));
-                            }
-                        }
                     }
 
                     @Override

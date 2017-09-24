@@ -41,13 +41,14 @@ public class NoticeListPresenter<V extends NoticeListMvpView> extends BasePresen
         List<Board> boardList = new ArrayList<>();
         //error
         //Observable<Board> boardObservable = getDataManager().getBoards();
-        Log.i("getBoards",getDataManager().getBoards().toString());
+        //Log.i("getBoards",getDataManager().getBoards().toString());
 
         getDataManager().getBoards().subscribe(new Consumer<Board>() {
             @Override
             public void accept(@NonNull Board board) throws Exception {
                 Log.i("PTgetBoards",board.toString());
             }
+
         });
         return boardList;
     }

@@ -14,6 +14,14 @@ public class Board extends BaseModel {
 
 
     public Board() {
+        this("","","","","",0,"","","");
+    }
+
+    public Board(String status, String regDt, String regId, String modDt, String modId, int ver, String key, String postingTitle, String postingContent) {
+        super(status, regDt, regId, modDt, modId, ver);
+        this.key = key;
+        this.postingTitle = postingTitle;
+        this.postingContent = postingContent;
     }
 
     public String getKey() {

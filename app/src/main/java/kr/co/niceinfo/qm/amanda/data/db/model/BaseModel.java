@@ -2,8 +2,6 @@ package kr.co.niceinfo.qm.amanda.data.db.model;
 
 import android.support.annotation.Keep;
 
-import com.google.gson.annotations.SerializedName;
-
 /**
  * Created by Woo-Young on 2017-08-27.
  */
@@ -122,33 +120,5 @@ public class BaseModel {
                 ", modId='" + modId + '\'' +
                 ", ver=" + ver +
                 '}';
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-
-        BaseModel baseModel = (BaseModel) o;
-
-        if (ver != baseModel.ver) return false;
-        if (status != null ? !status.equals(baseModel.status) : baseModel.status != null)
-            return false;
-        if (regDt != null ? !regDt.equals(baseModel.regDt) : baseModel.regDt != null) return false;
-        if (regId != null ? !regId.equals(baseModel.regId) : baseModel.regId != null) return false;
-        if (modDt != null ? !modDt.equals(baseModel.modDt) : baseModel.modDt != null) return false;
-        return modId != null ? modId.equals(baseModel.modId) : baseModel.modId == null;
-
-    }
-
-    @Override
-    public int hashCode() {
-        int result = status != null ? status.hashCode() : 0;
-        result = 31 * result + (regDt != null ? regDt.hashCode() : 0);
-        result = 31 * result + (regId != null ? regId.hashCode() : 0);
-        result = 31 * result + (modDt != null ? modDt.hashCode() : 0);
-        result = 31 * result + (modId != null ? modId.hashCode() : 0);
-        result = 31 * result + ver;
-        return result;
     }
 }
