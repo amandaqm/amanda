@@ -11,6 +11,9 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import io.reactivex.Observable;
 import io.reactivex.ObservableEmitter;
 import io.reactivex.ObservableOnSubscribe;
@@ -36,6 +39,9 @@ public class RxFirebase {
                     public void onDataChange(DataSnapshot dataSnapshot) {
                         Log.d(TAG, dataSnapshot.toString());
                         T value = dataSnapshot.getValue(clazz);
+
+                        //List<T> boardList = (List<T>)dataSnapshot.getValue();
+
                         if (value != null) {
                             if (!emitter.isDisposed()) {
                                 emitter.onNext(value);
@@ -44,6 +50,49 @@ public class RxFirebase {
                             if (!emitter.isDisposed()) {
                                 emitter.onError(new FirebaseRxDataCastException("Unable to cast Firebase data response to " + clazz.getSimpleName()));
                             }
+                        }
+                    }
+
+                    @Override
+                    public void onCancelled(DatabaseError error) {
+                        if (!emitter.isDisposed()) {
+                            emitter.onError(new FirebaseRxDataException(error));
+                        }
+                    }
+                });
+            }
+        });
+    }
+
+
+    @NonNull
+    public static <T> Observable<T> getObservableForSingleEventToMapList(@NonNull final Query query, @NonNull final Class<T> clazz) {
+        return Observable.create(new ObservableOnSubscribe<T>() {
+            @Override
+            public void subscribe(final ObservableEmitter<T> emitter) throws Exception {
+                query.addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+                        Log.d(TAG, dataSnapshot.toString());
+
+                        //List<T> tList = new ArrayList<>();
+                        Map<String, T> objectMap = (HashMap<String, T>) dataSnapshot.getValue();
+                        for (T obj : objectMap.values()) {
+                            Log.d(TAG, "obj: " + obj.toString());
+                            //if (obj instanceof Map) {
+                            T board =  obj;
+                            Map<String, Object> mapObj = (Map<String, Object>) obj;
+                                //tList.add((T) obj);
+                                if (board != null) {
+                                    if (!emitter.isDisposed()) {
+                                        emitter.onNext(board);
+                                    }
+                                } else {
+                                    if (!emitter.isDisposed()) {
+                                        emitter.onError(new FirebaseRxDataCastException("Unable to cast Firebase data response to " + clazz.getSimpleName()));
+                                    }
+                                }
+                           // }
                         }
                     }
 
@@ -69,16 +118,16 @@ public class RxFirebase {
                         Log.d(TAG, dataSnapshot.toString());
 
                         T value = dataSnapshot.getValue(clazz);
-                            if (value != null) {
-                                if (!emitter.isDisposed()) {
-                                    emitter.onNext(value);
-                                }
-                            } else {
-                                query.removeEventListener(this);
-                                if (!emitter.isDisposed()) {
-                                    emitter.onError(new FirebaseRxDataCastException("Unable to cast Firebase data response to " + clazz.getSimpleName()));
-                                }
+                        if (value != null) {
+                            if (!emitter.isDisposed()) {
+                                emitter.onNext(value);
                             }
+                        } else {
+                            query.removeEventListener(this);
+                            if (!emitter.isDisposed()) {
+                                emitter.onError(new FirebaseRxDataCastException("Unable to cast Firebase data response to " + clazz.getSimpleName()));
+                            }
+                        }
                     }
 
                     @Override
