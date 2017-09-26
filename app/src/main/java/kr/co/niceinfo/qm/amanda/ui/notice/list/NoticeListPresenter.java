@@ -2,9 +2,6 @@ package kr.co.niceinfo.qm.amanda.ui.notice.list;
 
 import android.util.Log;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import javax.inject.Inject;
 
 import io.reactivex.annotations.NonNull;
@@ -21,7 +18,6 @@ public class NoticeListPresenter<V extends NoticeListMvpView> extends BasePresen
 
     private static final String TAG = "NoticeListPresenter";
 
-
     @Inject
     public NoticeListPresenter(
             DataManager dataManager,
@@ -37,20 +33,26 @@ public class NoticeListPresenter<V extends NoticeListMvpView> extends BasePresen
     }
 
     @Override
-    public List<Board> getBoards() {
-        List<Board> boardList = new ArrayList<>();
-        //error
-        //Observable<Board> boardObservable = getDataManager().getBoards();
-        //Log.i("getBoards",getDataManager().getBoards().toString());
+    public void getBoards() {
 
-        getDataManager().getBoards().subscribe(new Consumer<Board>() {
-            @Override
-            public void accept(@NonNull Board board) throws Exception {
-                Log.i("PTgetBoards",board.toString());
-            }
+        getCompositeDisposable().add(getDataManager().getBoards()
+                .subscribeOn(getSchedulerProvider().io())
+                .observeOn(getSchedulerProvider().ui())
+                .subscribe(new Consumer<Board>() {
+                               @Override
+                               public void accept(@NonNull Board board) throws Exception {
+                                   Log.i(TAG, board.toString());
+                                   getAmandaView().getBoardList().add(board);
+                               }
+                           }, new Consumer<Throwable>() {
+                               @Override
+                               public void accept(Throwable throwable) throws Exception {
+                               }
+                           }
 
-        });
-        return boardList;
+                ));
+
+        getAmandaView().refreshRecycleView();
     }
 
     @Override

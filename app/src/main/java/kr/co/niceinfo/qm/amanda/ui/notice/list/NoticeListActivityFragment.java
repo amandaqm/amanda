@@ -37,6 +37,8 @@ import kr.co.niceinfo.qm.amanda.ui.notice.reg.NoticeRegActivity;
 public class NoticeListActivityFragment extends BaseFragment implements NoticeListMvpView {
 
     private static final String TAG = "NoticeListFragment";
+    NoticeAdapter noticeAdapter = null;
+    List<Board> boardList = new ArrayList<>();
 
     @Inject
     NoticeListMvpPresenter<NoticeListMvpView> mPresenter;
@@ -76,27 +78,26 @@ public class NoticeListActivityFragment extends BaseFragment implements NoticeLi
             mPresenter.onAttach(this);
         }
 
-        //sample data
-        // have to make List from firebseDB after testing
-        List<Board> boardList = new ArrayList<>();
-        for(int i=0; i < 100; i++){
-            Board board =  new Board();
-            board.setKey(""+i);
-            board.setPostingTitle(i + "wychoi TEST");
-            boardList.add(board);
-        }
-        mPresenter.getBoards();
-        /*
-        for(Board board : mPresenter.getBoards()){
-            Log.i("BOARD ITEM" , board.toString());
-        }
-*/
-        NoticeAdapter noticeAdapter =  new NoticeAdapter(boardList, getActivity());
+        noticeAdapter =  new NoticeAdapter(boardList, getActivity());
         noticeRecyclerView.setAdapter(noticeAdapter);
         noticeRecyclerView.setLayoutManager(mLayoutManager);
+        mPresenter.getBoards();
 
         return view;
     }
+
+    public List<Board> getBoardList(){
+        //boardList.clear();
+        return boardList;
+    }
+
+    public void refreshRecycleView(){
+        noticeAdapter.notifyDataSetChanged();
+    }
+
+
+
+
 
     @Override
     @OnClick(R.id.fb_notice_reg)
