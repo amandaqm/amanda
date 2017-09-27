@@ -1,10 +1,12 @@
 package kr.co.niceinfo.qm.amanda.ui.notice.list;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.annotation.StringRes;
 import android.support.constraint.ConstraintLayout;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -19,12 +21,14 @@ import javax.inject.Inject;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 import butterknife.Unbinder;
 import kr.co.niceinfo.qm.amanda.R;
 import kr.co.niceinfo.qm.amanda.data.db.model.Board;
 import kr.co.niceinfo.qm.amanda.di.component.ActivityComponent;
 import kr.co.niceinfo.qm.amanda.ui.base.BaseActivity;
 import kr.co.niceinfo.qm.amanda.ui.base.BaseFragment;
+import kr.co.niceinfo.qm.amanda.ui.notice.reg.NoticeRegActivity;
 
 /**
  * A placeholder fragment containing a simple view.
@@ -47,9 +51,9 @@ public class NoticeListActivityFragment extends BaseFragment implements NoticeLi
 
     @BindView(R.id.notice_recycler_view)
     RecyclerView noticeRecyclerView;
-    /*
+
     @BindView(R.id.fb_notice_reg)
-    FloatingActionButton fbNoticeReg;*/
+    FloatingActionButton fbNoticeReg;
 
 
     public NoticeListActivityFragment() {
@@ -110,7 +114,6 @@ public class NoticeListActivityFragment extends BaseFragment implements NoticeLi
     }
 
 
-/*
     @Override
     @OnClick(R.id.fb_notice_reg)
     public void openNoticeRegActivity() {
@@ -119,7 +122,6 @@ public class NoticeListActivityFragment extends BaseFragment implements NoticeLi
         startActivity(intent);
         //getActivity().finish();
     }
-*/
 
 
     @Override

@@ -7,7 +7,7 @@ import kr.co.niceinfo.qm.amanda.ui.base.AmandaView;
 
 public interface NoticeListMvpView extends AmandaView {
 
-    //void openNoticeRegActivity();
+    void openNoticeRegActivity();
 
     void refreshRecycleView(List<Board> boardList);
 }
