@@ -20,6 +20,8 @@ import android.content.Context;
 
 import com.google.firebase.auth.AuthResult;
 
+import java.util.List;
+
 import javax.inject.Inject;
 import javax.inject.Singleton;
 
@@ -77,7 +79,7 @@ public class AppDataManager implements DataManager {
 
     //boards 조회
     @Override
-    public Observable<Board> getBoards() {
+    public Observable<List<Board>> getBoards() {
         return mFirebaseHelper.getBoards();
     }
 

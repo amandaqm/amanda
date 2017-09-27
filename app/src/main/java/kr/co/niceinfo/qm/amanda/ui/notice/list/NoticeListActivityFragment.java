@@ -1,12 +1,10 @@
 package kr.co.niceinfo.qm.amanda.ui.notice.list;
 
 import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.annotation.StringRes;
 import android.support.constraint.ConstraintLayout;
-import android.support.design.widget.FloatingActionButton;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -21,14 +19,12 @@ import javax.inject.Inject;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import butterknife.OnClick;
 import butterknife.Unbinder;
 import kr.co.niceinfo.qm.amanda.R;
 import kr.co.niceinfo.qm.amanda.data.db.model.Board;
 import kr.co.niceinfo.qm.amanda.di.component.ActivityComponent;
 import kr.co.niceinfo.qm.amanda.ui.base.BaseActivity;
 import kr.co.niceinfo.qm.amanda.ui.base.BaseFragment;
-import kr.co.niceinfo.qm.amanda.ui.notice.reg.NoticeRegActivity;
 
 /**
  * A placeholder fragment containing a simple view.
@@ -37,8 +33,8 @@ import kr.co.niceinfo.qm.amanda.ui.notice.reg.NoticeRegActivity;
 public class NoticeListActivityFragment extends BaseFragment implements NoticeListMvpView {
 
     private static final String TAG = "NoticeListFragment";
-    NoticeAdapter noticeAdapter = null;
     List<Board> boardList = new ArrayList<>();
+    NoticeAdapter noticeAdapter = null;
 
     @Inject
     NoticeListMvpPresenter<NoticeListMvpView> mPresenter;
@@ -51,9 +47,9 @@ public class NoticeListActivityFragment extends BaseFragment implements NoticeLi
 
     @BindView(R.id.notice_recycler_view)
     RecyclerView noticeRecyclerView;
-
+    /*
     @BindView(R.id.fb_notice_reg)
-    FloatingActionButton fbNoticeReg;
+    FloatingActionButton fbNoticeReg;*/
 
 
     public NoticeListActivityFragment() {
@@ -77,38 +73,53 @@ public class NoticeListActivityFragment extends BaseFragment implements NoticeLi
             setUnBinder(ButterKnife.bind(this, view));
             mPresenter.onAttach(this);
         }
-
-        noticeAdapter =  new NoticeAdapter(boardList, getActivity());
-        noticeRecyclerView.setAdapter(noticeAdapter);
-        noticeRecyclerView.setLayoutManager(mLayoutManager);
-        mPresenter.getBoards();
-
         return view;
     }
 
-    public List<Board> getBoardList(){
-        //boardList.clear();
-        return boardList;
-    }
+    @Override
+    protected void setUp(View view) {
 
-    public void refreshRecycleView(){
+        for (int i = 0; i < 10; i++) {
+            Board board = new Board();
+            board.setKey("" + i);
+            board.setPostingTitle("" + i);
+            boardList.add(board);
+        }
+
+        noticeAdapter = new NoticeAdapter(boardList, getActivity());
+        noticeRecyclerView.setLayoutManager(mLayoutManager);
+        noticeRecyclerView.setAdapter(noticeAdapter);
+
+        Board board = new Board();
+        board.setKey("추가");
+        board.setPostingTitle("추가");
+        boardList.add(board);
         noticeAdapter.notifyDataSetChanged();
+
+        mPresenter.getBoards();
+    }
+
+    @Override
+    public void refreshRecycleView(List<Board> newBoardList) {
+        Log.i(TAG, "refreshRecycleView" + newBoardList.toString());
+        noticeAdapter.addItems(newBoardList);
+
+        //boardList.clear();
+        //boardList.addAll(newBoardList);
+        //noticeAdapter.notifyDataSetChanged();
     }
 
 
-
-
-
+/*
     @Override
     @OnClick(R.id.fb_notice_reg)
     public void openNoticeRegActivity() {
         Log.i(TAG, "openNoticeRegActivity");
-
         Intent intent = new Intent(getActivity(), NoticeRegActivity.class);
         startActivity(intent);
         //getActivity().finish();
-
     }
+*/
 
 
     @Override
@@ -191,10 +202,6 @@ public class NoticeListActivityFragment extends BaseFragment implements NoticeLi
         super.setUnBinder(unBinder);
     }
 
-    @Override
-    protected void setUp(View view) {
-
-    }
 
     @Override
     public void onDestroy() {

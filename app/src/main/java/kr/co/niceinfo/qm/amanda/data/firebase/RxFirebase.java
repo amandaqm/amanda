@@ -12,13 +12,15 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import io.reactivex.Observable;
 import io.reactivex.ObservableEmitter;
 import io.reactivex.ObservableOnSubscribe;
 
 public class RxFirebase {
     private static final String TAG = RxFirebase.class.getName();
-
     /**
      * As some Firebase {@link Task} are returning a Void (null) element and RxJava 2.X no longer
      * accept null values, we need to emit a different object
@@ -26,7 +28,7 @@ public class RxFirebase {
      */
     public static class FirebaseTaskResponseSuccess {
     }
-
+/*
     @NonNull
     public static <T> Observable<T> getObservableForSingleEvent(@NonNull final Query query, @NonNull final Class<T> clazz) {
         return Observable.create(new ObservableOnSubscribe<T>() {
@@ -60,23 +62,31 @@ public class RxFirebase {
                 });
             }
         });
-    }
+    }*/
+
+
 
 
     @NonNull
-    public static <T> Observable<T> getObservable(@NonNull final Query query, @NonNull final Class<T> clazz) {
-        return Observable.create(new ObservableOnSubscribe<T>() {
+    public static <T> Observable<List<T>> getObservableForSingleEvent(@NonNull final Query query, @NonNull final Class<T> clazz) {
+        return Observable.create(new ObservableOnSubscribe<List<T>>() {
             @Override
-            public void subscribe(final ObservableEmitter<T> emitter) throws Exception {
-                query.addValueEventListener(new ValueEventListener() {
+            public void subscribe(final ObservableEmitter<List<T>> emitter) throws Exception {
+                query.addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
                         Log.d(TAG, dataSnapshot.toString());
 
-                        T value = dataSnapshot.getValue(clazz);
-                        if (value != null) {
+                        List<T> tList = new ArrayList<T>();
+                        for (DataSnapshot tSnapshot : dataSnapshot.getChildren()) {
+                            T tDto = tSnapshot.getValue(clazz);
+                            tList.add(tDto);
+                        }
+                        Log.d(TAG, tList.toString());
+
+                        if (tList != null) {
                             if (!emitter.isDisposed()) {
-                                emitter.onNext(value);
+                                emitter.onNext(tList);
                             }
                         } else {
                             query.removeEventListener(this);
@@ -97,6 +107,49 @@ public class RxFirebase {
             }
         });
     }
+
+    @NonNull
+    public static <T> Observable<List<T>> getObservable(@NonNull final Query query, @NonNull final Class<T> clazz) {
+        return Observable.create(new ObservableOnSubscribe<List<T>>() {
+            @Override
+            public void subscribe(final ObservableEmitter<List<T>> emitter) throws Exception {
+                query.addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+                        Log.d(TAG, dataSnapshot.toString());
+
+                        List<T> tList = new ArrayList<T>();
+                        for (DataSnapshot tSnapshot : dataSnapshot.getChildren()) {
+                            T tDto = tSnapshot.getValue(clazz);
+                            tList.add(tDto);
+                        }
+                        Log.d(TAG, tList.toString());
+
+                        //T value = dataSnapshot.getValue(clazz);
+                        if (tList != null) {
+                            if (!emitter.isDisposed()) {
+                                emitter.onNext(tList);
+                            }
+                        } else {
+                            query.removeEventListener(this);
+                            if (!emitter.isDisposed()) {
+                                emitter.onError(new FirebaseRxDataCastException("Unable to cast Firebase data response to " + clazz.getSimpleName()));
+                            }
+                        }
+                    }
+
+                    @Override
+                    public void onCancelled(DatabaseError error) {
+                        query.removeEventListener(this);
+                        if (!emitter.isDisposed()) {
+                            emitter.onError(new FirebaseRxDataException(error));
+                        }
+                    }
+                });
+            }
+        });
+    }
+
 
     @NonNull
     public static <T> Observable<T> getObservable(@NonNull final Task<T> task) {

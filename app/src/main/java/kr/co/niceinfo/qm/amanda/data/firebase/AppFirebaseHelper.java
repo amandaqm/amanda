@@ -8,6 +8,8 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+import java.util.List;
+
 import javax.inject.Inject;
 import javax.inject.Singleton;
 
@@ -67,10 +69,10 @@ public class AppFirebaseHelper implements FirebaseHelper {
 
 
     @Override
-    public Observable<Board> getBoards() {
+    public Observable<List<Board>> getBoards() {
         Log.i(TAG, "AppFirebaseHelper : " + "getBoards");
 
-        return RxFirebase.getObservableChild( this.firebaseDatabase.getReference().child("amanda").child("boards").child("notice"), Board.class);
+        return RxFirebase.getObservableForSingleEvent( this.firebaseDatabase.getReference().child("amanda").child("boards").child("notice"), Board.class);
     }
 
 

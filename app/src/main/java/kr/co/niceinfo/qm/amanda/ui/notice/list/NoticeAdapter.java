@@ -16,7 +16,7 @@ import kr.co.niceinfo.qm.amanda.data.db.model.Board;
  * Created by Woo-Young on 2017-09-16.
  */
 
-public class NoticeAdapter extends  RecyclerView.Adapter<NoticeAdapter.ViewHolder>{
+public class NoticeAdapter extends RecyclerView.Adapter<NoticeAdapter.ViewHolder> {
 
 
     private List<Board> mBoardList;
@@ -29,10 +29,9 @@ public class NoticeAdapter extends  RecyclerView.Adapter<NoticeAdapter.ViewHolde
     }
 
     // Easy access to the context object in the recyclerview
-    private Context getmContext(){
-        return  mContext;
+    private Context getmContext() {
+        return mContext;
     }
-
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
@@ -45,6 +44,11 @@ public class NoticeAdapter extends  RecyclerView.Adapter<NoticeAdapter.ViewHolde
         ViewHolder viewHolder = new ViewHolder(noticeView);
         return viewHolder;
 
+    }
+
+    public void addItems(List<Board> boards) {
+        mBoardList.addAll(boards);
+        notifyDataSetChanged();
     }
 
     // Involves populating data into the item through holder
@@ -61,11 +65,11 @@ public class NoticeAdapter extends  RecyclerView.Adapter<NoticeAdapter.ViewHolde
     }
 
 
-
     @Override
     public int getItemCount() {
         return mBoardList.size();
     }
+
 
     //inflate the view and its view holder
     //bind data to the view

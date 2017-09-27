@@ -2,6 +2,8 @@ package kr.co.niceinfo.qm.amanda.ui.notice.list;
 
 import android.util.Log;
 
+import java.util.List;
+
 import javax.inject.Inject;
 
 import io.reactivex.annotations.NonNull;
@@ -38,21 +40,18 @@ public class NoticeListPresenter<V extends NoticeListMvpView> extends BasePresen
         getCompositeDisposable().add(getDataManager().getBoards()
                 .subscribeOn(getSchedulerProvider().io())
                 .observeOn(getSchedulerProvider().ui())
-                .subscribe(new Consumer<Board>() {
+                .subscribe(new Consumer<List<Board>>() {
                                @Override
-                               public void accept(@NonNull Board board) throws Exception {
-                                   Log.i(TAG, board.toString());
-                                   getAmandaView().getBoardList().add(board);
+                               public void accept(@NonNull List<Board> boardList) throws Exception {
+                                   Log.i(TAG, boardList.toString());
+                                   getAmandaView().refreshRecycleView(boardList);
                                }
                            }, new Consumer<Throwable>() {
                                @Override
                                public void accept(Throwable throwable) throws Exception {
                                }
                            }
-
                 ));
-
-        getAmandaView().refreshRecycleView();
     }
 
     @Override
