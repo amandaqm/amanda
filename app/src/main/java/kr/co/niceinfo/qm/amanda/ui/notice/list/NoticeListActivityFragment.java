@@ -37,8 +37,8 @@ import kr.co.niceinfo.qm.amanda.ui.notice.reg.NoticeRegActivity;
 public class NoticeListActivityFragment extends BaseFragment implements NoticeListMvpView {
 
     private static final String TAG = "NoticeListFragment";
-    List<Board> boardList = new ArrayList<>();
-    NoticeAdapter noticeAdapter = null;
+    static List<Board> boardList = new ArrayList<>();
+    static NoticeAdapter noticeAdapter = null;
 
     @Inject
     NoticeListMvpPresenter<NoticeListMvpView> mPresenter;
@@ -106,10 +106,10 @@ public class NoticeListActivityFragment extends BaseFragment implements NoticeLi
     @Override
     public void refreshRecycleView(List<Board> newBoardList) {
         Log.i(TAG, "refreshRecycleView" + newBoardList.toString());
-        noticeAdapter.addItems(newBoardList);
+        //noticeAdapter.addItems(newBoardList);
 
-        //boardList.clear();
-        //boardList.addAll(newBoardList);
+        boardList.clear();
+        boardList.addAll(newBoardList);
         //noticeAdapter.notifyDataSetChanged();
     }
 
