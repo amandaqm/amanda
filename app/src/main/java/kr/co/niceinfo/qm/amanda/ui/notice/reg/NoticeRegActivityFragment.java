@@ -1,5 +1,6 @@
 package kr.co.niceinfo.qm.amanda.ui.notice.reg;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
@@ -17,6 +18,7 @@ import kr.co.niceinfo.qm.amanda.R;
 import kr.co.niceinfo.qm.amanda.data.db.model.Board;
 import kr.co.niceinfo.qm.amanda.di.component.ActivityComponent;
 import kr.co.niceinfo.qm.amanda.ui.base.BaseFragment;
+import kr.co.niceinfo.qm.amanda.ui.notice.list.NoticeListActivity;
 
 /**
  * A placeholder fragment containing a simple view.
@@ -70,6 +72,7 @@ public class NoticeRegActivityFragment extends BaseFragment implements NoticeReg
     }
 
 
+
     @Override
     protected void setUp(View view) {
 
@@ -79,4 +82,12 @@ public class NoticeRegActivityFragment extends BaseFragment implements NoticeReg
     public ActivityComponent getActivityComponent() {
         return super.getActivityComponent();
     }
+
+    @Override
+    public void openNoticeListActivity() {
+        Intent intent = new Intent(getActivity(), NoticeListActivity.class);
+        startActivity(intent);
+        getActivity().finish();
+    }
+
 }

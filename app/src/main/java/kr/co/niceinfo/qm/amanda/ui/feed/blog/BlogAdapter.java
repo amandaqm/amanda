@@ -108,31 +108,9 @@ public class BlogAdapter extends RecyclerView.Adapter<BaseViewHolder> {
         notifyDataSetChanged();
     }
 
-
-
-
-
-
-
-
-
-
-
     public interface Callback {
         void onBlogEmptyViewRetryClick();
     }
-
-
-
-
-
-
-
-
-
-
-
-
 
 
     public class ViewHolder extends BaseViewHolder {

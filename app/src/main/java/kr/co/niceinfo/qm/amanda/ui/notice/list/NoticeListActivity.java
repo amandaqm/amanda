@@ -33,15 +33,11 @@ public class NoticeListActivity extends BaseActivity {
         setUnBinder(ButterKnife.bind(this));
         setSupportActionBar(toolbar);
 
-        getSupportFragmentManager()
-                .beginTransaction()
-                .disallowAddToBackStack()
-                .add(NoticeListActivityFragment.newInstance(), NoticeListActivity.TAG)
-                .commit();
     }
 
     @Override
     protected void setUp() {
 
     }
+
 }

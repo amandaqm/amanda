@@ -4,7 +4,6 @@ import android.util.Log;
 
 import com.androidnetworking.error.ANError;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -39,7 +38,7 @@ public class NoticeListPresenter<V extends NoticeListMvpView> extends BasePresen
 
     @Override
     public void onViewPrepared() {
-        //getAmandaView().showLoading();
+        getAmandaView().showLoading();
         getCompositeDisposable().add(getDataManager()
                 .getBoards()
                 .subscribeOn(getSchedulerProvider().io())
@@ -50,11 +49,9 @@ public class NoticeListPresenter<V extends NoticeListMvpView> extends BasePresen
                                    Log.i(TAG, "onViewPrepared : "+boardList.toString());
 
                                    if (boardList != null) {
-                                       List<Board> cloneBoard = new ArrayList<Board>();
-                                       cloneBoard.addAll(boardList);
-                                       getAmandaView().updateNotice(cloneBoard);
+                                       getAmandaView().updateNotice(boardList);
                                    }
-                                   //getAmandaView().hideLoading();
+                                   getAmandaView().hideLoading();
                                }
                            }, new Consumer<Throwable>() {
                                @Override
@@ -63,7 +60,7 @@ public class NoticeListPresenter<V extends NoticeListMvpView> extends BasePresen
                                    if (!isViewAttached()) {
                                        return;
                                    }
-                                   //getAmandaView().hideLoading();
+                                   getAmandaView().hideLoading();
 
                                    // handle the error here
                                    if (throwable instanceof ANError) {

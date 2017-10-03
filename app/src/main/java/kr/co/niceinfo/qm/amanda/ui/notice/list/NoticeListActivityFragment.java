@@ -48,6 +48,7 @@ public class NoticeListActivityFragment extends BaseFragment implements NoticeLi
     @BindView(R.id.fb_notice_reg)
     FloatingActionButton fbNoticeReg;
 
+
     public static NoticeListActivityFragment newInstance() {
         Log.i(TAG, "[wychoi] newInstance");
         Bundle args = new Bundle();
@@ -55,6 +56,7 @@ public class NoticeListActivityFragment extends BaseFragment implements NoticeLi
         fragment.setArguments(args);
         return fragment;
     }
+
 
 
     @Nullable
@@ -75,7 +77,7 @@ public class NoticeListActivityFragment extends BaseFragment implements NoticeLi
 
     @Override
     protected void setUp(View view) {
-        Log.i(TAG, "[wychoi] onCreateView");
+        Log.i(TAG, "[wychoi] setUp");
         mLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         noticeRecyclerView.setLayoutManager(mLayoutManager);
         noticeRecyclerView.setItemAnimator(new DefaultItemAnimator());
@@ -104,7 +106,7 @@ public class NoticeListActivityFragment extends BaseFragment implements NoticeLi
         Log.i(TAG, "[wychoi] openNoticeRegActivity");
         Intent intent = new Intent(getActivity(), NoticeRegActivity.class);
         startActivity(intent);
-        //getActivity().finish();
+        getActivity().finish();
     }
 
 
