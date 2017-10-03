@@ -19,6 +19,7 @@ import butterknife.OnClick;
 import kr.co.niceinfo.qm.amanda.R;
 import kr.co.niceinfo.qm.amanda.di.component.ActivityComponent;
 import kr.co.niceinfo.qm.amanda.ui.base.BaseFragment;
+import kr.co.niceinfo.qm.amanda.ui.feed.FeedActivity;
 import kr.co.niceinfo.qm.amanda.ui.login.LoginActivity;
 import kr.co.niceinfo.qm.amanda.ui.notice.list.NoticeListActivity;
 
@@ -127,5 +128,16 @@ public class MainMenuFragment extends BaseFragment implements MainMenuMvpView {
         startActivity(intent);
         //getActivity().finish();
     }
+
+
+    @Override
+    public void openFeedActivity() {
+
+        Intent intent = new Intent(getActivity(), FeedActivity.class);
+        startActivity(intent);
+        //getActivity().finish();
+    }
+
+
 
 }

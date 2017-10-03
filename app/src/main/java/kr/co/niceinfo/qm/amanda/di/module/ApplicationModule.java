@@ -25,6 +25,7 @@ import javax.inject.Singleton;
 
 import dagger.Module;
 import dagger.Provides;
+import kr.co.niceinfo.qm.amanda.BuildConfig;
 import kr.co.niceinfo.qm.amanda.R;
 import kr.co.niceinfo.qm.amanda.data.AppDataManager;
 import kr.co.niceinfo.qm.amanda.data.DataManager;
@@ -32,10 +33,12 @@ import kr.co.niceinfo.qm.amanda.data.db.AppDbHelper;
 import kr.co.niceinfo.qm.amanda.data.db.DbHelper;
 import kr.co.niceinfo.qm.amanda.data.firebase.AppFirebaseHelper;
 import kr.co.niceinfo.qm.amanda.data.firebase.FirebaseHelper;
+import kr.co.niceinfo.qm.amanda.data.network.ApiHeader;
 import kr.co.niceinfo.qm.amanda.data.network.ApiHelper;
 import kr.co.niceinfo.qm.amanda.data.network.AppApiHelper;
 import kr.co.niceinfo.qm.amanda.data.prefs.AppPreferencesHelper;
 import kr.co.niceinfo.qm.amanda.data.prefs.PreferencesHelper;
+import kr.co.niceinfo.qm.amanda.di.ApiInfo;
 import kr.co.niceinfo.qm.amanda.di.ApplicationContext;
 import kr.co.niceinfo.qm.amanda.di.DatabaseInfo;
 import kr.co.niceinfo.qm.amanda.di.PreferenceInfo;
@@ -73,6 +76,12 @@ public class ApplicationModule {
     }
 
     @Provides
+    @ApiInfo
+    String provideApiKey() {
+        return BuildConfig.API_KEY;
+    }
+
+    @Provides
     @PreferenceInfo
     String providePreferenceName() {
         return AppConstants.PREF_NAME;
@@ -100,6 +109,16 @@ public class ApplicationModule {
     @Singleton
     ApiHelper provideApiHelper(AppApiHelper appApiHelper) {
         return appApiHelper;
+    }
+
+    @Provides
+    @Singleton
+    ApiHeader.ProtectedApiHeader provideProtectedApiHeader(@ApiInfo String apiKey,
+                                                           PreferencesHelper preferencesHelper) {
+        return new ApiHeader.ProtectedApiHeader(
+                apiKey,
+                preferencesHelper.getCurrentUserId(),
+                preferencesHelper.getAccessToken());
     }
 
     @Provides

@@ -13,18 +13,14 @@
  * limitations under the License
  */
 
-package kr.co.niceinfo.qm.amanda.data.network;
+package kr.co.niceinfo.qm.amanda.ui.feed;
 
 
-import io.reactivex.Observable;
-import kr.co.niceinfo.qm.amanda.data.network.model.BlogResponse;
-import kr.co.niceinfo.qm.amanda.data.network.model.OpenSourceResponse;
+import kr.co.niceinfo.qm.amanda.ui.base.AmandaView;
 
-public interface ApiHelper {
+/**
+ * Created by janisharali on 25/05/17.
+ */
 
-    ApiHeader getApiHeader();
-
-    Observable<BlogResponse> getBlogApiCall();
-
-    Observable<OpenSourceResponse> getOpenSourceApiCall();
+public interface FeedMvpView extends AmandaView {
 }

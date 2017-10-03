@@ -3,7 +3,6 @@ package kr.co.niceinfo.qm.amanda.ui.notice.list;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.StringRes;
 import android.support.v7.widget.Toolbar;
 
 import butterknife.BindView;
@@ -43,51 +42,6 @@ public class NoticeListActivity extends BaseActivity {
 
     @Override
     protected void setUp() {
-
-    }
-
-    @Override
-    public void showLoading() {
-
-    }
-
-    @Override
-    public void hideLoading() {
-
-    }
-
-    @Override
-    public void openActivityOnTokenExpire() {
-
-    }
-
-    @Override
-    public void onError(@StringRes int resId) {
-
-    }
-
-    @Override
-    public void onError(String message) {
-
-    }
-
-    @Override
-    public void showMessage(String message) {
-
-    }
-
-    @Override
-    public void showMessage(@StringRes int resId) {
-
-    }
-
-    @Override
-    public boolean isNetworkConnected() {
-        return false;
-    }
-
-    @Override
-    public void hideKeyboard() {
 
     }
 }

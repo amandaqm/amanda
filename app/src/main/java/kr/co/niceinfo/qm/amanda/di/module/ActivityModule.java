@@ -5,11 +5,28 @@ import android.content.Context;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 
+import java.util.ArrayList;
+
 import dagger.Module;
 import dagger.Provides;
 import io.reactivex.disposables.CompositeDisposable;
+import kr.co.niceinfo.qm.amanda.data.db.model.Board;
+import kr.co.niceinfo.qm.amanda.data.network.model.BlogResponse;
+import kr.co.niceinfo.qm.amanda.data.network.model.OpenSourceResponse;
 import kr.co.niceinfo.qm.amanda.di.ActivityContext;
 import kr.co.niceinfo.qm.amanda.di.PerActivity;
+import kr.co.niceinfo.qm.amanda.ui.feed.FeedMvpPresenter;
+import kr.co.niceinfo.qm.amanda.ui.feed.FeedMvpView;
+import kr.co.niceinfo.qm.amanda.ui.feed.FeedPagerAdapter;
+import kr.co.niceinfo.qm.amanda.ui.feed.FeedPresenter;
+import kr.co.niceinfo.qm.amanda.ui.feed.blog.BlogAdapter;
+import kr.co.niceinfo.qm.amanda.ui.feed.blog.BlogMvpPresenter;
+import kr.co.niceinfo.qm.amanda.ui.feed.blog.BlogMvpView;
+import kr.co.niceinfo.qm.amanda.ui.feed.blog.BlogPresenter;
+import kr.co.niceinfo.qm.amanda.ui.feed.opensource.OpenSourceAdapter;
+import kr.co.niceinfo.qm.amanda.ui.feed.opensource.OpenSourceMvpPresenter;
+import kr.co.niceinfo.qm.amanda.ui.feed.opensource.OpenSourceMvpView;
+import kr.co.niceinfo.qm.amanda.ui.feed.opensource.OpenSourcePresenter;
 import kr.co.niceinfo.qm.amanda.ui.login.LoginMvpPresenter;
 import kr.co.niceinfo.qm.amanda.ui.login.LoginMvpView;
 import kr.co.niceinfo.qm.amanda.ui.login.LoginPresenter;
@@ -19,6 +36,7 @@ import kr.co.niceinfo.qm.amanda.ui.main.MainPresenter;
 import kr.co.niceinfo.qm.amanda.ui.main.btnmenu.MainMenuMvpPresenter;
 import kr.co.niceinfo.qm.amanda.ui.main.btnmenu.MainMenuMvpView;
 import kr.co.niceinfo.qm.amanda.ui.main.btnmenu.MainMenuPresenter;
+import kr.co.niceinfo.qm.amanda.ui.notice.list.NoticeAdapter;
 import kr.co.niceinfo.qm.amanda.ui.notice.list.NoticeListMvpPresenter;
 import kr.co.niceinfo.qm.amanda.ui.notice.list.NoticeListMvpView;
 import kr.co.niceinfo.qm.amanda.ui.notice.list.NoticeListPresenter;
@@ -114,5 +132,44 @@ public class ActivityModule {
     }
 
 
+
+    @Provides
+    FeedMvpPresenter<FeedMvpView> provideFeedPresenter(
+            FeedPresenter<FeedMvpView> presenter) {
+        return presenter;
+    }
+
+    @Provides
+    OpenSourceMvpPresenter<OpenSourceMvpView> provideOpenSourcePresenter(
+            OpenSourcePresenter<OpenSourceMvpView> presenter) {
+        return presenter;
+    }
+
+    @Provides
+    BlogMvpPresenter<BlogMvpView> provideBlogMvpPresenter(
+            BlogPresenter<BlogMvpView> presenter) {
+        return presenter;
+    }
+
+    @Provides
+    FeedPagerAdapter provideFeedPagerAdapter(AppCompatActivity activity) {
+        return new FeedPagerAdapter(activity.getSupportFragmentManager());
+    }
+
+    @Provides
+    OpenSourceAdapter provideOpenSourceAdapter() {
+        return new OpenSourceAdapter(new ArrayList<OpenSourceResponse.Repo>());
+    }
+
+    @Provides
+    BlogAdapter provideBlogAdapter() {
+
+        return new BlogAdapter(new ArrayList<BlogResponse.Blog>());
+    }
+
+    @Provides
+    NoticeAdapter provideNoticeAdapter() {
+        return new NoticeAdapter(new ArrayList<Board>());
+    }
 
 }

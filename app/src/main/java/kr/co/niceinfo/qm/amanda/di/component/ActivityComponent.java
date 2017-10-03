@@ -3,6 +3,9 @@ package kr.co.niceinfo.qm.amanda.di.component;
 import dagger.Component;
 import kr.co.niceinfo.qm.amanda.di.PerActivity;
 import kr.co.niceinfo.qm.amanda.di.module.ActivityModule;
+import kr.co.niceinfo.qm.amanda.ui.feed.FeedActivity;
+import kr.co.niceinfo.qm.amanda.ui.feed.blog.BlogFragment;
+import kr.co.niceinfo.qm.amanda.ui.feed.opensource.OpenSourceFragment;
 import kr.co.niceinfo.qm.amanda.ui.login.LoginActivity;
 import kr.co.niceinfo.qm.amanda.ui.main.MainActivity;
 import kr.co.niceinfo.qm.amanda.ui.main.btnmenu.MainMenuFragment;
@@ -23,8 +26,22 @@ public interface ActivityComponent {
 
     void inject(MainMenuFragment fragment);
 
+    //void inject(NoticeListActivity activity);
+
     void inject(NoticeListActivityFragment fragment);
 
     void inject(NoticeRegActivityFragment fragment);
+
+
+
+
+    void inject(FeedActivity activity);
+
+    void inject(OpenSourceFragment fragment);
+
+    void inject(BlogFragment fragment);
+
+
+
 
 }

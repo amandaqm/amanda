@@ -15,17 +15,45 @@
 
 package kr.co.niceinfo.qm.amanda.data.network;
 
+import com.rx2androidnetworking.Rx2AndroidNetworking;
+
 import javax.inject.Inject;
 import javax.inject.Singleton;
+
+import io.reactivex.Observable;
+import kr.co.niceinfo.qm.amanda.data.network.model.BlogResponse;
+import kr.co.niceinfo.qm.amanda.data.network.model.OpenSourceResponse;
 
 @Singleton
 public class AppApiHelper implements ApiHelper {
 
 
-    @Inject
-    public AppApiHelper() {
+    private ApiHeader mApiHeader;
 
+    @Inject
+    public AppApiHelper(ApiHeader apiHeader) {
+        mApiHeader = apiHeader;
     }
 
+    @Override
+    public ApiHeader getApiHeader() {
+        return mApiHeader;
+    }
+
+    @Override
+    public Observable<BlogResponse> getBlogApiCall() {
+        return Rx2AndroidNetworking.get(ApiEndPoint.ENDPOINT_BLOG)
+                .addHeaders(mApiHeader.getProtectedApiHeader())
+                .build()
+                .getObjectObservable(BlogResponse.class);
+    }
+
+    @Override
+    public Observable<OpenSourceResponse> getOpenSourceApiCall() {
+        return Rx2AndroidNetworking.get(ApiEndPoint.ENDPOINT_OPEN_SOURCE)
+                .addHeaders(mApiHeader.getProtectedApiHeader())
+                .build()
+                .getObjectObservable(OpenSourceResponse.class);
+    }
 }
 

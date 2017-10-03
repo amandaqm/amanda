@@ -9,5 +9,5 @@ public interface NoticeListMvpView extends AmandaView {
 
     void openNoticeRegActivity();
 
-    void refreshRecycleView(List<Board> boardList);
+    void updateNotice(List<Board> boardList);
 }

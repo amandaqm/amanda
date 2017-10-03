@@ -30,7 +30,10 @@ import kr.co.niceinfo.qm.amanda.data.db.DbHelper;
 import kr.co.niceinfo.qm.amanda.data.db.model.Board;
 import kr.co.niceinfo.qm.amanda.data.db.model.User;
 import kr.co.niceinfo.qm.amanda.data.firebase.FirebaseHelper;
+import kr.co.niceinfo.qm.amanda.data.network.ApiHeader;
 import kr.co.niceinfo.qm.amanda.data.network.ApiHelper;
+import kr.co.niceinfo.qm.amanda.data.network.model.BlogResponse;
+import kr.co.niceinfo.qm.amanda.data.network.model.OpenSourceResponse;
 import kr.co.niceinfo.qm.amanda.data.prefs.PreferencesHelper;
 import kr.co.niceinfo.qm.amanda.di.ApplicationContext;
 
@@ -135,6 +138,12 @@ public class AppDataManager implements DataManager {
 
 
     @Override
+    public ApiHeader getApiHeader() {
+        return mApiHelper.getApiHeader();
+    }
+
+
+    @Override
     public String getAccessToken() {
         return mPreferencesHelper.getAccessToken();
     }
@@ -142,5 +151,17 @@ public class AppDataManager implements DataManager {
     @Override
     public void setAccessToken(String accessToken) {
         mPreferencesHelper.setAccessToken(accessToken);
+        mApiHelper.getApiHeader().getProtectedApiHeader().setAccessToken(accessToken);
     }
+
+    @Override
+    public Observable<BlogResponse> getBlogApiCall() {
+        return mApiHelper.getBlogApiCall();
+    }
+
+    @Override
+    public Observable<OpenSourceResponse> getOpenSourceApiCall() {
+        return mApiHelper.getOpenSourceApiCall();
+    }
+
 }

@@ -8,4 +8,6 @@ public interface MainMenuMvpView extends AmandaView {
 
     void openBoardListActivity();
 
+    void openFeedActivity();
+
 }

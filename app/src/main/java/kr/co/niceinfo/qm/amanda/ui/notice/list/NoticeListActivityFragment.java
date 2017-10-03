@@ -1,12 +1,10 @@
 package kr.co.niceinfo.qm.amanda.ui.notice.list;
 
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.annotation.StringRes;
-import android.support.constraint.ConstraintLayout;
 import android.support.design.widget.FloatingActionButton;
+import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -14,7 +12,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -22,11 +19,9 @@ import javax.inject.Inject;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-import butterknife.Unbinder;
 import kr.co.niceinfo.qm.amanda.R;
 import kr.co.niceinfo.qm.amanda.data.db.model.Board;
 import kr.co.niceinfo.qm.amanda.di.component.ActivityComponent;
-import kr.co.niceinfo.qm.amanda.ui.base.BaseActivity;
 import kr.co.niceinfo.qm.amanda.ui.base.BaseFragment;
 import kr.co.niceinfo.qm.amanda.ui.notice.reg.NoticeRegActivity;
 
@@ -37,17 +32,15 @@ import kr.co.niceinfo.qm.amanda.ui.notice.reg.NoticeRegActivity;
 public class NoticeListActivityFragment extends BaseFragment implements NoticeListMvpView {
 
     private static final String TAG = "NoticeListFragment";
-    static List<Board> boardList = new ArrayList<>();
-    static NoticeAdapter noticeAdapter = null;
 
     @Inject
     NoticeListMvpPresenter<NoticeListMvpView> mPresenter;
 
     @Inject
-    LinearLayoutManager mLayoutManager;
+    NoticeAdapter mNoticeAdapter;
 
-    @BindView(R.id.notice_List_root_view)
-    ConstraintLayout noticeListRootView;
+    @Inject
+    LinearLayoutManager mLayoutManager;
 
     @BindView(R.id.notice_recycler_view)
     RecyclerView noticeRecyclerView;
@@ -55,11 +48,8 @@ public class NoticeListActivityFragment extends BaseFragment implements NoticeLi
     @BindView(R.id.fb_notice_reg)
     FloatingActionButton fbNoticeReg;
 
-
-    public NoticeListActivityFragment() {
-    }
-
     public static NoticeListActivityFragment newInstance() {
+        Log.i(TAG, "[wychoi] newInstance");
         Bundle args = new Bundle();
         NoticeListActivityFragment fragment = new NoticeListActivityFragment();
         fragment.setArguments(args);
@@ -70,7 +60,9 @@ public class NoticeListActivityFragment extends BaseFragment implements NoticeLi
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        Log.i(TAG, "[wychoi] onCreateView");
         View view = inflater.inflate(R.layout.fragment_notice_list, container, false);
+
         ActivityComponent component = getActivityComponent();
         if (component != null) {
             component.inject(this);
@@ -82,132 +74,36 @@ public class NoticeListActivityFragment extends BaseFragment implements NoticeLi
 
     @Override
     protected void setUp(View view) {
-
-        for (int i = 0; i < 10; i++) {
-            Board board = new Board();
-            board.setKey("" + i);
-            board.setPostingTitle("" + i);
-            boardList.add(board);
-        }
-
-        noticeAdapter = new NoticeAdapter(boardList, getActivity());
+        Log.i(TAG, "[wychoi] onCreateView");
+        mLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         noticeRecyclerView.setLayoutManager(mLayoutManager);
-        noticeRecyclerView.setAdapter(noticeAdapter);
+        noticeRecyclerView.setItemAnimator(new DefaultItemAnimator());
+        noticeRecyclerView.setAdapter(mNoticeAdapter);
 
-        Board board = new Board();
-        board.setKey("추가");
-        board.setPostingTitle("추가");
-        boardList.add(board);
-        noticeAdapter.notifyDataSetChanged();
-
-        mPresenter.getBoards();
+        mPresenter.onViewPrepared();
     }
 
     @Override
-    public void refreshRecycleView(List<Board> newBoardList) {
-        Log.i(TAG, "refreshRecycleView" + newBoardList.toString());
-        //noticeAdapter.addItems(newBoardList);
-
-        boardList.clear();
-        boardList.addAll(newBoardList);
-        //noticeAdapter.notifyDataSetChanged();
+    public void updateNotice(List<Board> boardList) {
+        Log.i(TAG, "[wychoi] refreshRecycleView" + boardList.toString());
+        mNoticeAdapter.addItems(boardList);
     }
 
+
+    @Override
+    public void onDestroyView() {
+        Log.i(TAG, "[wychoi] onCreateView");
+        mPresenter.onDetach();
+        super.onDestroyView();
+    }
 
     @Override
     @OnClick(R.id.fb_notice_reg)
     public void openNoticeRegActivity() {
-        Log.i(TAG, "openNoticeRegActivity");
+        Log.i(TAG, "[wychoi] openNoticeRegActivity");
         Intent intent = new Intent(getActivity(), NoticeRegActivity.class);
         startActivity(intent);
         //getActivity().finish();
-    }
-
-
-    @Override
-    public void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-    }
-
-    @Override
-    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
-    }
-
-    @Override
-    public void onAttach(Context context) {
-        super.onAttach(context);
-    }
-
-    @Override
-    public void showLoading() {
-        super.showLoading();
-    }
-
-    @Override
-    public void hideLoading() {
-        super.hideLoading();
-    }
-
-    @Override
-    public void onError(String message) {
-        super.onError(message);
-    }
-
-    @Override
-    public void onError(@StringRes int resId) {
-        super.onError(resId);
-    }
-
-    @Override
-    public void showMessage(String message) {
-        super.showMessage(message);
-    }
-
-    @Override
-    public void showMessage(@StringRes int resId) {
-        super.showMessage(resId);
-    }
-
-    @Override
-    public boolean isNetworkConnected() {
-        return super.isNetworkConnected();
-    }
-
-    @Override
-    public void onDetach() {
-        super.onDetach();
-    }
-
-    @Override
-    public void hideKeyboard() {
-        super.hideKeyboard();
-    }
-
-    @Override
-    public void openActivityOnTokenExpire() {
-        super.openActivityOnTokenExpire();
-    }
-
-    @Override
-    public ActivityComponent getActivityComponent() {
-        return super.getActivityComponent();
-    }
-
-    @Override
-    public BaseActivity getBaseActivity() {
-        return super.getBaseActivity();
-    }
-
-    @Override
-    public void setUnBinder(Unbinder unBinder) {
-        super.setUnBinder(unBinder);
-    }
-
-
-    @Override
-    public void onDestroy() {
-        super.onDestroy();
     }
 
 }

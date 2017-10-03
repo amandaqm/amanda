@@ -1,7 +1,8 @@
 package kr.co.niceinfo.qm.amanda.ui.notice.list;
 
-import android.os.Looper;
 import android.util.Log;
+
+import com.androidnetworking.error.ANError;
 
 import java.util.List;
 
@@ -37,20 +38,10 @@ public class NoticeListPresenter<V extends NoticeListMvpView> extends BasePresen
     }
 
     @Override
-    public void getBoards() {
-/*
-
-        List<Board> boards = new ArrayList<>();
-        Board board = new Board();
-        board.setKey("NoticeListPresenter getBoards 추가1");
-        board.setPostingTitle("NoticeListPresenter getBoards 추가1");
-        boards.add(board);
-        getAmandaView().refreshRecycleView(boards);
-        Log.i(TAG, "UI 스레드 여부1 : "+ Looper.myLooper()+" : "+ Looper.getMainLooper());
-*/
-
-        getCompositeDisposable().add(getDataManager().getBoards()
-                //.subscribeOn(getSchedulerProvider().io())
+    public void onViewPrepared() {
+        //getAmandaView().showLoading();
+        getCompositeDisposable().add(getDataManager()
+                .getBoards()
                 .subscribeOn(getSchedulerProvider().io())
                 //.observeOn(getSchedulerProvider().ui())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -59,30 +50,28 @@ public class NoticeListPresenter<V extends NoticeListMvpView> extends BasePresen
                                public void accept(@NonNull List<Board> boardList) throws Exception {
                                    Log.i(TAG, boardList.toString());
 
-                                   NoticeListActivityFragment.boardList.clear();
-                                   NoticeListActivityFragment.boardList.addAll(boardList);
-                                   //getAmandaView().refreshRecycleView(boardList);
-                                   NoticeListActivityFragment.noticeAdapter.notifyDataSetChanged();;
-
-                                   Log.i(TAG, "UI 스레드 여부2 : "+ Looper.myLooper()+" : "+ Looper.getMainLooper());
-
+                                   if (boardList != null) {
+                                       getAmandaView().updateNotice(boardList);
+                                   }
+                                   //getAmandaView().hideLoading();
                                }
                            }, new Consumer<Throwable>() {
                                @Override
-                               public void accept(Throwable throwable) throws Exception {
+                               public void accept(@NonNull Throwable throwable)
+                                       throws Exception {
+                                   if (!isViewAttached()) {
+                                       return;
+                                   }
+                                   //getAmandaView().hideLoading();
+
+                                   // handle the error here
+                                   if (throwable instanceof ANError) {
+                                       ANError anError = (ANError) throwable;
+                                       handleApiError(anError);
+                                   }
                                }
                            }
                 ));
-/*
-
-        board = new Board();
-        board.setKey("NoticeListPresenter getBoards 추가2");
-        board.setPostingTitle("NoticeListPresenter getBoards 추가2");
-        boards.add(board);
-        getAmandaView().refreshRecycleView(boards);
-        Log.i(TAG, "UI 스레드 여부3 : "+ Looper.myLooper()+" : "+ Looper.getMainLooper());
-*/
-
     }
 
     @Override

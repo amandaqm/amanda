@@ -15,16 +15,22 @@
 
 package kr.co.niceinfo.qm.amanda.data.network;
 
+import kr.co.niceinfo.qm.amanda.BuildConfig;
 
-import io.reactivex.Observable;
-import kr.co.niceinfo.qm.amanda.data.network.model.BlogResponse;
-import kr.co.niceinfo.qm.amanda.data.network.model.OpenSourceResponse;
+/**
+ * Created by amitshekhar on 01/02/17.
+ */
 
-public interface ApiHelper {
+public final class ApiEndPoint {
 
-    ApiHeader getApiHeader();
+    public static final String ENDPOINT_BLOG = BuildConfig.BASE_URL
+            + "/5926ce9d11000096006ccb30";
 
-    Observable<BlogResponse> getBlogApiCall();
+    public static final String ENDPOINT_OPEN_SOURCE = BuildConfig.BASE_URL
+            + "/5926c34212000035026871cd";
 
-    Observable<OpenSourceResponse> getOpenSourceApiCall();
+    private ApiEndPoint() {
+        // This class is not publicly instantiable
+    }
+
 }

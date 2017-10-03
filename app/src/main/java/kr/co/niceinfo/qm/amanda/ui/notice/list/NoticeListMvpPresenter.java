@@ -12,6 +12,8 @@ public interface NoticeListMvpPresenter<V extends NoticeListMvpView> extends Ama
     //공지등록 버튼 클릭 시
     void onNoticeRegBtnClick();
 
-    void getBoards();
+    void onViewPrepared();
+
+
 
 }

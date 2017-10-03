@@ -13,18 +13,31 @@
  * limitations under the License
  */
 
-package kr.co.niceinfo.qm.amanda.data.network;
+package kr.co.niceinfo.qm.amanda.ui.base;
 
+import android.support.v7.widget.RecyclerView;
+import android.view.View;
 
-import io.reactivex.Observable;
-import kr.co.niceinfo.qm.amanda.data.network.model.BlogResponse;
-import kr.co.niceinfo.qm.amanda.data.network.model.OpenSourceResponse;
+/**
+ * Created by janisharali on 24/05/17.
+ */
 
-public interface ApiHelper {
+public abstract class BaseViewHolder extends RecyclerView.ViewHolder {
 
-    ApiHeader getApiHeader();
+    private int mCurrentPosition;
 
-    Observable<BlogResponse> getBlogApiCall();
+    public BaseViewHolder(View itemView) {
+        super(itemView);
+    }
 
-    Observable<OpenSourceResponse> getOpenSourceApiCall();
+    protected abstract void clear();
+
+    public void onBind(int position) {
+        mCurrentPosition = position;
+        clear();
+    }
+
+    public int getCurrentPosition() {
+        return mCurrentPosition;
+    }
 }
