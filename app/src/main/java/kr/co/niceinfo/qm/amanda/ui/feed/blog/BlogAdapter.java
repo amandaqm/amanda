@@ -18,6 +18,7 @@ package kr.co.niceinfo.qm.amanda.ui.feed.blog;
 import android.content.Intent;
 import android.net.Uri;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -43,6 +44,8 @@ import kr.co.niceinfo.qm.amanda.utils.AppLogger;
 
 public class BlogAdapter extends RecyclerView.Adapter<BaseViewHolder> {
 
+    private static final String TAG = "BlogAdapter";
+
     public static final int VIEW_TYPE_EMPTY = 0;
     public static final int VIEW_TYPE_NORMAL = 1;
 
@@ -50,21 +53,24 @@ public class BlogAdapter extends RecyclerView.Adapter<BaseViewHolder> {
     private List<BlogResponse.Blog> mBlogResponseList;
 
     public BlogAdapter(List<BlogResponse.Blog> blogResponseList) {
+        Log.i(TAG, "[BLOG] BlogAdapter : "+blogResponseList.toString());
         mBlogResponseList = blogResponseList;
     }
 
     public void setCallback(Callback callback) {
+        Log.i(TAG, "[BLOG] setCallback");
         mCallback = callback;
     }
 
     @Override
     public void onBindViewHolder(BaseViewHolder holder, int position) {
+        Log.i(TAG, "[BLOG] onBindViewHolder - position :  "+position);
         holder.onBind(position);
     }
 
     @Override
     public BaseViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-
+        Log.i(TAG, "[BLOG] onCreateViewHolder : "+viewType);
         switch (viewType) {
             case VIEW_TYPE_NORMAL:
                 return new ViewHolder(
@@ -78,6 +84,7 @@ public class BlogAdapter extends RecyclerView.Adapter<BaseViewHolder> {
 
     @Override
     public int getItemViewType(int position) {
+        Log.i(TAG, "[BLOG] getItemViewType : "+position);
         if (mBlogResponseList != null && mBlogResponseList.size() > 0) {
             return VIEW_TYPE_NORMAL;
         } else {
@@ -87,6 +94,7 @@ public class BlogAdapter extends RecyclerView.Adapter<BaseViewHolder> {
 
     @Override
     public int getItemCount() {
+        Log.i(TAG, "[BLOG] getItemCount");
         if (mBlogResponseList != null && mBlogResponseList.size() > 0) {
             return mBlogResponseList.size();
         } else {
@@ -95,6 +103,7 @@ public class BlogAdapter extends RecyclerView.Adapter<BaseViewHolder> {
     }
 
     public void addItems(List<BlogResponse.Blog> blogList) {
+        Log.i(TAG, "[BLOG] addItems : "+blogList.toString());
         mBlogResponseList.addAll(blogList);
         notifyDataSetChanged();
     }

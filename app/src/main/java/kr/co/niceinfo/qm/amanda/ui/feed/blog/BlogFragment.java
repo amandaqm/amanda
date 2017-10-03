@@ -20,6 +20,7 @@ import android.support.annotation.Nullable;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -82,6 +83,7 @@ public class BlogFragment extends BaseFragment implements
 
     @Override
         protected void setUp(View view) {
+             Log.i(TAG, "[BLOG] setUp");
             mLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
             mRecyclerView.setLayoutManager(mLayoutManager);
             mRecyclerView.setItemAnimator(new DefaultItemAnimator());
@@ -97,6 +99,7 @@ public class BlogFragment extends BaseFragment implements
 
     @Override
     public void updateBlog(List<BlogResponse.Blog> blogList) {
+        Log.i(TAG, "[BLOG] updateBlog");
         mBlogAdapter.addItems(blogList);
     }
 

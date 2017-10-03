@@ -56,6 +56,7 @@ public class NoticeListActivityFragment extends BaseFragment implements NoticeLi
         return fragment;
     }
 
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -85,7 +86,7 @@ public class NoticeListActivityFragment extends BaseFragment implements NoticeLi
 
     @Override
     public void updateNotice(List<Board> boardList) {
-        Log.i(TAG, "[wychoi] refreshRecycleView" + boardList.toString());
+        Log.i(TAG, "[wychoi] updateNotice : " + boardList.toString());
         mNoticeAdapter.addItems(boardList);
     }
 
@@ -104,6 +105,11 @@ public class NoticeListActivityFragment extends BaseFragment implements NoticeLi
         Intent intent = new Intent(getActivity(), NoticeRegActivity.class);
         startActivity(intent);
         //getActivity().finish();
+    }
+
+
+    public NoticeAdapter getmNoticeAdapter() {
+        return mNoticeAdapter;
     }
 
 }

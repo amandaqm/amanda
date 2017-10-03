@@ -15,6 +15,8 @@
 
 package kr.co.niceinfo.qm.amanda.ui.feed.blog;
 
+import android.util.Log;
+
 import com.androidnetworking.error.ANError;
 
 import javax.inject.Inject;
@@ -34,6 +36,7 @@ import kr.co.niceinfo.qm.amanda.utils.rx.SchedulerProvider;
 public class BlogPresenter<V extends BlogMvpView> extends BasePresenter<V>
         implements BlogMvpPresenter<V> {
 
+    private static final String TAG = "BlogPresenter";
     @Inject
     public BlogPresenter(DataManager dataManager,
                          SchedulerProvider schedulerProvider,
@@ -43,6 +46,7 @@ public class BlogPresenter<V extends BlogMvpView> extends BasePresenter<V>
 
     @Override
     public void onViewPrepared() {
+        Log.i(TAG, "[BLOG] onViewPrepared");
         getAmandaView().showLoading();
         getCompositeDisposable().add(getDataManager()
                 .getBlogApiCall()
@@ -52,6 +56,7 @@ public class BlogPresenter<V extends BlogMvpView> extends BasePresenter<V>
                     @Override
                     public void accept(@NonNull BlogResponse blogResponse)
                             throws Exception {
+                        Log.i(TAG, "[BLOG] accept");
                         if (blogResponse != null && blogResponse.getData() != null) {
                             getAmandaView().updateBlog(blogResponse.getData());
                         }

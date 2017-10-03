@@ -4,11 +4,11 @@ import android.util.Log;
 
 import com.androidnetworking.error.ANError;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.inject.Inject;
 
-import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.annotations.NonNull;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.functions.Consumer;
@@ -43,15 +43,16 @@ public class NoticeListPresenter<V extends NoticeListMvpView> extends BasePresen
         getCompositeDisposable().add(getDataManager()
                 .getBoards()
                 .subscribeOn(getSchedulerProvider().io())
-                //.observeOn(getSchedulerProvider().ui())
-                .observeOn(AndroidSchedulers.mainThread())
+                .observeOn(getSchedulerProvider().ui())
                 .subscribe(new Consumer<List<Board>>() {
                                @Override
                                public void accept(@NonNull List<Board> boardList) throws Exception {
-                                   Log.i(TAG, boardList.toString());
+                                   Log.i(TAG, "onViewPrepared : "+boardList.toString());
 
                                    if (boardList != null) {
-                                       getAmandaView().updateNotice(boardList);
+                                       List<Board> cloneBoard = new ArrayList<Board>();
+                                       cloneBoard.addAll(boardList);
+                                       getAmandaView().updateNotice(cloneBoard);
                                    }
                                    //getAmandaView().hideLoading();
                                }
