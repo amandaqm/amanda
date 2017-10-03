@@ -92,6 +92,10 @@ public class NoticeAdapter extends RecyclerView.Adapter<BaseViewHolder> {
         @BindView(R.id.tv_posting_title)
         TextView tvPostingTitle;
 
+        @BindView(R.id.tv_posting_content)
+        TextView tvPostingContent;
+
+
         public ViewHolder(View itemView) {
             super(itemView);
             Log.i(TAG, "[wychoi] ViewHolder");
@@ -102,6 +106,7 @@ public class NoticeAdapter extends RecyclerView.Adapter<BaseViewHolder> {
             Log.i(TAG, "[wychoi] clear");
             tvPostingId.setText("");
             tvPostingTitle.setText("");
+            tvPostingContent.setText("");
         }
 
         public void onBind(int position) {
@@ -116,6 +121,10 @@ public class NoticeAdapter extends RecyclerView.Adapter<BaseViewHolder> {
 
             if (notice.getPostingTitle() != null) {
                 tvPostingTitle.setText(notice.getPostingTitle());
+            }
+
+            if (notice.getPostingContent() != null) {
+                tvPostingContent.setText(notice.getPostingContent());
             }
         }
     }
