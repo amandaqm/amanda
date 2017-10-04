@@ -12,6 +12,9 @@ import android.widget.EditText;
 
 import com.google.gson.JsonObject;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 import javax.inject.Inject;
 
 import butterknife.BindView;
@@ -65,26 +68,36 @@ public class NoticeRegActivityFragment extends BaseFragment implements NoticeReg
     @Override
     protected void setUp(View view) {
         Log.i(TAG, "setUp");
+
         if (getActivity() != null && getActivity() instanceof NoticeRegActivity) {
             //Activity에서 Fragment로 데이터 전달
             JsonObject object = ((NoticeRegActivity) getActivity()).getData();
-
-            String noticeType = "";
             String noticeKey = "";
 
-            if (!object.get("notice_type").isJsonNull() && !object.get("notice_type").isJsonNull()) {
-                noticeType = object.get("notice_type").getAsString(); // NVL로  NULL 처리하자
-                noticeKey = object.get("notice_key").getAsString();
+            if (!object.get("notice_type").isJsonNull() && !object.get("notice_key").isJsonNull()) {
+                if (object.get("notice_type").getAsString().equals("detail")) {
+                    noticeKey = object.get("notice_key").getAsString();
+                    mPresenter.getNoticeInfo(noticeKey);
+                    return;
+                }
             }
             //상세화면인 경우
-            if (noticeType.equals("detail")) {
-                btNoticeReg.setVisibility(View.INVISIBLE);
-                etNoticeTitle.setText(noticeKey);
-                etNoticeContent.setText(noticeKey);
-
-            }
+            etNoticeTitle.setHint("공지사항 제목");
+            etNoticeContent.setHint("공지사항 내용");
+            return;
         }
+    }
 
+    public void settingNoticeInfo(Board notice) {
+        btNoticeReg.setVisibility(View.INVISIBLE);
+        etNoticeTitle.setText(notice.getPostingTitle());
+        //수정 불가 셋팅
+        etNoticeTitle.setFocusable(false);
+        etNoticeTitle.setClickable(false);
+
+        etNoticeContent.setText(notice.getPostingContent());
+        etNoticeContent.setFocusable(false);
+        etNoticeContent.setClickable(false);
     }
 
 
@@ -92,9 +105,20 @@ public class NoticeRegActivityFragment extends BaseFragment implements NoticeReg
     void onNoticeRegClick(View v) {
         Log.i(TAG, "onNoticeRegClick");
         Board notice = new Board();
+
         notice.setPostingTitle(etNoticeTitle.getText().toString());
         notice.setPostingContent(etNoticeContent.getText().toString());
+        notice.setStatus("NOR"); //NOR 일반 상태
         notice.setVer(1);
+
+        notice.setRegId(mPresenter.getInteralMail());
+        notice.setModId(mPresenter.getInteralMail());
+
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+        String nowDatetime = dateFormat.format(new Date());
+        notice.setRegDt(nowDatetime);
+        notice.setModDt(nowDatetime);
+
         mPresenter.regNotice(notice);
     }
 

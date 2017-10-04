@@ -28,7 +28,7 @@ public class RxFirebase {
      */
     public static class FirebaseTaskResponseSuccess {
     }
-/*
+
     @NonNull
     public static <T> Observable<T> getObservableForSingleEvent(@NonNull final Query query, @NonNull final Class<T> clazz) {
         return Observable.create(new ObservableOnSubscribe<T>() {
@@ -62,13 +62,13 @@ public class RxFirebase {
                 });
             }
         });
-    }*/
+    }
 
 
 
 
     @NonNull
-    public static <T> Observable<List<T>> getObservableForSingleEvent(@NonNull final Query query, @NonNull final Class<T> clazz) {
+    public static <T> Observable<List<T>> getObservableForSingleEventList(@NonNull final Query query, @NonNull final Class<T> clazz) {
         return Observable.create(new ObservableOnSubscribe<List<T>>() {
             @Override
             public void subscribe(final ObservableEmitter<List<T>> emitter) throws Exception {

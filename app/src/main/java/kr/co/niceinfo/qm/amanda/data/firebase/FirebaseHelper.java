@@ -24,5 +24,6 @@ public interface FirebaseHelper {
 
     Observable<Object> insertBoard(Board board);
 
+    Observable<Board> getBoard(String noticeKey);
 
 }

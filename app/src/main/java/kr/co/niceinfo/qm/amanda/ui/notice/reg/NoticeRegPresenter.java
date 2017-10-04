@@ -30,6 +30,12 @@ public class NoticeRegPresenter<V extends NoticeRegMvpView> extends BasePresente
 
     }
 
+    //로그인 사용자 이메일 주소 반환
+    public String getInteralMail() {
+        return getDataManager().getCurrentUserEmail();
+    }
+
+
     //Notice 등록
     public Board regNotice(Board notice) {
         Log.i(TAG, "regNotice: " + notice.toString());
@@ -64,8 +70,43 @@ public class NoticeRegPresenter<V extends NoticeRegMvpView> extends BasePresente
                                }
                            }
                 ));
-
         return notice;
     }
 
+    @Override
+    public void getNoticeInfo(String noticeKey) {
+        Log.i(TAG, "getNoticeInfo - noticeKey: " + noticeKey);
+        getAmandaView().showLoading();
+
+        getCompositeDisposable().add(getDataManager()
+                .getBoard(noticeKey)
+                .subscribeOn(getSchedulerProvider().io())
+                .observeOn(getSchedulerProvider().ui())
+                .subscribe(new Consumer<Board>() {
+                               @Override
+                               public void accept(@NonNull Board notice) throws Exception {
+                                   Log.i(TAG, "getNoticeInfo : " + notice);
+                                   if (!notice.getKey().equals("")) {
+                                       getAmandaView().settingNoticeInfo(notice);
+                                   }
+                                   getAmandaView().hideLoading();
+                               }
+                           }, new Consumer<Throwable>() {
+                               @Override
+                               public void accept(@NonNull Throwable throwable)
+                                       throws Exception {
+                                   if (!isViewAttached()) {
+                                       return;
+                                   }
+                                   getAmandaView().hideLoading();
+
+                                   // handle the error here
+                                   if (throwable instanceof ANError) {
+                                       ANError anError = (ANError) throwable;
+                                       handleApiError(anError);
+                                   }
+                               }
+                           }
+                ));
+    }
 }

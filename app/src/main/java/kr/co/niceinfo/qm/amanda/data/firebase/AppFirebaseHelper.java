@@ -30,8 +30,6 @@ public class AppFirebaseHelper implements FirebaseHelper {
     private FirebaseAuth firebaseAuth;
 
 
-
-
     @Inject
     public AppFirebaseHelper(FirebaseAuth firebaseAuth, FirebaseDatabase firebaseDatabase) {
         this.firebaseDatabase = firebaseDatabase;
@@ -41,9 +39,7 @@ public class AppFirebaseHelper implements FirebaseHelper {
 
     //회원가입
     public Observable<AuthResult> registerUser(final User user) {
-
         Log.i(TAG, "" + user.toString());
-
         return RxFirebase.getObservable(firebaseAuth.createUserWithEmailAndPassword(user.getInteralMail(),
                 user.getUserPw()));
     }
@@ -53,8 +49,6 @@ public class AppFirebaseHelper implements FirebaseHelper {
     @Override
     public Observable<AuthResult> login(User user) {
         Log.i(TAG, "AppFirebaseHelper : " + user.toString());
-
-
         return RxFirebase.getObservable(firebaseAuth.signInWithEmailAndPassword(user.getInteralMail(),
                 user.getUserPw()));
     }
@@ -64,41 +58,36 @@ public class AppFirebaseHelper implements FirebaseHelper {
     @NonNull
     public Observable<Void> sendEmailVerification() {
         Log.i(TAG, "AppFirebaseHelper : " + "sendEmailVerification");
-       return RxFirebase.getObservable(firebaseAuth.getCurrentUser().sendEmailVerification());
+        return RxFirebase.getObservable(firebaseAuth.getCurrentUser().sendEmailVerification());
     }
-
-
-    @Override
-    public Observable<List<Board>> getBoards() {
-        Log.i(TAG, "AppFirebaseHelper : " + "getBoards");
-
-        return RxFirebase.getObservableForSingleEvent( this.firebaseDatabase.getReference().child("amanda").child("boards").child("notice"), Board.class);
-    }
-
 
 
     @Override
     public Observable<Object> insertBoard(Board board) {
         Log.i(TAG, "AppFirebaseHelper : " + "insertBoard");
 
-        String key= getChildReference().push().getKey();
+        String key = getChildReference().push().getKey();
         board.setKey(key);
-        return RxFirebase.getObservable(getChildReference().child(key).setValue(board),board);
+        return RxFirebase.getObservable(getChildReference().child(key).setValue(board), board);
     }
 
+    @Override
+    public Observable<List<Board>> getBoards() {
+        Log.i(TAG, "AppFirebaseHelper : " + "getBoards");
+        return RxFirebase.getObservableForSingleEventList(this.firebaseDatabase.getReference().child("amanda").child("boards").child("notice"), Board.class);
+    }
+
+    @Override
+    public Observable<Board> getBoard(String noticeKey) {
+        Log.i(TAG, "AppFirebaseHelper getBoard - noticeKey: " + noticeKey);
+        return RxFirebase.getObservableForSingleEvent(getChildReference().child(noticeKey), Board.class);
+    }
 
     public DatabaseReference getChildReference() {
-        //if (this.childReference==null) {
-            this.childReference = this.firebaseDatabase.
-                    getReference("amanda/boards/notice");
-                   // .child("amanda")
-                   // .child("boards")
-                   // .child("notice");
-        //}
-
+        this.childReference = this.firebaseDatabase.
+                getReference("amanda/boards/notice");
         return childReference;
     }
-
 
 
 }

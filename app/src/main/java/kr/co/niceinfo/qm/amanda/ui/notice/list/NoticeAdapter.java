@@ -34,19 +34,19 @@ public class NoticeAdapter extends RecyclerView.Adapter<BaseViewHolder> {
 
     // Pass in the contact array into the constructor
     public NoticeAdapter(List<Board> BoardList) {
-        Log.i(TAG, "[wychoi] NoticeAdapter - BoardList: "+BoardList.size());
+        Log.i(TAG, "[wychoi] NoticeAdapter - BoardList: " + BoardList.size());
         this.mBoardList = BoardList;
     }
 
     @Override
     public void onBindViewHolder(BaseViewHolder holder, int position) {
-        Log.i(TAG, "[wychoi] onBindViewHolder - position: "+ position);
+        Log.i(TAG, "[wychoi] onBindViewHolder - position: " + position);
         holder.onBind(position);
     }
 
     @Override
     public BaseViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        Log.i(TAG, "[wychoi] onCreateViewHolder - viewType: "+viewType);
+        Log.i(TAG, "[wychoi] onCreateViewHolder - viewType: " + viewType);
 
         switch (viewType) {
             case VIEW_TYPE_NORMAL:
@@ -61,7 +61,7 @@ public class NoticeAdapter extends RecyclerView.Adapter<BaseViewHolder> {
 
     @Override
     public int getItemViewType(int position) {
-        Log.i(TAG, "[wychoi] getItemViewType - position: "+position);
+        Log.i(TAG, "[wychoi] getItemViewType - position: " + position);
         if (mBoardList != null && mBoardList.size() > 0) {
             return VIEW_TYPE_NORMAL;
         } else {
@@ -80,23 +80,25 @@ public class NoticeAdapter extends RecyclerView.Adapter<BaseViewHolder> {
     }
 
     public void addItems(List<Board> boardList) {
-        Log.i(TAG, "[wychoi] addItems: "+boardList.size());
+        Log.i(TAG, "[wychoi] addItems: " + boardList.size());
         mBoardList.addAll(boardList);
         notifyDataSetChanged();
     }
 
 
-
     public class ViewHolder extends BaseViewHolder {
-
-        @BindView(R.id.tv_posting_id)
-        TextView tvPostingId;
 
         @BindView(R.id.tv_posting_title)
         TextView tvPostingTitle;
 
         @BindView(R.id.tv_posting_content)
         TextView tvPostingContent;
+
+        @BindView(R.id.tv_posting_regid)
+        TextView tvPostingRegId;
+
+        @BindView(R.id.tv_posting_regdt)
+        TextView tvPostingRegDt;
 
 
         public ViewHolder(View itemView) {
@@ -107,20 +109,17 @@ public class NoticeAdapter extends RecyclerView.Adapter<BaseViewHolder> {
 
         protected void clear() {
             Log.i(TAG, "[wychoi] clear");
-            tvPostingId.setText("");
             tvPostingTitle.setText("");
             tvPostingContent.setText("");
+            tvPostingRegId.setText("");
+            tvPostingRegDt.setText("");
         }
 
         public void onBind(int position) {
             super.onBind(position);
-            Log.i(TAG, "[wychoi] onBind - position : "+position);
+            Log.i(TAG, "[wychoi] onBind - position : " + position);
 
             final Board notice = mBoardList.get(position);
-
-            if (notice.getKey() != null) {
-                tvPostingId.setText(notice.getKey());
-            }
 
             if (notice.getPostingTitle() != null) {
                 tvPostingTitle.setText(notice.getPostingTitle());
@@ -130,8 +129,17 @@ public class NoticeAdapter extends RecyclerView.Adapter<BaseViewHolder> {
                 tvPostingContent.setText(notice.getPostingContent());
             }
 
+            if (notice.getRegId() != null) {
+                tvPostingRegId.setText(notice.getRegId());
+            }
+
+            if (notice.getRegDt() != null) {
+                tvPostingRegDt.setText(notice.getRegDt());
+            }
+
+
             //공지사항 목록에서 item 클릭 시
-            itemView.setOnClickListener(new View.OnClickListener(){
+            itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     if (notice.getKey() != null) {

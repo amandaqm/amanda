@@ -30,6 +30,7 @@
             android:layout_height="286dp"
             android:ems="10"
             android:inputType="textMultiLine"
+            android:gravity="top|left"
             android:layout_weight="1.04" />
 
         <Button

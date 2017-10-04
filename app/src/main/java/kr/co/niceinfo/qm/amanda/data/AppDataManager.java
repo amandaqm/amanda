@@ -92,9 +92,11 @@ public class AppDataManager implements DataManager {
         return mFirebaseHelper.insertBoard(board);
     }
 
-
-
-    //AppPreferencesHelper
+    @Override
+    public Observable<Board> getBoard(String noticeKey) {
+        return mFirebaseHelper.getBoard(noticeKey);
+    }
+//AppPreferencesHelper
 
     @Override
     public Long getCurrentUserId() {
