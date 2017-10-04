@@ -3,6 +3,7 @@ package kr.co.niceinfo.qm.amanda.ui.notice.list;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.app.ActionBar;
 import android.support.v7.widget.Toolbar;
 
 import butterknife.BindView;
@@ -16,8 +17,6 @@ public class NoticeListActivity extends BaseActivity {
 
     @BindView(R.id.toolbar)
     Toolbar toolbar;
-
-
 
     // activity 이동을 위한 intent 반환
     public static Intent getStartIntent(Context context) {
@@ -33,6 +32,10 @@ public class NoticeListActivity extends BaseActivity {
         setUnBinder(ButterKnife.bind(this));
         setSupportActionBar(toolbar);
 
+        //메뉴바에  <- 버튼 생성성
+        ActionBar actionBar = getSupportActionBar();
+        actionBar.setDisplayHomeAsUpEnabled(true);
+        actionBar.setHomeButtonEnabled(true);
     }
 
     @Override

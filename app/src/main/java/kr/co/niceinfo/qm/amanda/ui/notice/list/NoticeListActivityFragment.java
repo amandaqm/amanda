@@ -106,7 +106,7 @@ public class NoticeListActivityFragment extends BaseFragment implements NoticeLi
         Log.i(TAG, "[wychoi] openNoticeRegActivity");
         Intent intent = new Intent(getActivity(), NoticeRegActivity.class);
         startActivity(intent);
-        getActivity().finish();
+        //getActivity().finish();
     }
 
 

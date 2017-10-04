@@ -1,5 +1,6 @@
 package kr.co.niceinfo.qm.amanda.ui.notice.list;
 
+import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -15,6 +16,8 @@ import butterknife.ButterKnife;
 import kr.co.niceinfo.qm.amanda.R;
 import kr.co.niceinfo.qm.amanda.data.db.model.Board;
 import kr.co.niceinfo.qm.amanda.ui.base.BaseViewHolder;
+import kr.co.niceinfo.qm.amanda.ui.notice.reg.NoticeRegActivity;
+import kr.co.niceinfo.qm.amanda.utils.AppLogger;
 
 /**
  * Created by Woo-Young on 2017-09-16.
@@ -126,6 +129,24 @@ public class NoticeAdapter extends RecyclerView.Adapter<BaseViewHolder> {
             if (notice.getPostingContent() != null) {
                 tvPostingContent.setText(notice.getPostingContent());
             }
+
+            //공지사항 목록에서 item 클릭 시
+            itemView.setOnClickListener(new View.OnClickListener(){
+                @Override
+                public void onClick(View v) {
+                    if (notice.getKey() != null) {
+                        try {
+                            Intent intent = new Intent(v.getContext(), NoticeRegActivity.class);
+                            intent.putExtra("notice_type", "detail");
+                            intent.putExtra("notice_key", notice.getKey());
+                            v.getContext().startActivity(intent);
+
+                        } catch (Exception e) {
+                            AppLogger.d("공지사항 key 없음.");
+                        }
+                    }
+                }
+            });
         }
     }
 
