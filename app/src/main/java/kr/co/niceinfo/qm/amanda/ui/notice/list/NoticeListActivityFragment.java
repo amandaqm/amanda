@@ -3,7 +3,6 @@ package kr.co.niceinfo.qm.amanda.ui.notice.list;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.design.widget.FloatingActionButton;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -18,7 +17,6 @@ import javax.inject.Inject;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import butterknife.OnClick;
 import kr.co.niceinfo.qm.amanda.R;
 import kr.co.niceinfo.qm.amanda.data.db.model.Board;
 import kr.co.niceinfo.qm.amanda.di.component.ActivityComponent;
@@ -45,10 +43,6 @@ public class NoticeListActivityFragment extends BaseFragment implements NoticeLi
     @BindView(R.id.notice_recycler_view)
     RecyclerView noticeRecyclerView;
 
-    @BindView(R.id.fb_notice_reg)
-    FloatingActionButton fbNoticeReg;
-
-
     public static NoticeListActivityFragment newInstance() {
         Log.i(TAG, "[wychoi] newInstance");
         Bundle args = new Bundle();
@@ -56,7 +50,6 @@ public class NoticeListActivityFragment extends BaseFragment implements NoticeLi
         fragment.setArguments(args);
         return fragment;
     }
-
 
 
     @Nullable
@@ -100,8 +93,8 @@ public class NoticeListActivityFragment extends BaseFragment implements NoticeLi
         super.onDestroyView();
     }
 
+
     @Override
-    @OnClick(R.id.fb_notice_reg)
     public void openNoticeRegActivity() {
         Log.i(TAG, "[wychoi] openNoticeRegActivity");
         Intent intent = new Intent(getActivity(), NoticeRegActivity.class);

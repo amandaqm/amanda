@@ -3,13 +3,17 @@ package kr.co.niceinfo.qm.amanda.ui.notice.list;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.ActionBar;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 import kr.co.niceinfo.qm.amanda.R;
 import kr.co.niceinfo.qm.amanda.ui.base.BaseActivity;
+import kr.co.niceinfo.qm.amanda.ui.notice.reg.NoticeRegActivity;
 
 public class NoticeListActivity extends BaseActivity {
 
@@ -17,6 +21,9 @@ public class NoticeListActivity extends BaseActivity {
 
     @BindView(R.id.toolbar)
     Toolbar toolbar;
+
+    @BindView(R.id.fb_notice_reg)
+    FloatingActionButton fbNoticeReg;
 
     // activity 이동을 위한 intent 반환
     public static Intent getStartIntent(Context context) {
@@ -41,6 +48,15 @@ public class NoticeListActivity extends BaseActivity {
     @Override
     protected void setUp() {
 
+    }
+
+
+    @OnClick(R.id.fb_notice_reg)
+    public void openNoticeRegActivity() {
+        Log.i(TAG, "[wychoi] openNoticeRegActivity");
+        Intent intent = new Intent(this, NoticeRegActivity.class);
+        startActivity(intent);
+        //getActivity().finish();
     }
 
 }
