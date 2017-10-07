@@ -5,7 +5,11 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.Button;
 import android.widget.EditText;
+import android.widget.LinearLayout;
+import android.widget.Spinner;
 
 import javax.inject.Inject;
 
@@ -33,6 +37,32 @@ public class LoginActivity extends BaseActivity implements LoginMvpView {
     @BindView(R.id.et_password)
     EditText mPasswordEditText;
 
+    @BindView(R.id.spn_department)
+    Spinner mspnDepartment;
+
+    @BindView(R.id.spn_position)
+    Spinner mspnPosition;
+
+    @BindView(R.id.spn_duty)
+    Spinner mspnDuty;
+
+    @BindView(R.id.ll_signin)
+    LinearLayout ll_signin;
+
+
+    @BindView(R.id.btn_server_login)
+    Button btnServerLogin;
+
+    @BindView(R.id.btn_register)
+    Button btnRegister;
+
+    @BindView(R.id.btn_cancel)
+    Button btnCancel;
+
+    @BindView(R.id.btn_sign_in)
+    Button btnSignIn;
+
+
     // activity 이동을 위한 intent 반환
     public static Intent getStartIntent(Context context) {
         Intent intent = new Intent(context, LoginActivity.class);
@@ -52,6 +82,33 @@ public class LoginActivity extends BaseActivity implements LoginMvpView {
         mPresenter.onAttach(LoginActivity.this);
     }
 
+    @Override
+    protected void setUp() {
+
+        mspnDepartment.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Log.i(TAG, "view:" + view + "/ position : " + position + "/ id:" + id);
+            }
+        });
+
+        mspnPosition.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Log.i(TAG, "view:" + view + "/ position : " + position + "/ id:" + id);
+            }
+        });
+
+        mspnDuty.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Log.i(TAG, "view:" + view + "/ position : " + position + "/ id:" + id);
+            }
+        });
+
+
+    }
+
     //로그인 버튼 클릭 시
     @OnClick(R.id.btn_server_login)
     void onServerLoginClick(View v) {
@@ -59,6 +116,24 @@ public class LoginActivity extends BaseActivity implements LoginMvpView {
                 mPasswordEditText.getText().toString());
         Log.i(TAG, "" + user.toString());
         mPresenter.onServerLoginClick(user);
+    }
+
+    //가입버튼 클릭 시
+    @OnClick(R.id.btn_register)
+    void onClickBtnRegister(View v) {
+        Log.i(TAG, "onClickBtnRegister");
+        btnServerLogin.setVisibility(View.GONE);
+        btnRegister.setVisibility(View.GONE);
+        ll_signin.setVisibility(View.VISIBLE);
+    }
+
+    //
+    @OnClick(R.id.btn_cancel)
+    void onClickBtnCancel(View v) {
+        Log.i(TAG, "onClickBtnCancel");
+        btnServerLogin.setVisibility(View.VISIBLE);
+        btnRegister.setVisibility(View.VISIBLE);
+        ll_signin.setVisibility(View.GONE);
     }
 
 
@@ -71,6 +146,7 @@ public class LoginActivity extends BaseActivity implements LoginMvpView {
         Log.i(TAG, "" + user.toString());
         mPresenter.onRegisterUser(user);
     }
+
 
     //메인화면으로 이동
     @Override
@@ -88,8 +164,5 @@ public class LoginActivity extends BaseActivity implements LoginMvpView {
         super.onDestroy();
     }
 
-    @Override
-    protected void setUp() {
 
-    }
 }
