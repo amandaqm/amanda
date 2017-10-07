@@ -16,6 +16,7 @@ import kr.co.niceinfo.qm.amanda.ui.activity.notice.reg.NoticeRegActivityFragment
 import kr.co.niceinfo.qm.amanda.ui.fragment.CrisisStageFragment;
 import kr.co.niceinfo.qm.amanda.ui.fragment.NoticeEditFragment;
 import kr.co.niceinfo.qm.amanda.ui.fragment.NoticeListFragment;
+import kr.co.niceinfo.qm.amanda.ui.fragment.NoticeRegisterFragment;
 import kr.co.niceinfo.qm.amanda.ui.fragment.NoticeViewFragment;
 import kr.co.niceinfo.qm.amanda.ui.fragment.blog.BlogFragment;
 import kr.co.niceinfo.qm.amanda.ui.fragment.btnmenu.MainMenuFragment;
@@ -35,6 +36,7 @@ public interface ActivityComponent {
     void inject(NoticeListFragment fragment);
     void inject(NoticeViewFragment fragment);
     void inject(NoticeEditFragment fragment);
+    void inject(NoticeRegisterFragment fragment);
 
     void inject(CrisisStageFragment fragment);
 

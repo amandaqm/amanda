@@ -7,11 +7,11 @@ import kr.co.niceinfo.qm.amanda.ui.base.AmandaView;
  * Created by fruitbites on 2017-10-05.
  */
 
-public interface NoticeEditMVP {
+public interface NoticeRegisterMVP {
     interface View extends AmandaView {
-        void onUpdateSuccess();
+        void onRegisterSuccess();
     }
     interface Presenter  {
-        void update(Board board);
+        void register(Board board);
     }
 }

@@ -23,17 +23,16 @@ import cn.pedant.SweetAlert.SweetAlertDialog;
 import kr.co.niceinfo.qm.amanda.R;
 import kr.co.niceinfo.qm.amanda.data.db.model.Board;
 import kr.co.niceinfo.qm.amanda.di.component.ActivityComponent;
-import kr.co.niceinfo.qm.amanda.presenter.NoticeEditMVP;
-import kr.co.niceinfo.qm.amanda.presenter.impl.NoticeEditPresenter;
+import kr.co.niceinfo.qm.amanda.presenter.NoticeRegisterMVP;
+import kr.co.niceinfo.qm.amanda.presenter.impl.NoticeRegisterPresenter;
 import kr.co.niceinfo.qm.amanda.ui.base.BaseFragment;
-import kr.co.niceinfo.qm.amanda.ui.event.NoticeEditEvent;
+import kr.co.niceinfo.qm.amanda.ui.event.NoticeRegisterEvent;
 import kr.co.niceinfo.qm.amanda.utils.ViewUtils;
-import timber.log.Timber;
 
 
-public class NoticeEditFragment extends BaseFragment implements NoticeEditMVP.View {
+public class NoticeRegisterFragment extends BaseFragment implements NoticeRegisterMVP.View {
 
-    public static final String TAG = NoticeEditFragment.class.getName();
+    public static final String TAG = NoticeRegisterFragment.class.getName();
 
 
     @BindView(R.id.notice_content) EditText mNoticeContent;
@@ -41,14 +40,14 @@ public class NoticeEditFragment extends BaseFragment implements NoticeEditMVP.Vi
     @BindView(R.id.notice_regdt) TextView mNoticeRegdt;
     @BindView(R.id.notificationYn)  CheckBox mNofificationYn;
 
+    @BindView(R.id.register)   Button mRegister;
 
-    @BindView(R.id.update)  Button mUpdate;
-
-    @Inject NoticeEditPresenter mPresenter;
+    @Inject
+    NoticeRegisterPresenter mPresenter;
     OnChangeFragment onChangeFragment;
     Board mBoard;
 
-    public NoticeEditFragment() {
+    public NoticeRegisterFragment() {
         // Required empty public constructor
     }
 
@@ -57,8 +56,8 @@ public class NoticeEditFragment extends BaseFragment implements NoticeEditMVP.Vi
      * this fragment using the provided parameters.
      * @return A new instance of fragment TransactionsFragment.
      */
-    public static NoticeEditFragment newInstance() {
-        NoticeEditFragment fragment = new NoticeEditFragment();
+    public static NoticeRegisterFragment newInstance() {
+        NoticeRegisterFragment fragment = new NoticeRegisterFragment();
         Bundle args = new Bundle();
         fragment.setArguments(args);
         return fragment;
@@ -87,7 +86,7 @@ public class NoticeEditFragment extends BaseFragment implements NoticeEditMVP.Vi
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_notice_edit, container, false);
+        View view = inflater.inflate(R.layout.fragment_notice_register, container, false);
 
         ActivityComponent component = getActivityComponent();
         if (component != null) {
@@ -117,10 +116,11 @@ public class NoticeEditFragment extends BaseFragment implements NoticeEditMVP.Vi
         super.onStop();
     }
 
-    @Subscribe(sticky=true,threadMode = ThreadMode.MAIN)
-    public void onNoticeEditEvent(NoticeEditEvent e) {
-        Timber.d("NoticeEditEvent: " + e.getBoard());
 
+
+
+    @Subscribe(sticky=true,threadMode = ThreadMode.MAIN)
+    public void onNoticeRegisterEvent(NoticeRegisterEvent e) {
 
         mBoard = e.getBoard();
         mNoticeTitle.setText(e.getBoard().getPostingTitle());
@@ -129,12 +129,10 @@ public class NoticeEditFragment extends BaseFragment implements NoticeEditMVP.Vi
     }
 
 
-
-
-    @OnClick(R.id.update)
-    public void update() {
+    @OnClick(R.id.register)
+    public void register() {
         new SweetAlertDialog(getActivity(), SweetAlertDialog.CUSTOM_IMAGE_TYPE)
-                .setContentText("수정하시겠습니까?")
+                .setContentText("등록하시겠습니까?")
                 .setTitleText(getResources().getString(R.string.app_name))
                 .setCustomImage(R.mipmap.ic_launcher)
                 .setConfirmText("예")
@@ -151,16 +149,11 @@ public class NoticeEditFragment extends BaseFragment implements NoticeEditMVP.Vi
                         sweetAlertDialog.dismiss();
                         mBoard.setPostingTitle(mNoticeTitle.getText().toString());
                         mBoard.setPostingContent(mNoticeContent.getText().toString());
-                        mPresenter.update(mBoard);
+                        mPresenter.register(mBoard);
                     }
                 })
                 .show();
-
-
-
     }
-
-
 
 
     @Override
@@ -169,10 +162,9 @@ public class NoticeEditFragment extends BaseFragment implements NoticeEditMVP.Vi
     }
 
 
-
-    public void onUpdateSuccess() {
+    public void onRegisterSuccess() {
         new SweetAlertDialog(getActivity(), SweetAlertDialog.SUCCESS_TYPE)
-                .setContentText("수정하였습니다")
+                .setContentText("등록하였습니다")
                 .setTitleText(getResources().getString(R.string.app_name))
                 .setCustomImage(R.mipmap.ic_launcher)
                 .setConfirmText("확인")
@@ -186,4 +178,6 @@ public class NoticeEditFragment extends BaseFragment implements NoticeEditMVP.Vi
                 })
                 .show();
     }
+
+
 }

@@ -22,6 +22,7 @@ import kr.co.niceinfo.qm.amanda.ui.base.BaseFragment;
 import kr.co.niceinfo.qm.amanda.ui.event.NoticeRegisterEvent;
 import kr.co.niceinfo.qm.amanda.ui.fragment.NoticeEditFragment;
 import kr.co.niceinfo.qm.amanda.ui.fragment.NoticeListFragment;
+import kr.co.niceinfo.qm.amanda.ui.fragment.NoticeRegisterFragment;
 import kr.co.niceinfo.qm.amanda.ui.fragment.NoticeViewFragment;
 import timber.log.Timber;
 
@@ -76,7 +77,7 @@ public class NoticeActivity extends BaseActivity implements BaseFragment.OnChang
             }
             case R.id.action_notice_register: {
                 EventBus.getDefault().postSticky(new NoticeRegisterEvent(new Board()));
-                initFragment(NoticeEditFragment.TAG);
+                initFragment(NoticeRegisterFragment.TAG);
                 return true;
             }
 
@@ -123,19 +124,16 @@ public class NoticeActivity extends BaseActivity implements BaseFragment.OnChang
     private Fragment getFragment(String fragmentTag) {
 
         if (fragmentTag.equals(NoticeViewFragment.TAG)) {
-
-                return NoticeViewFragment.newInstance();
-
+            return NoticeViewFragment.newInstance();
         }
         else if (fragmentTag.equals(NoticeEditFragment.TAG)) {
-
-                return NoticeEditFragment.newInstance();
-
+            return NoticeEditFragment.newInstance();
+        }
+        else if (fragmentTag.equals(NoticeRegisterFragment.TAG)) {
+            return NoticeRegisterFragment.newInstance();
         }
         else {
-
-                return NoticeListFragment.newInstance();
-
+            return NoticeListFragment.newInstance();
         }
     }
 
