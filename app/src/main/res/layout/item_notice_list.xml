@@ -2,7 +2,7 @@
 
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
 xmlns:app="http://schemas.android.com/apk/res-auto"
-xmlns:tools="http://schemas.android.com/tools"
+xmlns:tools="http://schemas.android.com/tools" android:id="@+id/item"
 android:layout_width="match_parent"
 android:layout_height="wrap_content"
 android:orientation="vertical">
@@ -24,7 +24,6 @@ android:orientation="vertical">
 
         <TextView
             android:id="@+id/tv_posting_title"
-            style="@style/TextStyle.Heading"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="20dp"
@@ -42,7 +41,6 @@ android:orientation="vertical">
 
             <TextView
                 android:id="@+id/tv_posting_regdt"
-                style="@style/TextStyle.Title.Sub"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentLeft="true"
@@ -50,7 +48,6 @@ android:orientation="vertical">
 
             <TextView
                 android:id="@+id/tv_posting_regid"
-                style="@style/TextStyle.Title.Sub"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
@@ -59,7 +56,6 @@ android:orientation="vertical">
 
         <TextView
             android:id="@+id/tv_posting_content"
-            style="@style/TextStyle.Title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="20dp"

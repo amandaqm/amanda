@@ -7,6 +7,7 @@ import android.support.annotation.Nullable;
 import android.support.annotation.StringRes;
 import android.support.v4.app.Fragment;
 import android.view.View;
+
 import butterknife.Unbinder;
 import kr.co.niceinfo.qm.amanda.di.component.ActivityComponent;
 import kr.co.niceinfo.qm.amanda.utils.CommonUtils;
@@ -126,17 +127,20 @@ public abstract class BaseFragment extends Fragment implements AmandaView {
     protected abstract void setUp(View view);
 
     @Override
-    public void onDestroy() {
+    public void onDestroyView() {
+        super.onDestroyView();
         if (mUnBinder != null) {
             mUnBinder.unbind();
         }
-        super.onDestroy();
     }
 
     public interface Callback {
-
         void onFragmentAttached();
-
         void onFragmentDetached(String tag);
     }
+
+    public interface OnChangeFragment {
+        void onChangeFragment(String fragmentTag);
+    }
+
 }

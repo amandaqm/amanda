@@ -16,7 +16,7 @@ import com.google.firebase.messaging.FirebaseMessagingService;
 import com.google.firebase.messaging.RemoteMessage;
 
 import kr.co.niceinfo.qm.amanda.R;
-import kr.co.niceinfo.qm.amanda.ui.main.MainActivity;
+import kr.co.niceinfo.qm.amanda.ui.activity.MainActivity;
 
 /**
  * Created by Woo-Young on 2017-09-03.

@@ -1,5 +1,7 @@
 package kr.co.niceinfo.qm.amanda.data.db.model;
 
+import java.util.Date;
+
 /**
  * Created by Woo-Young on 2017-08-27.
  */
@@ -14,10 +16,10 @@ public class Board extends BaseModel {
 
 
     public Board() {
-        this("","","","","",0,"","","");
+        this("",new Date(),"",new Date(),"",0,"","","");
     }
 
-    public Board(String status, String regDt, String regId, String modDt, String modId, int ver, String key, String postingTitle, String postingContent) {
+    public Board(String status, Date regDt, String regId, Date modDt, String modId, int ver, String key, String postingTitle, String postingContent) {
         super(status, regDt, regId, modDt, modId, ver);
         this.key = key;
         this.postingTitle = postingTitle;
@@ -47,7 +49,6 @@ public class Board extends BaseModel {
     public void setPostingContent(String postingContent) {
         this.postingContent = postingContent;
     }
-
 
     @Override
     public String toString() {

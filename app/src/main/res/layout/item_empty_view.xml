@@ -30,7 +30,7 @@
 
     <TextView
         android:id="@+id/tv_message"
-        style="@style/TextStyle.Title"
+
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
@@ -40,7 +40,7 @@
         android:textColor="@color/gray" />
 
     <TextView
-        style="@style/TextStyle.Title"
+
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"

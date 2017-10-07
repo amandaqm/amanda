@@ -26,7 +26,6 @@ import javax.inject.Singleton;
 import dagger.Module;
 import dagger.Provides;
 import kr.co.niceinfo.qm.amanda.BuildConfig;
-import kr.co.niceinfo.qm.amanda.R;
 import kr.co.niceinfo.qm.amanda.data.AppDataManager;
 import kr.co.niceinfo.qm.amanda.data.DataManager;
 import kr.co.niceinfo.qm.amanda.data.db.AppDbHelper;
@@ -43,7 +42,7 @@ import kr.co.niceinfo.qm.amanda.di.ApplicationContext;
 import kr.co.niceinfo.qm.amanda.di.DatabaseInfo;
 import kr.co.niceinfo.qm.amanda.di.PreferenceInfo;
 import kr.co.niceinfo.qm.amanda.utils.AppConstants;
-import uk.co.chrisjenx.calligraphy.CalligraphyConfig;
+
 
 /**
  * Created by janisharali on 27/01/17.
@@ -140,13 +139,6 @@ public class ApplicationModule {
         return firebaseAuth;
     }
 
-    @Provides
-    @Singleton
-    CalligraphyConfig provideCalligraphyDefaultConfig() {
-        return new CalligraphyConfig.Builder()
-                .setDefaultFontPath("fonts/source-sans-pro/SourceSansPro-Regular.ttf")
-                .setFontAttrId(R.attr.fontPath)
-                .build();
-    }
+
 
 }

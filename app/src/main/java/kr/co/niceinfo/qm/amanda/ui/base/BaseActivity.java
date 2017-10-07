@@ -14,18 +14,18 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import butterknife.Unbinder;
+import cn.pedant.SweetAlert.SweetAlertDialog;
 import kr.co.niceinfo.qm.amanda.AmandaApp;
 import kr.co.niceinfo.qm.amanda.R;
 import kr.co.niceinfo.qm.amanda.di.component.ActivityComponent;
 import kr.co.niceinfo.qm.amanda.di.component.DaggerActivityComponent;
 import kr.co.niceinfo.qm.amanda.di.module.ActivityModule;
-import kr.co.niceinfo.qm.amanda.ui.login.LoginActivity;
+import kr.co.niceinfo.qm.amanda.ui.activity.LoginActivity;
 import kr.co.niceinfo.qm.amanda.utils.CommonUtils;
 import kr.co.niceinfo.qm.amanda.utils.NetworkUtils;
-import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
+
 
 
 public abstract class BaseActivity extends AppCompatActivity
@@ -45,6 +45,7 @@ public abstract class BaseActivity extends AppCompatActivity
                 .activityModule(new ActivityModule(this))
                 .applicationComponent(((AmandaApp) getApplication()).getComponent())
                 .build();
+
     }
 
     public ActivityComponent getActivityComponent() {
@@ -53,7 +54,7 @@ public abstract class BaseActivity extends AppCompatActivity
 
     @Override
     protected void attachBaseContext(Context newBase) {
-        super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase));
+        super.attachBaseContext(newBase);
     }
 
     @TargetApi(Build.VERSION_CODES.M)
@@ -93,12 +94,26 @@ public abstract class BaseActivity extends AppCompatActivity
 
     @Override
     public void onError(String message) {
+        new SweetAlertDialog(this, SweetAlertDialog.ERROR_TYPE)
+                .setContentText(message)
+                .setTitleText(getResources().getString(R.string.app_name))
+                .setCustomImage(R.mipmap.ic_launcher)
+                .setConfirmText("확인")
+                .setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
+                    @Override
+                    public void onClick(SweetAlertDialog sweetAlertDialog) {
+                        sweetAlertDialog.dismiss();
+                    }
+                })
+                .show();
+        /*
         if (message != null) {
             showSnackBar(message);
         } else {
             //showSnackBar(getString(R.string.some_error));
             showSnackBar("getString(R.string.some_error)");
         }
+        */
     }
 
     @Override
@@ -108,11 +123,25 @@ public abstract class BaseActivity extends AppCompatActivity
 
     @Override
     public void showMessage(String message) {
+        new SweetAlertDialog(this, SweetAlertDialog.NORMAL_TYPE)
+                .setContentText(message)
+                .setTitleText(getResources().getString(R.string.app_name))
+                .setCustomImage(R.mipmap.ic_launcher)
+                .setConfirmText("확인")
+                .setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
+                    @Override
+                    public void onClick(SweetAlertDialog sweetAlertDialog) {
+                        sweetAlertDialog.dismiss();
+                    }
+                })
+                .show();
+        /*
         if (message != null) {
             Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
         } else {
             Toast.makeText(this, getString(R.string.some_error), Toast.LENGTH_SHORT).show();
         }
+        */
     }
 
     @Override
@@ -146,7 +175,7 @@ public abstract class BaseActivity extends AppCompatActivity
 
     @Override
     public void openActivityOnTokenExpire() {
-        startActivity(LoginActivity.getStartIntent(this));
+        LoginActivity.startMe(this);
         finish();
     }
 

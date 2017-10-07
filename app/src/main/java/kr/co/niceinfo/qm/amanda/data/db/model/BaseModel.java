@@ -2,6 +2,8 @@ package kr.co.niceinfo.qm.amanda.data.db.model;
 
 import android.support.annotation.Keep;
 
+import java.util.Date;
+
 /**
  * Created by Woo-Young on 2017-08-27.
  */
@@ -43,17 +45,17 @@ public class BaseModel {
 
     /*공통 속성*/
     private String status;              //상태
-    private String regDt;              //등록일시
+    private Date regDt;              //등록일시
     private String regId;              //등록자
-    private String modDt;              //수정일시
+    private Date modDt;              //수정일시
     private String modId;              //수정자
     private int ver;                    //버전
 
     public BaseModel() {
-        this("","","","","",0);
+        this("",new Date(),"",new Date(),"",0);
     }
 
-    public BaseModel(String status, String regDt, String regId, String modDt, String modId, int ver) {
+    public BaseModel(String status, Date regDt, String regId, Date modDt, String modId, int ver) {
         this.status = status;
         this.regDt = regDt;
         this.regId = regId;
@@ -70,13 +72,7 @@ public class BaseModel {
         this.status = status;
     }
 
-    public String getRegDt() {
-        return regDt;
-    }
 
-    public void setRegDt(String regDt) {
-        this.regDt = regDt;
-    }
 
     public String getRegId() {
         return regId;
@@ -86,13 +82,7 @@ public class BaseModel {
         this.regId = regId;
     }
 
-    public String getModDt() {
-        return modDt;
-    }
 
-    public void setModDt(String modDt) {
-        this.modDt = modDt;
-    }
 
     public String getModId() {
         return modId;
@@ -110,13 +100,29 @@ public class BaseModel {
         this.ver = ver;
     }
 
+    public Date getRegDt() {
+        return regDt;
+    }
+
+    public void setRegDt(Date regDt) {
+        this.regDt = regDt;
+    }
+
+    public Date getModDt() {
+        return modDt;
+    }
+
+    public void setModDt(Date modDt) {
+        this.modDt = modDt;
+    }
+
     @Override
     public String toString() {
         return "BaseModel{" +
                 "status='" + status + '\'' +
-                ", regDt='" + regDt + '\'' +
+                ", regDt=" + regDt +
                 ", regId='" + regId + '\'' +
-                ", modDt='" + modDt + '\'' +
+                ", modDt=" + modDt +
                 ", modId='" + modId + '\'' +
                 ", ver=" + ver +
                 '}';

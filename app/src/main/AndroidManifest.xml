@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="kr.co.niceinfo.qm.amanda">
 
     <uses-permission android:name="android.permission.INTERNET" />
@@ -12,6 +13,7 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
+        tools:replace="android:icon,android:label"
         android:theme="@style/AppTheme">
 
         <!-- [START fcm_default_icon] -->
@@ -38,22 +40,37 @@
 
 
         <activity
-            android:name=".ui.splash.SplashActivity"
+            android:name=".ui.activity.SplashActivity"
             android:launchMode="singleTop"
-            android:screenOrientation="portrait"
-            android:theme="@style/AppThemeFullScreen">
+            android:theme="@style/SplashTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".ui.activity.OnBoardingActivity"
+            android:launchMode="singleTop"
+            android:theme="@style/AppTheme.NoActionBar"/>
 
 
         <activity
-            android:name=".ui.login.LoginActivity"
+            android:name=".ui.activity.LoginActivity"
             android:launchMode="singleTop"
-            android:screenOrientation="portrait" />
+            android:theme="@style/AppTheme.NoActionBar"/>
+        <activity
+            android:name=".ui.activity.RegisterActivity"
+            android:launchMode="singleTop"
+            android:theme="@style/AppTheme.NoActionBar"/>
+        <activity
+            android:name=".ui.activity.NoticeActivity"
+            android:launchMode="singleTop" />
+
+        <activity
+            android:name=".ui.activity.SettingActivity"
+            android:label="@string/app_name"
+            android:theme="@style/AppTheme.NoActionBar"/>
 
         <!-- [START firebase_service] -->
         <service android:name=".data.firebase.AppFirebaseMessagingService">
@@ -82,44 +99,43 @@
 
 
         <activity
-            android:name=".ui.main.MainActivity"
+            android:name=".ui.activity.MainActivity"
             android:label="@string/app_name"
             android:theme="@style/AppTheme.NoActionBar" />
 
 
         <activity
-            android:name=".ui.feed.FeedActivity"
+            android:name=".ui.activity.feed.FeedActivity"
             android:launchMode="singleTop"
-            android:parentActivityName=".ui.main.MainActivity"
-            android:screenOrientation="portrait"
+            android:parentActivityName=".ui.activity.MainActivity"
             android:theme="@style/AppTheme.NoActionBar">
 
             <!-- Parent activity meta-data to support 4.0 and lower -->
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".ui.main.MainActivity" />
+                android:value=".ui.activity.MainActivity" />
         </activity>
 
 
         <activity
-            android:name=".ui.notice.list.NoticeListActivity"
+            android:name=".ui.activity.notice.list.NoticeListActivity"
             android:label="@string/title_activity_notice_list"
             android:theme="@style/AppTheme.NoActionBar">
 
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".ui.main.MainActivity" />
+                android:value=".ui.activity.MainActivity" />
         </activity>
 
 
         <activity
-            android:name=".ui.notice.reg.NoticeRegActivity"
+            android:name=".ui.activity.notice.reg.NoticeRegActivity"
             android:label="@string/title_activity_notice_reg"
             android:theme="@style/AppTheme.NoActionBar">
 
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".ui.notice.list.NoticeListActivity" />
+                android:value=".ui.activity.notice.list.NoticeListActivity" />
         </activity>
 
 

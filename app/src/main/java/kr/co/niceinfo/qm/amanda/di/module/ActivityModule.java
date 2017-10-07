@@ -15,37 +15,25 @@ import kr.co.niceinfo.qm.amanda.data.network.model.BlogResponse;
 import kr.co.niceinfo.qm.amanda.data.network.model.OpenSourceResponse;
 import kr.co.niceinfo.qm.amanda.di.ActivityContext;
 import kr.co.niceinfo.qm.amanda.di.PerActivity;
-import kr.co.niceinfo.qm.amanda.ui.feed.FeedMvpPresenter;
-import kr.co.niceinfo.qm.amanda.ui.feed.FeedMvpView;
-import kr.co.niceinfo.qm.amanda.ui.feed.FeedPagerAdapter;
-import kr.co.niceinfo.qm.amanda.ui.feed.FeedPresenter;
-import kr.co.niceinfo.qm.amanda.ui.feed.blog.BlogAdapter;
-import kr.co.niceinfo.qm.amanda.ui.feed.blog.BlogMvpPresenter;
-import kr.co.niceinfo.qm.amanda.ui.feed.blog.BlogMvpView;
-import kr.co.niceinfo.qm.amanda.ui.feed.blog.BlogPresenter;
-import kr.co.niceinfo.qm.amanda.ui.feed.opensource.OpenSourceAdapter;
-import kr.co.niceinfo.qm.amanda.ui.feed.opensource.OpenSourceMvpPresenter;
-import kr.co.niceinfo.qm.amanda.ui.feed.opensource.OpenSourceMvpView;
-import kr.co.niceinfo.qm.amanda.ui.feed.opensource.OpenSourcePresenter;
-import kr.co.niceinfo.qm.amanda.ui.login.LoginMvpPresenter;
-import kr.co.niceinfo.qm.amanda.ui.login.LoginMvpView;
-import kr.co.niceinfo.qm.amanda.ui.login.LoginPresenter;
-import kr.co.niceinfo.qm.amanda.ui.main.MainMvpPresenter;
-import kr.co.niceinfo.qm.amanda.ui.main.MainMvpView;
-import kr.co.niceinfo.qm.amanda.ui.main.MainPresenter;
-import kr.co.niceinfo.qm.amanda.ui.main.btnmenu.MainMenuMvpPresenter;
-import kr.co.niceinfo.qm.amanda.ui.main.btnmenu.MainMenuMvpView;
-import kr.co.niceinfo.qm.amanda.ui.main.btnmenu.MainMenuPresenter;
-import kr.co.niceinfo.qm.amanda.ui.notice.list.NoticeAdapter;
-import kr.co.niceinfo.qm.amanda.ui.notice.list.NoticeListMvpPresenter;
-import kr.co.niceinfo.qm.amanda.ui.notice.list.NoticeListMvpView;
-import kr.co.niceinfo.qm.amanda.ui.notice.list.NoticeListPresenter;
-import kr.co.niceinfo.qm.amanda.ui.notice.reg.NoticeRegMvpPresenter;
-import kr.co.niceinfo.qm.amanda.ui.notice.reg.NoticeRegMvpView;
-import kr.co.niceinfo.qm.amanda.ui.notice.reg.NoticeRegPresenter;
-import kr.co.niceinfo.qm.amanda.ui.splash.SplashMvpPresenter;
-import kr.co.niceinfo.qm.amanda.ui.splash.SplashMvpView;
-import kr.co.niceinfo.qm.amanda.ui.splash.SplashPresenter;
+import kr.co.niceinfo.qm.amanda.presenter.notice.NoticeListMvpPresenter;
+import kr.co.niceinfo.qm.amanda.presenter.notice.NoticeListPresenter;
+import kr.co.niceinfo.qm.amanda.presenter.notice.NoticeRegMvpPresenter;
+import kr.co.niceinfo.qm.amanda.presenter.notice.NoticeRegPresenter;
+import kr.co.niceinfo.qm.amanda.ui.activity.feed.FeedPagerAdapter;
+import kr.co.niceinfo.qm.amanda.ui.activity.notice.list.NoticeListMvpView;
+import kr.co.niceinfo.qm.amanda.ui.activity.notice.reg.NoticeRegMvpView;
+import kr.co.niceinfo.qm.amanda.ui.adapter.NoticeAdapter;
+import kr.co.niceinfo.qm.amanda.ui.fragment.blog.BlogAdapter;
+import kr.co.niceinfo.qm.amanda.ui.fragment.blog.BlogMvpPresenter;
+import kr.co.niceinfo.qm.amanda.ui.fragment.blog.BlogMvpView;
+import kr.co.niceinfo.qm.amanda.ui.fragment.blog.BlogPresenter;
+import kr.co.niceinfo.qm.amanda.ui.fragment.btnmenu.MainMenuMvpPresenter;
+import kr.co.niceinfo.qm.amanda.ui.fragment.btnmenu.MainMenuMvpView;
+import kr.co.niceinfo.qm.amanda.ui.fragment.btnmenu.MainMenuPresenter;
+import kr.co.niceinfo.qm.amanda.ui.fragment.opensource.OpenSourceAdapter;
+import kr.co.niceinfo.qm.amanda.ui.fragment.opensource.OpenSourceMvpPresenter;
+import kr.co.niceinfo.qm.amanda.ui.fragment.opensource.OpenSourceMvpView;
+import kr.co.niceinfo.qm.amanda.ui.fragment.opensource.OpenSourcePresenter;
 import kr.co.niceinfo.qm.amanda.utils.rx.AppSchedulerProvider;
 import kr.co.niceinfo.qm.amanda.utils.rx.SchedulerProvider;
 
@@ -83,19 +71,23 @@ public class ActivityModule {
         return new AppSchedulerProvider();
     }
 
+    /*
     @Provides
     @PerActivity
     SplashMvpPresenter<SplashMvpView> provideSplashPresenter(
             SplashPresenter<SplashMvpView> presenter) {
         return presenter;
     }
+    */
 
+    /*
     @Provides
     @PerActivity
     LoginMvpPresenter<LoginMvpView> provideLoginPresenter(
             LoginPresenter<LoginMvpView> presenter) {
         return presenter;
     }
+    */
 
     @Provides
     @PerActivity
@@ -104,12 +96,13 @@ public class ActivityModule {
         return presenter;
     }
 
+    /*
     @Provides
     @PerActivity
-    MainMvpPresenter<MainMvpView> provideMainPresenter(
-            MainPresenter<MainMvpView> presenter) {
+    MainPresenter provideMainPresenter(MainPresenter presenter) {
         return presenter;
     }
+    */
 
     @Provides
     @PerActivity
@@ -131,13 +124,14 @@ public class ActivityModule {
         return new LinearLayoutManager(activity);
     }
 
-
+/*
 
     @Provides
     FeedMvpPresenter<FeedMvpView> provideFeedPresenter(
             FeedPresenter<FeedMvpView> presenter) {
         return presenter;
     }
+    */
 
     @Provides
     OpenSourceMvpPresenter<OpenSourceMvpView> provideOpenSourcePresenter(

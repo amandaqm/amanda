@@ -28,6 +28,9 @@ import javax.inject.Singleton;
 import io.reactivex.Observable;
 import kr.co.niceinfo.qm.amanda.data.db.DbHelper;
 import kr.co.niceinfo.qm.amanda.data.db.model.Board;
+import kr.co.niceinfo.qm.amanda.data.db.model.Crisis;
+import kr.co.niceinfo.qm.amanda.data.db.model.Level;
+import kr.co.niceinfo.qm.amanda.data.db.model.Member;
 import kr.co.niceinfo.qm.amanda.data.db.model.User;
 import kr.co.niceinfo.qm.amanda.data.firebase.FirebaseHelper;
 import kr.co.niceinfo.qm.amanda.data.network.ApiHeader;
@@ -65,15 +68,31 @@ public class AppDataManager implements DataManager {
     //AppFirebaseHelper
     //회원가입
     @Override
-    public Observable<AuthResult> registerUser(User user) {
-        return mFirebaseHelper.registerUser(user);
+    public Observable<AuthResult> register(User user) {
+        return mFirebaseHelper.register(user);
     }
+
+
+    public Observable<Member> updateUserInDatabase(Member member) {
+        return mFirebaseHelper.updateUserInDatabase(member);
+    }
+
+    public Observable<Member> getMember(String uid) {
+        return mFirebaseHelper.getMember(uid);
+    }
+
 
     //로그인
     @Override
     public Observable<AuthResult> login(User user) {
         return mFirebaseHelper.login(user);
     }
+
+    @Override
+    public Observable<Void> logout() {
+        return mFirebaseHelper.logout();
+    }
+
 
     @Override
     public Observable<Void> sendEmailVerification() {
@@ -92,10 +111,36 @@ public class AppDataManager implements DataManager {
         return mFirebaseHelper.insertBoard(board);
     }
 
+    //boards 수정
+    @Override
+    public Observable<Object> updateBoard(Board board) {
+        return mFirebaseHelper.updateBoard(board);
+    }
+
+    //boards 삭제
+    @Override
+    public Observable<Object> deleteBoard(Board board) {
+        return mFirebaseHelper.deleteBoard(board);
+    }
+
+
     @Override
     public Observable<Board> getBoard(String noticeKey) {
         return mFirebaseHelper.getBoard(noticeKey);
     }
+
+
+    //boards 조회
+    @Override
+    public Observable<List<Level>> getCrisisLevels(String name) {
+        return mFirebaseHelper.getCrisisLevels(name);
+    }
+
+    @Override
+    public Observable<List<Crisis>> getCrisis(String name) {
+        return mFirebaseHelper.getCrisis(name);
+    }
+
 //AppPreferencesHelper
 
     @Override

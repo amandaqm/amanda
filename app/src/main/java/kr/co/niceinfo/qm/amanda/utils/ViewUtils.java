@@ -15,6 +15,9 @@
 
 package kr.co.niceinfo.qm.amanda.utils;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 /**
  * Created by janisharali on 27/01/17.
  */
@@ -25,4 +28,8 @@ public final class ViewUtils {
         // This utility class is not publicly instantiable
     }
 
+    public static String standard(Date date) {
+        SimpleDateFormat sdf = new SimpleDateFormat("MM/dd hh:mm");
+        return sdf.format(date);
+    }
 }

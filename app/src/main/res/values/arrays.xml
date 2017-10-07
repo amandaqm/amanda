@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="department">
+        <item >IT기획실</item>
+        <item >품질관리실</item>
+        <item >시스템운영실</item>
+        <item >서비스운영실</item>
+        <item >정보보안실</item>
+        <item >CB개발실</item>
+        <item >디지털개발실</item>
+        <item>기업정보개발실</item>
+    </string-array>
+</resources>

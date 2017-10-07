@@ -44,7 +44,7 @@
 
             <TextView
                 android:id="@+id/title_text_view"
-                style="@style/TextStyle.Heading"
+
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="20dp"
@@ -62,15 +62,13 @@
 
                 <TextView
                     android:id="@+id/author_text_view"
-                    style="@style/TextStyle.Title.Sub"
-                    android:layout_width="wrap_content"
+                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentLeft="true"
                     tools:text="Janishar Ali" />
 
                 <TextView
                     android:id="@+id/date_text_view"
-                    style="@style/TextStyle.Title.Sub"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
@@ -79,7 +77,6 @@
 
             <TextView
                 android:id="@+id/content_text_view"
-                style="@style/TextStyle.Title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="20dp"

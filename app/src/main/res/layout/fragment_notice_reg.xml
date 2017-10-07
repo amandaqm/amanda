@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="kr.co.niceinfo.qm.amanda.ui.notice.reg.NoticeRegActivityFragment"
+    tools:context=".ui.activity.notice.reg.NoticeRegActivityFragment"
     tools:showIn="@layout/activity_notice_reg">
 
 

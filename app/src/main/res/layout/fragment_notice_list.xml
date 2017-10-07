@@ -6,7 +6,7 @@
     android:id="@+id/notice_List_root_view"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="kr.co.niceinfo.qm.amanda.ui.notice.list.NoticeListActivityFragment"
+    tools:context=".ui.activity.notice.list.NoticeListActivityFragment"
     tools:showIn="@layout/activity_notice_list">
 
     <LinearLayout

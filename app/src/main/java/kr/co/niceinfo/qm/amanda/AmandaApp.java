@@ -17,13 +17,16 @@ package kr.co.niceinfo.qm.amanda;
 
 import android.app.Application;
 
+import com.google.firebase.crash.FirebaseCrash;
+
 import javax.inject.Inject;
 
 import kr.co.niceinfo.qm.amanda.data.DataManager;
 import kr.co.niceinfo.qm.amanda.di.component.ApplicationComponent;
 import kr.co.niceinfo.qm.amanda.di.component.DaggerApplicationComponent;
 import kr.co.niceinfo.qm.amanda.di.module.ApplicationModule;
-import uk.co.chrisjenx.calligraphy.CalligraphyConfig;
+import timber.log.Timber;
+
 
 
 
@@ -38,9 +41,6 @@ public class AmandaApp extends Application {
     @Inject
     DataManager mDataManager;
 
-    @Inject
-    CalligraphyConfig mCalligraphyConfig;
-
     private ApplicationComponent mApplicationComponent;
 
     @Override
@@ -49,10 +49,26 @@ public class AmandaApp extends Application {
 
         mApplicationComponent = DaggerApplicationComponent.builder()
                 .applicationModule(new ApplicationModule(this)).build();
-
         mApplicationComponent.inject(this);
 
-        CalligraphyConfig.initDefault(mCalligraphyConfig);
+        if (BuildConfig.DEBUG) {
+            Timber.plant(new Timber.DebugTree() {
+                @Override
+                protected String createStackElementTag(StackTraceElement element) {
+                    return super.createStackElementTag(element) + ":" + element.getLineNumber();
+                }
+            });
+        }
+        else {
+
+            Thread.setDefaultUncaughtExceptionHandler(new Thread.UncaughtExceptionHandler() {
+                @Override
+                public void uncaughtException(Thread thread, Throwable ex) {
+                    FirebaseCrash.report(ex);
+                }
+            });
+        }
+
     }
 
     public ApplicationComponent getComponent() {
