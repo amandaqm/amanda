@@ -1,8 +1,6 @@
 package kr.co.niceinfo.qm.amanda.ui.fragment;
 
-import android.content.ContentValues;
 import android.content.Context;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -27,7 +25,7 @@ import cn.pedant.SweetAlert.SweetAlertDialog;
 import kr.co.niceinfo.qm.amanda.BuildConfig;
 import kr.co.niceinfo.qm.amanda.R;
 import kr.co.niceinfo.qm.amanda.data.db.model.Board;
-import kr.co.niceinfo.qm.amanda.data.network.RequestHttpURLConnection;
+import kr.co.niceinfo.qm.amanda.data.network.NetworkTask;
 import kr.co.niceinfo.qm.amanda.di.component.ActivityComponent;
 import kr.co.niceinfo.qm.amanda.presenter.NoticeRegisterMVP;
 import kr.co.niceinfo.qm.amanda.presenter.impl.NoticeRegisterPresenter;
@@ -174,19 +172,11 @@ public class NoticeRegisterFragment extends BaseFragment implements NoticeRegist
     public void onRegisterSuccess() {
         //매개변수로 mBoard 받는 방식으로 변경하기
         if (mBoard.getNofificationYn().equals("Y")) {
+            //rx
             //mPresenter.postNotice(mBoard);
-            JsonObject messageObj = new JsonObject();
-            messageObj.addProperty("message",mBoard.getPostingTitle().toString());
 
-            // URL 설정.
-            String url = BuildConfig.FCM_BASE_URL+"/fcm/send";
-            // AsyncTask를 통해 HttpURLConnection 수행.
-            ContentValues contentValues= new ContentValues();
-            contentValues.put("to", "/topics/notice");
-            contentValues.put("data", messageObj.toString());
-
-            NetworkTask networkTask = new NetworkTask(url, contentValues);
-            networkTask.execute();
+            //일반 http 이용
+            fcmPushNoti("notice", mBoard);
         }
 
         new SweetAlertDialog(getActivity(), SweetAlertDialog.SUCCESS_TYPE)
@@ -200,35 +190,41 @@ public class NoticeRegisterFragment extends BaseFragment implements NoticeRegist
                         sweetAlertDialog.dismiss();
                         onChangeFragment.onChangeFragment(NoticeListFragment.TAG);
                     }
-                })
-                .show();
+                }).show();
     }
 
+    //FCM PUSH & NOTI
+    public void fcmPushNoti(String topic, Object obj) {
 
-    public class NetworkTask extends AsyncTask<Void, Void, String> {
+        String url = BuildConfig.FCM_BASE_URL;
 
-        private String url;
-        private ContentValues values;
+        if (topic.equals("notice") && obj instanceof Board) {
+            // URL 설정
+            url = url + "/fcm/send";
+            Board notice = (Board) obj;
 
-        public NetworkTask(String url, ContentValues values) {
-            this.url = url;
-            this.values = values;
-        }
+            //noti 정보
+            JsonObject notificationObj = new JsonObject();
+            notificationObj.addProperty("title", notice.getPostingTitle());
+            notificationObj.addProperty("body", notice.getPostingContent());
 
-        @Override
-        protected String doInBackground(Void... params) {
-            String result; // 요청 결과를 저장할 변수.
-            RequestHttpURLConnection requestHttpURLConnection = new RequestHttpURLConnection();
-            result = requestHttpURLConnection.request(url, values); // 해당 URL로 부터 결과물을 얻어온다.
-            return result;
-        }
+            //data로 넘길 정보
+            JsonObject dataObj = new JsonObject();
+            dataObj.addProperty("postingTitle", notice.getPostingTitle());
+            dataObj.addProperty("postingContent", notice.getPostingContent());
+            dataObj.addProperty("key", notice.getKey());
+            dataObj.addProperty("nofificationYn", notice.getNofificationYn());
+            dataObj.addProperty("regDt", notice.getRegDt().toString());
 
-        @Override
-        protected void onPostExecute(String s) {
-            super.onPostExecute(s);
-            //doInBackground()로 부터 리턴된 값이 onPostExecute()의 매개변수로 넘어오므로 s를 출력한다.
-            //tv_outPut.setText(s);
+            //FCM param
+            JsonObject paramJsonObj = new JsonObject();
+            paramJsonObj.addProperty("to", "/topics/"+topic);   //topic
+            paramJsonObj.add("notification", notificationObj);
+            paramJsonObj.add("data", dataObj);
+            //String input = "{\"notification\" : {\"title\" : \" 여기다 제목넣기 \", \"body\" : \"여기다 내용 넣기\"}, \"to\":\"/topics/notice\" , \"data\" : {\"message\" : \"제목\",}}";
+
+            NetworkTask networkTask = new NetworkTask(url, paramJsonObj);
+            networkTask.execute();
         }
     }
-
 }

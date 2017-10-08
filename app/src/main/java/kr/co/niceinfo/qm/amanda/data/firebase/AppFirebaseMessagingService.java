@@ -63,6 +63,7 @@ public class AppFirebaseMessagingService extends FirebaseMessagingService {
         }
 
         // Check if message contains a notification payload.
+
         if (remoteMessage.getNotification() != null) {
 
             String messageBody = remoteMessage.getNotification().getBody();
@@ -109,8 +110,8 @@ public class AppFirebaseMessagingService extends FirebaseMessagingService {
 
         Uri defaultSoundUri= RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
         NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(this)
-                .setSmallIcon(R.drawable.googleg_standard_color_18)
-                .setContentTitle("FCM Message")
+                .setSmallIcon(R.drawable.ic_fire_alarm_24dp)
+                .setContentTitle("비상대응")
                 .setContentText(messageBody)
                 .setAutoCancel(true)
                 .setSound(defaultSoundUri)
