@@ -24,7 +24,7 @@ import kr.co.niceinfo.qm.amanda.ui.activity.MainActivity;
 
 public class AppFirebaseMessagingService extends FirebaseMessagingService {
 
-    private static final String TAG = "FirebaseMessagingService";
+    private static final String TAG = "FirebaseMsgSvc";
 
     /**
      * Called when message is received.
@@ -108,9 +108,9 @@ public class AppFirebaseMessagingService extends FirebaseMessagingService {
         PendingIntent pendingIntent = PendingIntent.getActivity(this, 0 /* Request code */, intent,
                 PendingIntent.FLAG_ONE_SHOT);
 
-        Uri defaultSoundUri= RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
+        Uri defaultSoundUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
         NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(this)
-                .setSmallIcon(R.drawable.ic_fire_alarm_24dp)
+                .setSmallIcon(R.drawable.ic_fire_alarm_36dp)
                 .setContentTitle("비상대응")
                 .setContentText(messageBody)
                 .setAutoCancel(true)

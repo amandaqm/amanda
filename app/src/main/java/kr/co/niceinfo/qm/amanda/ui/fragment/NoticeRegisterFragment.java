@@ -175,7 +175,7 @@ public class NoticeRegisterFragment extends BaseFragment implements NoticeRegist
             //rx
             //mPresenter.postNotice(mBoard);
 
-            //일반 http 이용
+            //FCM PUSH & NOTI- 일반 http 이용
             fcmPushNoti("notice", mBoard);
         }
 
