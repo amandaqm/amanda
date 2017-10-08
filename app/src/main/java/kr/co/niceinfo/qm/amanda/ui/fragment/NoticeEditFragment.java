@@ -36,15 +36,21 @@ public class NoticeEditFragment extends BaseFragment implements NoticeEditMVP.Vi
     public static final String TAG = NoticeEditFragment.class.getName();
 
 
-    @BindView(R.id.notice_content) EditText mNoticeContent;
-    @BindView(R.id.notice_title) EditText mNoticeTitle;
-    @BindView(R.id.notice_regdt) TextView mNoticeRegdt;
-    @BindView(R.id.notificationYn)  CheckBox mNofificationYn;
+    @BindView(R.id.notice_content)
+    EditText mNoticeContent;
+    @BindView(R.id.notice_title)
+    EditText mNoticeTitle;
+    @BindView(R.id.notice_regdt)
+    TextView mNoticeRegdt;
+    @BindView(R.id.notificationYn)
+    CheckBox mNofificationYn;
 
 
-    @BindView(R.id.update)  Button mUpdate;
+    @BindView(R.id.update)
+    Button mUpdate;
 
-    @Inject NoticeEditPresenter mPresenter;
+    @Inject
+    NoticeEditPresenter mPresenter;
     OnChangeFragment onChangeFragment;
     Board mBoard;
 
@@ -55,6 +61,7 @@ public class NoticeEditFragment extends BaseFragment implements NoticeEditMVP.Vi
     /**
      * Use this factory method to create a new instance of
      * this fragment using the provided parameters.
+     *
      * @return A new instance of fragment TransactionsFragment.
      */
     public static NoticeEditFragment newInstance() {
@@ -76,7 +83,6 @@ public class NoticeEditFragment extends BaseFragment implements NoticeEditMVP.Vi
                     + " must implement OnChangeFragment");
         }
     }
-
 
 
     @Override
@@ -119,7 +125,7 @@ public class NoticeEditFragment extends BaseFragment implements NoticeEditMVP.Vi
     }
 
 
-    @Subscribe(sticky=true,threadMode = ThreadMode.MAIN)
+    @Subscribe(sticky = true, threadMode = ThreadMode.MAIN)
     public void onNoticeEditEvent(NoticeEditEvent e) {
         Timber.d("NoticeEditEvent: " + e.getBoard());
         mBoard = e.getBoard();
@@ -148,13 +154,12 @@ public class NoticeEditFragment extends BaseFragment implements NoticeEditMVP.Vi
                         sweetAlertDialog.dismiss();
                         mBoard.setPostingTitle(mNoticeTitle.getText().toString());
                         mBoard.setPostingContent(mNoticeContent.getText().toString());
+                        mBoard.setNofificationYn(mNofificationYn.isChecked() == true ? "Y" : "N");
                         mPresenter.update(mBoard);
                     }
                 })
                 .show();
     }
-
-
 
 
     @Override
@@ -163,8 +168,16 @@ public class NoticeEditFragment extends BaseFragment implements NoticeEditMVP.Vi
     }
 
 
-
     public void onUpdateSuccess() {
+        //매개변수로 mBoard 받는 방식으로 변경하기
+        if (mBoard.getNofificationYn().equals("Y")) {
+            //rx
+            //mPresenter.postNotice(mBoard);
+
+            //FCM PUSH & NOTI- 일반 http 이용
+            fcmPushNoti("notice", mBoard);
+        }
+
         new SweetAlertDialog(getActivity(), SweetAlertDialog.SUCCESS_TYPE)
                 .setContentText("수정하였습니다")
                 .setTitleText(getResources().getString(R.string.app_name))
