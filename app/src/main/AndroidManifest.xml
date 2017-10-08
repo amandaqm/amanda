@@ -6,6 +6,7 @@
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.INTERACT_ACROSS_USERS_FULL" />
 
+
     <application
         android:name=".AmandaApp"
         android:allowBackup="true"

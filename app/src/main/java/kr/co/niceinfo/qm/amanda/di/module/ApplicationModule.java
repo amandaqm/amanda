@@ -75,12 +75,6 @@ public class ApplicationModule {
     }
 
     @Provides
-    @ApiInfo
-    String provideApiKey() {
-        return BuildConfig.API_KEY;
-    }
-
-    @Provides
     @PreferenceInfo
     String providePreferenceName() {
         return AppConstants.PREF_NAME;
@@ -104,6 +98,15 @@ public class ApplicationModule {
         return appPreferencesHelper;
     }
 
+
+
+    //API
+    @Provides
+    @ApiInfo
+    String provideApiKey() {
+        return BuildConfig.API_KEY;
+    }
+
     @Provides
     @Singleton
     ApiHelper provideApiHelper(AppApiHelper appApiHelper) {
@@ -119,6 +122,18 @@ public class ApplicationModule {
                 preferencesHelper.getCurrentUserId(),
                 preferencesHelper.getAccessToken());
     }
+
+    @Provides
+    @Singleton
+    ApiHeader.FCMApiHeader provideFCMApiHeader() {
+        return new ApiHeader.FCMApiHeader(BuildConfig.FCM_WEB_API_KEY);
+    }
+
+
+
+
+
+
 
     @Provides
     @Singleton

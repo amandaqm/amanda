@@ -16,12 +16,19 @@ android {
         debug {
             buildConfigField("String", "BASE_URL", "\"http://www.mocky.io/v2\"")
             buildConfigField("String", "API_KEY", "\"ABCXYZ123TEST\"")
+
+            buildConfigField("String", "FCM_BASE_URL", "\"https://fcm.googleapis.com\"")
+            buildConfigField("String", "FCM_WEB_API_KEY", "\"AIzaSyC0Wo9JfmO1avmZn0VoymOMcK9sUF8iGro\"")
+
         }
         release {
             minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
             buildConfigField("String", "BASE_URL", "\"http://www.mocky.io/v2\"")
             buildConfigField("String", "API_KEY", "\"ABCXYZ123TEST\"")
+
+            buildConfigField("String", "FCM_BASE_URL", "\"https://fcm.googleapis.com\"")
+            buildConfigField("String", "FCM_WEB_API_KEY", "\"AIzaSyC0Wo9JfmO1avmZn0VoymOMcK9sUF8iGro\"")
         }
     }
     compileOptions {

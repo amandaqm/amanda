@@ -15,25 +15,32 @@
 
 package kr.co.niceinfo.qm.amanda.data.network;
 
+import android.util.Log;
+
+import com.google.gson.JsonObject;
 import com.rx2androidnetworking.Rx2AndroidNetworking;
 
 import javax.inject.Inject;
 import javax.inject.Singleton;
 
 import io.reactivex.Observable;
+import kr.co.niceinfo.qm.amanda.BuildConfig;
+import kr.co.niceinfo.qm.amanda.data.db.model.Board;
 import kr.co.niceinfo.qm.amanda.data.network.model.BlogResponse;
 import kr.co.niceinfo.qm.amanda.data.network.model.OpenSourceResponse;
 
 @Singleton
 public class AppApiHelper implements ApiHelper {
 
-
+    public static final String TAG = AppApiHelper.class.getName();
     private ApiHeader mApiHeader;
 
     @Inject
     public AppApiHelper(ApiHeader apiHeader) {
         mApiHeader = apiHeader;
     }
+
+
 
     @Override
     public ApiHeader getApiHeader() {
@@ -54,6 +61,24 @@ public class AppApiHelper implements ApiHelper {
                 .addHeaders(mApiHeader.getProtectedApiHeader())
                 .build()
                 .getObjectObservable(OpenSourceResponse.class);
+    }
+
+    @Override
+    public Observable<Object> postPushNoticeApiCall(Board notice) {
+        Log.i(TAG, "notice: " +notice);
+
+        JsonObject messageObj = new JsonObject();
+        messageObj.addProperty("message",notice.getPostingTitle().toString());
+
+
+        return Rx2AndroidNetworking.post(ApiEndPoint.ENDPOINT_FCM)
+                //.addHeaders(mApiHeader.getFCMedApiHeader())
+                .addHeaders("Content-Type","application/json")
+                .addHeaders("Authorization","key="+ BuildConfig.FCM_WEB_API_KEY)
+                .addBodyParameter("to", "/topics/notice")
+                .addBodyParameter("data", messageObj.toString())
+                .build()
+                .getObjectObservable(Object.class);
     }
 }
 

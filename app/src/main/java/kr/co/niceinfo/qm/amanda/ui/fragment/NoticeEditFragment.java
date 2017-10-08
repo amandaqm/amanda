@@ -105,6 +105,7 @@ public class NoticeEditFragment extends BaseFragment implements NoticeEditMVP.Vi
         super.onActivityCreated(savedInstanceState);
     }
 
+
     @Override
     public void onStart() {
         super.onStart();
@@ -117,19 +118,15 @@ public class NoticeEditFragment extends BaseFragment implements NoticeEditMVP.Vi
         super.onStop();
     }
 
+
     @Subscribe(sticky=true,threadMode = ThreadMode.MAIN)
     public void onNoticeEditEvent(NoticeEditEvent e) {
         Timber.d("NoticeEditEvent: " + e.getBoard());
-
-
         mBoard = e.getBoard();
         mNoticeTitle.setText(e.getBoard().getPostingTitle());
         mNoticeContent.setText(e.getBoard().getPostingContent());
         mNoticeRegdt.setText(ViewUtils.standard(e.getBoard().getRegDt()));
     }
-
-
-
 
     @OnClick(R.id.update)
     public void update() {
@@ -155,9 +152,6 @@ public class NoticeEditFragment extends BaseFragment implements NoticeEditMVP.Vi
                     }
                 })
                 .show();
-
-
-
     }
 
 

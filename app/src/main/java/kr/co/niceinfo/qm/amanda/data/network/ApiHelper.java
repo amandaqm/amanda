@@ -17,6 +17,7 @@ package kr.co.niceinfo.qm.amanda.data.network;
 
 
 import io.reactivex.Observable;
+import kr.co.niceinfo.qm.amanda.data.db.model.Board;
 import kr.co.niceinfo.qm.amanda.data.network.model.BlogResponse;
 import kr.co.niceinfo.qm.amanda.data.network.model.OpenSourceResponse;
 
@@ -27,4 +28,8 @@ public interface ApiHelper {
     Observable<BlogResponse> getBlogApiCall();
 
     Observable<OpenSourceResponse> getOpenSourceApiCall();
+
+    Observable<Object> postPushNoticeApiCall(Board notice);
+
+
 }

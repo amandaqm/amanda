@@ -3,6 +3,7 @@ package kr.co.niceinfo.qm.amanda.presenter.impl;
 import android.content.Context;
 
 import com.google.firebase.auth.AuthResult;
+import com.google.firebase.messaging.FirebaseMessaging;
 
 import javax.inject.Inject;
 
@@ -71,11 +72,12 @@ public final class LoginPresenter extends BasePresenter<LoginMVP.View> implement
         Disposable d = observable.subscribe(auth-> {
             getDataManager().setCurrentUserEmail(auth.getUser().getEmail());
 
-
             if(auth.getUser().isEmailVerified()){
-
-
                 getAmandaView().loginSuccess();
+                FirebaseMessaging.getInstance().subscribeToTopic("notice");
+
+                //로그아웃 시 unsubscribe 해야함
+                //FirebaseMessaging.getInstance().subscribeToTopic("notice");
             }
             else {
                 getDataManager().sendEmailVerification();

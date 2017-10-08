@@ -11,8 +11,8 @@ import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.functions.Consumer;
 import kr.co.niceinfo.qm.amanda.data.DataManager;
 import kr.co.niceinfo.qm.amanda.data.db.model.Board;
-import kr.co.niceinfo.qm.amanda.ui.activity.notice.reg.NoticeRegMvpView;
 import kr.co.niceinfo.qm.amanda.presenter.base.BasePresenter;
+import kr.co.niceinfo.qm.amanda.ui.activity.notice.reg.NoticeRegMvpView;
 import kr.co.niceinfo.qm.amanda.utils.rx.SchedulerProvider;
 
 
@@ -110,4 +110,6 @@ public class NoticeRegPresenter<V extends NoticeRegMvpView> extends BasePresente
                            }
                 ));
     }
+
+
 }

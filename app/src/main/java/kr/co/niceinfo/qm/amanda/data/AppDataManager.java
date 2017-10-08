@@ -66,6 +66,7 @@ public class AppDataManager implements DataManager {
     }
 
     //AppFirebaseHelper
+
     //회원가입
     @Override
     public Observable<AuthResult> register(User user) {
@@ -80,7 +81,6 @@ public class AppDataManager implements DataManager {
     public Observable<Member> getMember(String uid) {
         return mFirebaseHelper.getMember(uid);
     }
-
 
     //로그인
     @Override
@@ -123,12 +123,10 @@ public class AppDataManager implements DataManager {
         return mFirebaseHelper.deleteBoard(board);
     }
 
-
     @Override
     public Observable<Board> getBoard(String noticeKey) {
         return mFirebaseHelper.getBoard(noticeKey);
     }
-
 
     //boards 조회
     @Override
@@ -141,8 +139,9 @@ public class AppDataManager implements DataManager {
         return mFirebaseHelper.getCrisis(name);
     }
 
-//AppPreferencesHelper
 
+
+    //AppPreferencesHelper
     @Override
     public Long getCurrentUserId() {
         return mPreferencesHelper.getCurrentUserId();
@@ -183,12 +182,12 @@ public class AppDataManager implements DataManager {
         mPreferencesHelper.setCurrentUserProfilePicUrl(profilePicUrl);
     }
 
+    // API
 
     @Override
     public ApiHeader getApiHeader() {
         return mApiHelper.getApiHeader();
     }
-
 
     @Override
     public String getAccessToken() {
@@ -209,6 +208,11 @@ public class AppDataManager implements DataManager {
     @Override
     public Observable<OpenSourceResponse> getOpenSourceApiCall() {
         return mApiHelper.getOpenSourceApiCall();
+    }
+
+    @Override
+    public Observable<Object> postPushNoticeApiCall(Board notice) {
+        return mApiHelper.postPushNoticeApiCall(notice);
     }
 
 }

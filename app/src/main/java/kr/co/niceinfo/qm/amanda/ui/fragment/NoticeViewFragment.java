@@ -90,8 +90,6 @@ public class NoticeViewFragment extends BaseFragment implements NoticeViewMVP.Vi
             setUnBinder(ButterKnife.bind(this, view));
             mPresenter.onAttach(this);
         }
-
-
         return view;
     }
 
@@ -154,7 +152,6 @@ public class NoticeViewFragment extends BaseFragment implements NoticeViewMVP.Vi
     public void edit() {
         EventBus.getDefault().postSticky(new NoticeEditEvent(mBoard));
         onChangeFragment.onChangeFragment(NoticeEditFragment.TAG);
-
     }
 
 

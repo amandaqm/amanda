@@ -32,11 +32,13 @@ public class ApiHeader {
 
     private ProtectedApiHeader mProtectedApiHeader;
     private PublicApiHeader mPublicApiHeader;
+    private FCMApiHeader mFCMApiHeader; //FCM
 
     @Inject
-    public ApiHeader(PublicApiHeader publicApiHeader, ProtectedApiHeader protectedApiHeader) {
+    public ApiHeader(PublicApiHeader publicApiHeader, ProtectedApiHeader protectedApiHeader, FCMApiHeader fcmApiHeader) {
         mPublicApiHeader = publicApiHeader;
         mProtectedApiHeader = protectedApiHeader;
+        mFCMApiHeader = fcmApiHeader;
     }
 
     public ProtectedApiHeader getProtectedApiHeader() {
@@ -47,8 +49,11 @@ public class ApiHeader {
         return mPublicApiHeader;
     }
 
-    public static final class PublicApiHeader {
+    public FCMApiHeader getFCMedApiHeader() { return mFCMApiHeader; }
 
+
+
+    public static final class PublicApiHeader {
         @Expose
         @SerializedName("api_key")
         private String mApiKey;
@@ -67,8 +72,8 @@ public class ApiHeader {
         }
     }
 
-    public static final class ProtectedApiHeader {
 
+    public static final class ProtectedApiHeader {
         @Expose
         @SerializedName("api_key")
         private String mApiKey;
@@ -111,4 +116,25 @@ public class ApiHeader {
             mAccessToken = accessToken;
         }
     }
+
+
+    public static final class FCMApiHeader {
+        @Expose
+        @SerializedName("key")
+        private String mApiKey;
+
+        @Inject
+        public FCMApiHeader(@ApiInfo String apiKey) {
+            mApiKey = apiKey;
+        }
+
+        public String getApiKey() {
+            return mApiKey;
+        }
+
+        public void setApiKey(String apiKey) {
+            mApiKey = apiKey;
+        }
+    }
+
 }

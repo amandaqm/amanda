@@ -13,5 +13,6 @@ public interface NoticeRegisterMVP {
     }
     interface Presenter  {
         void register(Board board);
+        void postNotice(Board notice);
     }
 }

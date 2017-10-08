@@ -121,7 +121,6 @@ public class NoticeRegisterFragment extends BaseFragment implements NoticeRegist
 
     @Subscribe(sticky=true,threadMode = ThreadMode.MAIN)
     public void onNoticeRegisterEvent(NoticeRegisterEvent e) {
-
         mBoard = e.getBoard();
         mNoticeTitle.setText(e.getBoard().getPostingTitle());
         mNoticeContent.setText(e.getBoard().getPostingContent());
@@ -149,6 +148,7 @@ public class NoticeRegisterFragment extends BaseFragment implements NoticeRegist
                         sweetAlertDialog.dismiss();
                         mBoard.setPostingTitle(mNoticeTitle.getText().toString());
                         mBoard.setPostingContent(mNoticeContent.getText().toString());
+                        mBoard.setNofificationYn(mNofificationYn.isChecked() == true?"Y":"N");
                         mPresenter.register(mBoard);
                     }
                 })
@@ -163,12 +163,16 @@ public class NoticeRegisterFragment extends BaseFragment implements NoticeRegist
 
 
     public void onRegisterSuccess() {
+        //매개변수로 mBoard 받는 방식으로 변경하기
+        if(mBoard.getNofificationYn().equals("Y")){
+            mPresenter.postNotice(mBoard);
+        }
+
         new SweetAlertDialog(getActivity(), SweetAlertDialog.SUCCESS_TYPE)
                 .setContentText("등록하였습니다")
                 .setTitleText(getResources().getString(R.string.app_name))
                 .setCustomImage(R.mipmap.ic_launcher)
                 .setConfirmText("확인")
-
                 .setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
                     @Override
                     public void onClick(SweetAlertDialog sweetAlertDialog) {
