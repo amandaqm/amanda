@@ -1,6 +1,8 @@
 package kr.co.niceinfo.qm.amanda.ui.fragment;
 
+import android.content.ContentValues;
 import android.content.Context;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -9,6 +11,8 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.TextView;
+
+import com.google.gson.JsonObject;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -20,8 +24,10 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import cn.pedant.SweetAlert.SweetAlertDialog;
+import kr.co.niceinfo.qm.amanda.BuildConfig;
 import kr.co.niceinfo.qm.amanda.R;
 import kr.co.niceinfo.qm.amanda.data.db.model.Board;
+import kr.co.niceinfo.qm.amanda.data.network.RequestHttpURLConnection;
 import kr.co.niceinfo.qm.amanda.di.component.ActivityComponent;
 import kr.co.niceinfo.qm.amanda.presenter.NoticeRegisterMVP;
 import kr.co.niceinfo.qm.amanda.presenter.impl.NoticeRegisterPresenter;
@@ -35,12 +41,17 @@ public class NoticeRegisterFragment extends BaseFragment implements NoticeRegist
     public static final String TAG = NoticeRegisterFragment.class.getName();
 
 
-    @BindView(R.id.notice_content) EditText mNoticeContent;
-    @BindView(R.id.notice_title) EditText mNoticeTitle;
-    @BindView(R.id.notice_regdt) TextView mNoticeRegdt;
-    @BindView(R.id.notificationYn)  CheckBox mNofificationYn;
+    @BindView(R.id.notice_content)
+    EditText mNoticeContent;
+    @BindView(R.id.notice_title)
+    EditText mNoticeTitle;
+    @BindView(R.id.notice_regdt)
+    TextView mNoticeRegdt;
+    @BindView(R.id.notificationYn)
+    CheckBox mNofificationYn;
 
-    @BindView(R.id.register)   Button mRegister;
+    @BindView(R.id.register)
+    Button mRegister;
 
     @Inject
     NoticeRegisterPresenter mPresenter;
@@ -54,6 +65,7 @@ public class NoticeRegisterFragment extends BaseFragment implements NoticeRegist
     /**
      * Use this factory method to create a new instance of
      * this fragment using the provided parameters.
+     *
      * @return A new instance of fragment TransactionsFragment.
      */
     public static NoticeRegisterFragment newInstance() {
@@ -75,7 +87,6 @@ public class NoticeRegisterFragment extends BaseFragment implements NoticeRegist
                     + " must implement OnChangeFragment");
         }
     }
-
 
 
     @Override
@@ -117,9 +128,7 @@ public class NoticeRegisterFragment extends BaseFragment implements NoticeRegist
     }
 
 
-
-
-    @Subscribe(sticky=true,threadMode = ThreadMode.MAIN)
+    @Subscribe(sticky = true, threadMode = ThreadMode.MAIN)
     public void onNoticeRegisterEvent(NoticeRegisterEvent e) {
         mBoard = e.getBoard();
         mNoticeTitle.setText(e.getBoard().getPostingTitle());
@@ -148,7 +157,7 @@ public class NoticeRegisterFragment extends BaseFragment implements NoticeRegist
                         sweetAlertDialog.dismiss();
                         mBoard.setPostingTitle(mNoticeTitle.getText().toString());
                         mBoard.setPostingContent(mNoticeContent.getText().toString());
-                        mBoard.setNofificationYn(mNofificationYn.isChecked() == true?"Y":"N");
+                        mBoard.setNofificationYn(mNofificationYn.isChecked() == true ? "Y" : "N");
                         mPresenter.register(mBoard);
                     }
                 })
@@ -164,8 +173,20 @@ public class NoticeRegisterFragment extends BaseFragment implements NoticeRegist
 
     public void onRegisterSuccess() {
         //매개변수로 mBoard 받는 방식으로 변경하기
-        if(mBoard.getNofificationYn().equals("Y")){
-            mPresenter.postNotice(mBoard);
+        if (mBoard.getNofificationYn().equals("Y")) {
+            //mPresenter.postNotice(mBoard);
+            JsonObject messageObj = new JsonObject();
+            messageObj.addProperty("message",mBoard.getPostingTitle().toString());
+
+            // URL 설정.
+            String url = BuildConfig.FCM_BASE_URL+"/fcm/send";
+            // AsyncTask를 통해 HttpURLConnection 수행.
+            ContentValues contentValues= new ContentValues();
+            contentValues.put("to", "/topics/notice");
+            contentValues.put("data", messageObj.toString());
+
+            NetworkTask networkTask = new NetworkTask(url, contentValues);
+            networkTask.execute();
         }
 
         new SweetAlertDialog(getActivity(), SweetAlertDialog.SUCCESS_TYPE)
@@ -183,5 +204,31 @@ public class NoticeRegisterFragment extends BaseFragment implements NoticeRegist
                 .show();
     }
 
+
+    public class NetworkTask extends AsyncTask<Void, Void, String> {
+
+        private String url;
+        private ContentValues values;
+
+        public NetworkTask(String url, ContentValues values) {
+            this.url = url;
+            this.values = values;
+        }
+
+        @Override
+        protected String doInBackground(Void... params) {
+            String result; // 요청 결과를 저장할 변수.
+            RequestHttpURLConnection requestHttpURLConnection = new RequestHttpURLConnection();
+            result = requestHttpURLConnection.request(url, values); // 해당 URL로 부터 결과물을 얻어온다.
+            return result;
+        }
+
+        @Override
+        protected void onPostExecute(String s) {
+            super.onPostExecute(s);
+            //doInBackground()로 부터 리턴된 값이 onPostExecute()의 매개변수로 넘어오므로 s를 출력한다.
+            //tv_outPut.setText(s);
+        }
+    }
 
 }
