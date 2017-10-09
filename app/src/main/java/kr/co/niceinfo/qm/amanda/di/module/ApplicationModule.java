@@ -126,7 +126,7 @@ public class ApplicationModule {
     @Provides
     @Singleton
     ApiHeader.FCMApiHeader provideFCMApiHeader() {
-        return new ApiHeader.FCMApiHeader(BuildConfig.FCM_WEB_API_KEY);
+        return new ApiHeader.FCMApiHeader(BuildConfig.FCM_SERVER_API_KEY);
     }
 
 
