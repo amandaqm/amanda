@@ -18,7 +18,7 @@ android {
             buildConfigField("String", "API_KEY", "\"ABCXYZ123TEST\"")
 
             buildConfigField("String", "FCM_BASE_URL", "\"https://fcm.googleapis.com\"")
-            buildConfigField("String", "FCM_WEB_API_KEY", "\"AAAAHb52SvE:APA91bFSIlNbpF4RubRCeruTRlxtQhg2sy68cCyalr8a6PYUFsPysgiRnngbDtKx6PR3WS8-O6ma7iUvHZHmlkSRqkIp83LrEU4Rwx1dtbmOB92p-MnmSz-DA4P3FnmCwvIWP1gNiokq\"")
+            buildConfigField("String", "FCM_SERVER_API_KEY", "\"AAAAHb52SvE:APA91bFSIlNbpF4RubRCeruTRlxtQhg2sy68cCyalr8a6PYUFsPysgiRnngbDtKx6PR3WS8-O6ma7iUvHZHmlkSRqkIp83LrEU4Rwx1dtbmOB92p-MnmSz-DA4P3FnmCwvIWP1gNiokq\"")
 
         }
         release {
@@ -28,7 +28,7 @@ android {
             buildConfigField("String", "API_KEY", "\"ABCXYZ123TEST\"")
 
             buildConfigField("String", "FCM_BASE_URL", "\"https://fcm.googleapis.com\"")
-            buildConfigField("String", "FCM_WEB_API_KEY", "\"AAAAHb52SvE:APA91bFSIlNbpF4RubRCeruTRlxtQhg2sy68cCyalr8a6PYUFsPysgiRnngbDtKx6PR3WS8-O6ma7iUvHZHmlkSRqkIp83LrEU4Rwx1dtbmOB92p-MnmSz-DA4P3FnmCwvIWP1gNiokq\"")
+            buildConfigField("String", "FCM_SERVER_API_KEY", "\"AAAAHb52SvE:APA91bFSIlNbpF4RubRCeruTRlxtQhg2sy68cCyalr8a6PYUFsPysgiRnngbDtKx6PR3WS8-O6ma7iUvHZHmlkSRqkIp83LrEU4Rwx1dtbmOB92p-MnmSz-DA4P3FnmCwvIWP1gNiokq\"")
         }
     }
     compileOptions {

@@ -74,7 +74,7 @@ public class AppApiHelper implements ApiHelper {
         return Rx2AndroidNetworking.post(ApiEndPoint.ENDPOINT_FCM)
                 .addHeaders(mApiHeader.getFCMedApiHeader())
                 .addHeaders("Content-Type","application/json")
-                .addHeaders("Authorization","key="+ BuildConfig.FCM_WEB_API_KEY)
+                .addHeaders("Authorization","key="+ BuildConfig.FCM_SERVER_API_KEY)
                 .addBodyParameter("to", "/topics/notice")
                 .addBodyParameter("data", messageObj.toString())
                 .build()

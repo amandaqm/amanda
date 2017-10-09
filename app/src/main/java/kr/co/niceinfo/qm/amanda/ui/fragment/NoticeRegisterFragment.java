@@ -169,10 +169,10 @@ public class NoticeRegisterFragment extends BaseFragment implements NoticeRegist
         //매개변수로 mBoard 받는 방식으로 변경하기
         if (mBoard.getNofificationYn().equals("Y")) {
             //rx
-            //mPresenter.postNotice(mBoard);
+            mPresenter.postNotice(mBoard);
 
             //FCM PUSH & NOTI- 일반 http 이용
-            fcmPushNoti("notice", mBoard);
+            //fcmPushNoti("notice", mBoard);
         }
 
         new SweetAlertDialog(getActivity(), SweetAlertDialog.SUCCESS_TYPE)

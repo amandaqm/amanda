@@ -33,7 +33,7 @@ public class RequestHttpURLConnection {
             //urlConn 설정.
             urlConn.setRequestMethod("POST"); // URL 요청에 대한 메소드 설정 : POST.
             urlConn.setRequestProperty("Content-Type", "application/json");
-            urlConn.setRequestProperty("Authorization", "key=" + BuildConfig.FCM_WEB_API_KEY);
+            urlConn.setRequestProperty("Authorization", "key=" + BuildConfig.FCM_SERVER_API_KEY);
             urlConn.setDoOutput(true);
 
             String input = jsonObject.toString();

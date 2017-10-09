@@ -13,8 +13,6 @@ public final class NoticeListPresenter extends BasePresenter<NoticeListMVP.View>
 
     private static final String TAG = "NoticeListPresenter";
 
-
-
     @Inject
     public NoticeListPresenter(
             DataManager dataManager,
